@@ -1,5 +1,11 @@
+# Copyright (c) 2018 kamyu. All rights reserved.
+#
+# Google Code Jam 2018 Qualification Round - Problem B. Trouble Sort
+# https://codejam.withgoogle.com/2018/challenges/00000000000000cb/dashboard
+#
 # Time:  O(NlogN)
 # Space: O(N)
+#
 
 def trouble_sort():
     N = input()
