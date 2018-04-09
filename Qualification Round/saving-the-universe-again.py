@@ -39,7 +39,7 @@ def saving_the_universe_again():
         to_reduce -= exps[max_exp] * 2**(max_exp-1)
         max_exp -= 1
 
-    return hacks if to_reduce <= 0 else "IMPOSSIBLE"
+    return hacks if to_reduce == 0 else "IMPOSSIBLE"
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, saving_the_universe_again())
