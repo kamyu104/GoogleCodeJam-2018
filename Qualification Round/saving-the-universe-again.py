@@ -20,7 +20,7 @@ def count(P):
     for exp, count in exps.iteritems():
         max_exp = max(max_exp, exp)
         damages += count*(2**exp)
-    for i in reversed(xrange(max_exp)):
+    for i in reversed(xrange(1, max_exp)):
         exps[i] += exps[i+1]
     return exps, max_exp, damages 
 
