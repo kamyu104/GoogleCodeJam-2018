@@ -19,7 +19,7 @@ def count(P):
     max_exp, damages = 0, 0
     for exp, count in exps.iteritems():
         max_exp = max(max_exp, exp)
-        damages += count*(2**exp)
+        damages += count * 2**exp
     return exps, max_exp, damages 
 
 def saving_the_universe_again():
