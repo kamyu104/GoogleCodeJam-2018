@@ -20,8 +20,6 @@ def count(P):
     for exp, count in exps.iteritems():
         max_exp = max(max_exp, exp)
         damages += count*(2**exp)
-    for i in reversed(xrange(max_exp)):
-        exps[i] += exps[i+1]
     return exps, max_exp, damages 
 
 def saving_the_universe_again():
@@ -37,6 +35,7 @@ def saving_the_universe_again():
             break
         hacks += exps[max_exp]
         to_reduce -= exps[max_exp] * 2**(max_exp-1)
+        exps[max_exp-1] += exps[max_exp]
         max_exp -= 1
 
     return hacks if to_reduce == 0 else "IMPOSSIBLE"
