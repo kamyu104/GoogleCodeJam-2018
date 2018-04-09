@@ -3,7 +3,7 @@
 # Google Code Jam 2018 Qualification Round - Problem A. Saving The Universe Again
 # https://codejam.withgoogle.com/2018/challenges/00000000000000cb/dashboard
 #
-# Time:  O(P^2)
+# Time:  O(P)
 # Space: O(P)
 #
 
@@ -29,15 +29,15 @@ def saving_the_universe_again():
     D = int(D)
 
     exps, max_exp, damages = count(P)
-    hacks, to_reduce = 0, damages-D
+    hacks, to_reduce = 0, max(0, damages-D)
     while max_exp > 0:
-        if to_reduce <= 0:
+        if to_reduce <= exps[max_exp] * 2**(max_exp-1):
+            hacks += (to_reduce + 2**(max_exp-1) - 1) // 2**(max_exp-1)
+            to_reduce = 0
             break
-        to_reduce -= 2**(max_exp-1)
-        exps[max_exp] -= 1
-        if exps[max_exp] == 0:
-            max_exp -= 1
-        hacks += 1
+        hacks += exps[max_exp]
+        to_reduce -= exps[max_exp] * 2**(max_exp-1)
+        max_exp -= 1
 
     return hacks if to_reduce <= 0 else "IMPOSSIBLE"
 
