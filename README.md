@@ -1,4 +1,4 @@
-# [GoogleCodeJam 2018](https://code.google.com/codejam/contests.html) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-7%20%2F%207-ff69b4.svg)
+# [GoogleCodeJam 2018](https://codejam.withgoogle.com/2018/challenges) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-7%20%2F%207-ff69b4.svg)
 
 Python solutions of Google Code Jam 2018.
 
