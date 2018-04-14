@@ -44,7 +44,7 @@ def edgy_baking():
     S = [[0, 0]]
     for i in xrange(N):
         S = add_interval(S, [2*min(W[i], H[i]), 2*math.sqrt(W[i]**2 + H[i]**2)], P_to_increase)
-    return P - max(0, P_to_increase-S[-1][1])
+    return P-max(0, P_to_increase-S[-1][1])
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, edgy_baking())
