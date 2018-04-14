@@ -11,8 +11,8 @@ def check(T, R, B, M, S, P):
     C = [0]*len(M)
     for i in xrange(len(C)):
         C[i] = max(0, min(M[i], (T-P[i])//S[i]))  # S[i] * N + P[i] <= T
-    C.sort(reverse=True) # O(ClogC), getting top R of C could be improved
-                         # to O(C) by using quick select (std::nth_element in C++)
+    C.sort(reverse=True)  # O(ClogC), getting top R of C could be improved
+                          # to O(C) by using quick select (std::nth_element in C++)
     return sum(C[:R]) >= B
 
 def bit_party():
