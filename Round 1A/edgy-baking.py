@@ -22,10 +22,10 @@ def merge_intervals(A, B, limit):
             j += 1
         if limit < interval[0]:
             break
-        if result and result[-1][1] >= interval[0]:
-            result[-1][1] = max(result[-1][1], interval[1])
-        else:
+        if not result or result[-1][1] < interval[0]:
             result.append(list(interval))
+        else:
+            result[-1][1] = max(result[-1][1], interval[1])
     return result
 
 def add_interval(S, interval, P_to_increase):
