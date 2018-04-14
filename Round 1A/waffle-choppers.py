@@ -51,8 +51,8 @@ def waffle_hoppers():
                 v_counts[c] += 1
 
     if total_counts != 0:
-        v_count_to_cut, v_remain = divmod(total_counts, V+1)
         cut_idxs = []
+        v_count_to_cut, v_remain = divmod(total_counts, V+1)
         if v_remain != 0 or not vertical_cut(v_counts, V+1, v_count_to_cut, cut_idxs):
             return "IMPOSSIBLE"
 

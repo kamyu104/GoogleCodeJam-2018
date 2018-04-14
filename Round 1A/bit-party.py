@@ -8,7 +8,7 @@
 #
 
 def check(T, R, B, M, S, P):
-    C = [0] * len(M)
+    C = [0]*len(M)
     for i in xrange(len(C)):
         C[i] = max(0, min(M[i], (T-P[i])//S[i]))  # S[i] * N + P[i] <= T
     C.sort(reverse=True) # O(ClogC), getting top R of C could be improved
