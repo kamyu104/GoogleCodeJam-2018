@@ -32,8 +32,7 @@ def add_interval(S, interval, P_to_increase):
     new_S = []
     for s in S:
         new_S.append([s[0]+interval[0], s[1]+interval[1]])
-    result = merge_intervals(S, new_S, P_to_increase)
-    return result
+    return merge_intervals(S, new_S, P_to_increase)
 
 def edgy_baking():
     N, P = map(int, raw_input().strip().split())
