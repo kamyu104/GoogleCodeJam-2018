@@ -9,7 +9,7 @@
 
 import math
 
-def merge_intervals(A, B, limit):
+def merge_intervals(A, B):
     result = []
     i, j = 0, 0
     while i < len(A) or j < len(B):
@@ -20,8 +20,6 @@ def merge_intervals(A, B, limit):
         else:
             interval = B[j]
             j += 1
-        if limit < interval[0]:
-            break
         if not result or result[-1][1] < interval[0]:
             result.append(list(interval))
         else:
@@ -31,8 +29,10 @@ def merge_intervals(A, B, limit):
 def add_interval(S, interval, P_to_increase):
     new_S = []
     for s in S:
+        if P_to_increase < s[0]+interval[0]:
+            break
         new_S.append([s[0]+interval[0], s[1]+interval[1]])
-    return merge_intervals(S, new_S, P_to_increase)
+    return merge_intervals(S, new_S)
 
 def edgy_baking():
     N, P = map(int, raw_input().strip().split())
