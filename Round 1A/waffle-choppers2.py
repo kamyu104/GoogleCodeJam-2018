@@ -4,7 +4,7 @@
 # https://codejam.withgoogle.com/2018/challenges/0000000000007883/dashboard
 #
 # Time:  O(R * C)
-# Space: O(R + C)
+# Space: O(R * C)
 #
 
 def calc_accus(waffle, R, C):

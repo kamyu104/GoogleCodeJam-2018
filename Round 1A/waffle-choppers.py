@@ -19,7 +19,7 @@ def vertical_cut(counts, count_to_cut, cut_idxs):
     return True
 
 def horizontal_cut(waffle, counts, count_to_cut, cut_idxs):
-    curr_counts = [0]*len(cut_idxs)
+    accus_by_cut = [0]*len(cut_idxs)
     accu = 0
     for r, count in enumerate(counts):
         i = 0
@@ -27,12 +27,12 @@ def horizontal_cut(waffle, counts, count_to_cut, cut_idxs):
             if waffle[r][c] == '@':
                 if c > cut_idxs[i]:
                     i += 1
-                curr_counts[i] += 1
+                accus_by_cut[i] += 1
         accu += count
         if accu == count_to_cut:
-            if any(c != curr_counts[0] for c in curr_counts):
+            if any(x != accus_by_cut[0] for x in accus_by_cut):
                 return False
-            curr_counts = [0]*len(cut_idxs)
+            accus_by_cut = [0]*len(cut_idxs)
             accu = 0
         elif accu > count_to_cut:
             return False
