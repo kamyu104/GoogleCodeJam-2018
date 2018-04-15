@@ -7,17 +7,18 @@
 # Space: O(R + C)
 #
 
-def vertical_cut(counts, count_to_make, count_to_cut, cut_idxs):
+def vertical_cut(counts, count_to_cut, cut_idxs):
     accu = 0
     for i, count in enumerate(counts):
         accu += count
         if accu == count_to_cut:
             cut_idxs.append(i)
             accu = 0
-            count_to_make -= 1
-    return count_to_make == 0
+        elif accu > count_to_cut:
+            return False
+    return True
 
-def horizontal_cut(waffle, counts, count_to_make, count_to_cut, cut_idxs):
+def horizontal_cut(waffle, counts, count_to_cut, cut_idxs):
     curr_counts = [0]*len(cut_idxs)
     accu = 0
     for r, count in enumerate(counts):
@@ -33,8 +34,9 @@ def horizontal_cut(waffle, counts, count_to_make, count_to_cut, cut_idxs):
                 return False
             curr_counts = [0]*len(cut_idxs)
             accu = 0
-            count_to_make -= 1
-    return count_to_make == 0
+        elif accu > count_to_cut:
+            return False
+    return True
 
 def waffle_hoppers():
     R, C, H, V = map(int, raw_input().strip().split())
@@ -53,11 +55,11 @@ def waffle_hoppers():
     if total_counts != 0:
         cut_idxs = []
         v_count_to_cut, v_remain = divmod(total_counts, V+1)
-        if v_remain != 0 or not vertical_cut(v_counts, V+1, v_count_to_cut, cut_idxs):
+        if v_remain != 0 or not vertical_cut(v_counts, v_count_to_cut, cut_idxs):
             return "IMPOSSIBLE"
 
         h_count_to_cut, h_remain = divmod(total_counts, H+1)
-        if h_remain != 0 or not horizontal_cut(waffle, h_counts, H+1, h_count_to_cut, cut_idxs):
+        if h_remain != 0 or not horizontal_cut(waffle, h_counts, h_count_to_cut, cut_idxs):
             return "IMPOSSIBLE"
 
     return "POSSIBLE"
