@@ -25,7 +25,7 @@ def horizontal_cut(waffle, counts, count_to_cut, cut_idxs):
         i = 0
         for c in xrange(len(waffle[0])):
             if waffle[r][c] == '@':
-                if c > cut_idxs[i]:
+                while c > cut_idxs[i]:
                     i += 1
                 accus_by_cut[i] += 1
         accu += count
