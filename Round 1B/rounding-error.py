@@ -29,9 +29,10 @@ def rounding_error():
     additional_votes.sort()
 
     for votes, i in additional_votes:
-        if votes <= remaining_votes:
-            remaining_votes -= votes
-            C[i] += votes
+        if votes > remaining_votes:
+            break
+        remaining_votes -= votes
+        C[i] += votes
 
     C.extend([min_votes_to_round(N, 0, lookup)]*(remaining_votes/(min_votes_to_round(N, 0, lookup))))
     remaining_votes %= min_votes_to_round(N, 0, lookup)
