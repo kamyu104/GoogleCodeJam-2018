@@ -8,10 +8,12 @@
 #
 
 def min_votes_to_round(N, i, lookup):
+    if i >= N:
+        return 0
     if lookup[i] != -1:
         return lookup[i]
     if i == 0 or 0 < 100*i % N < (N+1)/2:
-        lookup[i] = min_votes_to_round(N, (i+1)%N, lookup)+1
+        lookup[i] = min_votes_to_round(N, i+1, lookup)+1
     else:
         lookup[i] = 0
     return lookup[i]
