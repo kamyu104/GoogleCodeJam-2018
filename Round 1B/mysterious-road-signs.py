@@ -21,12 +21,12 @@ def mysterious_road_signs():
         new_candidates = [None] * 2
         for m, n in [(M, N), (N, M)]:
             if sign[m] == candidates[m][m]:
-                new_candidates[m] = list(candidates[m])
+                new_candidates[m] = candidates[m][:]
             elif sign[m] == candidates[n][m]:
-                new_candidates[m] = list(candidates[n])
+                new_candidates[m] = candidates[n][:]
                 new_candidates[m][xstart] = i
             else:
-                new_candidates[m] = list(candidates[n])
+                new_candidates[m] = candidates[n][:]
                 new_candidates[m][m] = sign[m]
                 new_candidates[m][start] = new_candidates[m][xstart]
                 new_candidates[m][xstart] = i
