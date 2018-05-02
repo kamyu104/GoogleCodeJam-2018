@@ -17,7 +17,7 @@ Python solutions of Google Code Jam 2018.
 ## Round 1A
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
-|A| [Waffle Choppers](https://codejam.withgoogle.com/2018/challenges/0000000000007883/dashboard)| [Python](./Round%201A/waffle-choppers.py)| _O(R * C)_ | _O(R + C)_ | Easy | | Array |
+|A| [Waffle Choppers](https://codejam.withgoogle.com/2018/challenges/0000000000007883/dashboard)| [Python](./Round%201A/waffle-choppers.py)| _O(R * C)_ | _O(R + C)_ | Easy | | Array, Accumulation Sum |
 |B| [Bit Party](https://codejam.withgoogle.com/2018/challenges/0000000000007883/dashboard/000000000002fff6)| [Python](./Round%201A/bit-party.py)| _O(ClogC * log(max(S)*B+max(P)))_ | _O(C)_ | Medium | | Binary Search |
 |C| [Edgy Baking](https://codejam.withgoogle.com/2018/challenges/0000000000007883/dashboard/000000000002fff7)| [Python](./Round%201A/edgy-baking.py)| _O(N^2)_ | _O(N)_ | Medium | | Intervals |
 
