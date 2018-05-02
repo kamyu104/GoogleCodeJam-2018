@@ -37,7 +37,7 @@ vector<int64_t> multiply(vector<int64_t> R, int64_t k) {
 }
 
 void add(vector<int64_t> *R1, const vector<int64_t>& R2) {
-    for (int i = 0; i < R1->size(); ++i) {
+    for (int i = 0; i < R2.size(); ++i) {
         (*R1)[i] += R2[i];
     }
 }
