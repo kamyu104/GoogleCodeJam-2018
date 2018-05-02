@@ -12,20 +12,21 @@
 #include <iostream>
 #include <vector>
 #include <numeric>
+#include <algorithm>
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::vector;
 using std::accumulate;
+using std::min_element;
+using std::distance;
+using std::find;
 
 int find_debt(const vector<int64_t>& G) {
-    for (int i = 0; i < G.size(); ++i) {
-        if (G[i] < 0LL) {
-            return i;
-        }
-    }
-    return G.size();
+    auto debt = *min_element(G.cbegin(), G.cend());
+    return debt >= 0 ? G.size() :
+                       distance(G.cbegin(), find(G.cbegin(), G.cend(), debt));
 }
 
 vector<int64_t> multiply(vector<int64_t> R, int64_t k) {
