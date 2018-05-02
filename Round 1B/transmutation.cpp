@@ -49,14 +49,14 @@ bool impossible(int64_t L, vector<vector<int64_t>> R, vector<int64_t> G) {
     }
     for (int i = 0; i != G.size(); i = find_debt(G)) {
         if (R[i][i] != 0LL ||
-            accumulate(G.cbegin(), G.cend(), G[i]) < 0) {  // critical purning
+            accumulate(G.cbegin(), G.cend(), G[i]) < 0LL) {  // critical purning
             return true;
         }
-        add(&G, multiply(R[i], G[i])), G[i] = 0;
+        add(&G, multiply(R[i], G[i])), G[i] = 0LL;
         auto& Ri = R[i];
         for (auto& Rj : R) {
             if (!Rj.empty() && Rj[i] != 0LL) {
-                add(&Rj, multiply(Ri, Rj[i])), Rj[i] = 0;
+                add(&Rj, multiply(Ri, Rj[i])), Rj[i] = 0LL;
             }
         }
         Ri.clear();
