@@ -25,5 +25,5 @@ Python solutions of Google Code Jam 2018.
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Rounding Error](https://codejam.withgoogle.com/2018/challenges/0000000000007764/dashboard)| [Python](./Round%201B/rounding-error.py)| _O(NlogN)_ | _O(N)_ | Medium | | Greedy |
-|B| [Mysterious Road Signs](https://codejam.withgoogle.com/2018/challenges/0000000000007764/dashboard/000000000003675b)| [Python](./Round%201B/mysterious-road-signs.py)| _O(S)_ | _O(1)_ | Medium | | Graph |
+|B| [Mysterious Road Signs](https://codejam.withgoogle.com/2018/challenges/0000000000007764/dashboard/000000000003675b)| [Python](./Round%201B/mysterious-road-signs.py)| _O(S)_ | _O(1)_ | Medium | | Graph, Sliding Window |
 |C| [Transmutation](https://codejam.withgoogle.com/2018/challenges/0000000000007764/dashboard/000000000003675c)| [C++](./Round%201B/transmutation.cpp) [*Python](./Round%201B/transmutation.py)| _O(M^3 * logS)_ | _O(M^2)_ | Hard | | Binary Search |
