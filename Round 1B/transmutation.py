@@ -7,36 +7,35 @@
 # Space: O(M^2)
 #
 
-def multiply(R, k):
-    return [g*k for g in R]
-
-def add(L1, L2):
-    for i in xrange(len(L1)):
-        L1[i] += L2[i]
-
-def replace(R, i):
-    for Rj in R:
-        if Rj[i] != 0:
-            add(Rj, multiply(R[i], Rj[i]))
-            Rj[i] = 0
-
 def find_debt(G):
     for i in xrange(len(G)):
         if G[i] < 0:
             return i
     return len(G)
 
+def multiply(R, k):
+    return [g*k for g in R]
+
+def add(R1, R2):
+    for i in xrange(len(R1)):
+        R1[i] += R2[i]
+
 def impossible(L, R, G):
     R, G = [Ri[:] for Ri in R], G[:]
+    G[0] -= L
+    if G[0] >= 0:
+        return False
     i = 0
-    G[i] -= L
-    while i != len(G) and G[i] < 0:
+    while i != len(G):
         if R[i][i] != 0 or G[i]+sum(G) < 0:
             return True
         add(G, multiply(R[i], G[i]))
         G[i] = 0
-        replace(R, i)
-        R[i] = [0] * len(G)
+        for Rj in R:
+            if Rj and Rj[i] != 0:
+                add(Rj, multiply(R[i], Rj[i]))
+                Rj[i] = 0
+        R[i] = None
         i = find_debt(G)
     return False
 
