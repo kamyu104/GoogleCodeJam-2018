@@ -48,7 +48,7 @@ bool impossible(int64_t L, vector<vector<int64_t>> R, vector<int64_t> G) {
     }
     for (int i = 0; i != G.size(); i = find_debt(G)) {
         if (R[i][i] != 0LL ||
-            accumulate(G.cbegin(), G.cend(), G[i]) < 0) {
+            accumulate(G.cbegin(), G.cend(), G[i]) < 0) {  // critical purning
             return true;
         }
         add(&G, multiply(R[i], G[i])), G[i] = 0;
@@ -92,7 +92,6 @@ int64_t transmutation() {
 int main() {
     int T;
     cin >> T;
-
     for (int test = 1; test <= T; ++test) {
         cout << "Case #" << test << ": " << transmutation() << endl;
     }
