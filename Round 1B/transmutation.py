@@ -50,7 +50,7 @@ def transmutation():
         R.append(Ri)
     G = map(int, raw_input().strip().split())
 
-    left, right = 0, sum(G)
+    left, right = G[0], sum(G)
     while left <= right:
         mid = left + (right-left)//2
         if impossible(mid, R, G):
