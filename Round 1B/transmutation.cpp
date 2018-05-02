@@ -19,7 +19,8 @@ using std::endl;
 using std::vector;
 using std::accumulate;
 
-int find_debt(const vector<int64_t>& G) {
+int find_debt(const vector<
+              >& G) {
     for (int i = 0; i < G.size(); ++i) {
         if (G[i] < 0LL) {
             return i;
@@ -52,7 +53,7 @@ bool impossible(int64_t L, vector<vector<int64_t>> R, vector<int64_t> G) {
             return true;
         }
         add(&G, multiply(R[i], G[i])), G[i] = 0;
-        vector<int64_t>& Ri = R[i];
+        auto& Ri = R[i];
         for (auto& Rj : R) {
             if (!Rj.empty() && Rj[i] != 0LL) {
                 add(&Rj, multiply(Ri, Rj[i])), Rj[i] = 0;
@@ -79,7 +80,7 @@ int64_t transmutation() {
     auto left = G[0];
     auto right = accumulate(G.cbegin(), G.cend(), static_cast<int64_t>(0LL));
     while (left <= right) {
-        int64_t mid = left + (right - left) / 2;
+        const auto mid = left + (right - left) / 2;
         if (impossible(mid, R, G)) {
             right = mid - 1;
         } else {
