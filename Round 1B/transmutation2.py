@@ -10,6 +10,10 @@
 import collections
 import copy
 
+def find_debt(G):
+    debt = min(G)
+    return len(G) if debt >= 0 else G.index(debt)
+
 def multiply(R, k):
     tmp = copy.deepcopy(R)
     for i in tmp:
@@ -19,12 +23,6 @@ def multiply(R, k):
 def add(R1, R2):
     for i in R2:
         R1[i] += R2[i]
-
-def find_debt(G):
-    for i in xrange(len(G)):
-        if G[i] < 0:
-            return i
-    return len(G)
 
 def impossible(L, R, G):
     R, G = copy.deepcopy(R), G[:]
