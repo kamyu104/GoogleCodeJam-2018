@@ -19,8 +19,7 @@ using std::endl;
 using std::vector;
 using std::accumulate;
 
-int find_debt(const vector<
-              >& G) {
+int find_debt(const vector<int64_t>& G) {
     for (int i = 0; i < G.size(); ++i) {
         if (G[i] < 0LL) {
             return i;
