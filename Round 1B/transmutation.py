@@ -15,7 +15,7 @@ def multiply(R, k):
     return [g*k for g in R]
 
 def add(R1, R2):
-    for i in xrange(len(R1)):
+    for i in xrange(len(R2)):
         R1[i] += R2[i]
 
 def impossible(L, R, G):
