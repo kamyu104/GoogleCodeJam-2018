@@ -46,8 +46,7 @@ def transmutation():
     for _ in xrange(M):
         R1, R2 = map(int, raw_input().strip().split())
         Ri = [0] * M
-        Ri[R1-1] += 1
-        Ri[R2-1] += 1
+        Ri[R1-1] = Ri[R2-1] = 1
         R.append(Ri)
     G = map(int, raw_input().strip().split())
 
