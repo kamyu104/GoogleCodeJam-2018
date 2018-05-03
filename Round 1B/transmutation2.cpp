@@ -49,6 +49,9 @@ bool impossible(double L, vector<vector<double>> R, vector<double> G) {
     }
     for (int i = 0; i != G.size(); i = find_debt(G)) {
         auto& Ri = R[i];
+        // any element in G or R is possible from -10^22 ~ 10^22,
+        // By using double, it never overflows in the largest test set.
+        // (double gives 15 significant decimal digits precision)
         if (Ri[i] != 0.0f) {
             return true;
         }
