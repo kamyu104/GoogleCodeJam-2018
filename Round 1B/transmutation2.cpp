@@ -25,8 +25,8 @@ using std::find;
 
 int find_debt(const vector<int64_t>& G) {
     auto debt = *min_element(G.cbegin(), G.cend());
-    return debt >= 0 ? G.size() :
-                       distance(G.cbegin(), find(G.cbegin(), G.cend(), debt));
+    return debt >= 0LL ?
+        G.size() : distance(G.cbegin(), find(G.cbegin(), G.cend(), debt));
 }
 
 vector<int64_t> multiply(vector<int64_t> R, int64_t k) {
