@@ -23,6 +23,8 @@ def multiply(R, k):
 def add(R1, R2):
     for i in R2:
         R1[i] += R2[i]
+        if R1[i] == 0:
+            R1.pop(i)
 
 def impossible(L, R, G):
     R, G = copy.deepcopy(R), G[:]
