@@ -25,15 +25,16 @@ def impossible(L, R, G):
         return False
     i = 0
     while i != len(G):
-        if R[i][i] != 0 or G[i]+sum(G) < 0:
+        Ri = R[i]
+        if Ri[i] != 0 or G[i]+sum(G) < 0:
             return True
-        add(G, multiply(R[i], G[i]))
+        add(G, multiply(Ri, G[i]))
         G[i] = 0
         for Rj in R:
             if Rj and Rj[i] != 0:
-                add(Rj, multiply(R[i], Rj[i]))
+                add(Rj, multiply(Ri, Rj[i]))
                 Rj[i] = 0
-        R[i] = None
+        Ri = None
         i = find_debt(G)
     return False
 

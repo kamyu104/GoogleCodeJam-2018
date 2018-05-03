@@ -31,13 +31,14 @@ def impossible(L, R, G):
         return False
     i = 0
     while i != len(G):
-        if i in R[i] or G[i]+sum(G) < 0:
+        Ri = R[i]
+        if i in Ri or G[i]+sum(G) < 0:
             return True
-        add(G, multiply(R[i], G[i]))
+        add(G, multiply(Ri, G[i]))
         G[i] = 0
         for Rj in R.values():
             if i in Rj:
-                add(Rj, multiply(R[i], Rj[i]))
+                add(Rj, multiply(Ri, Rj[i]))
                 Rj.pop(i)
         R.pop(i)
         i = find_debt(G)
