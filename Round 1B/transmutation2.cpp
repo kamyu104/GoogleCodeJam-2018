@@ -77,7 +77,7 @@ int64_t transmutation() {
         cin >> G[i];
     }
     int64_t left = G[0];
-    int64_t right = accumulate(G.cbegin(), G.cend(), static_cast<double>(0LL));
+    int64_t right = accumulate(G.cbegin(), G.cend(), 0LL);
     while (left <= right) {
         const auto mid = left + (right - left) / 2;
         if (impossible(mid, R, G)) {
