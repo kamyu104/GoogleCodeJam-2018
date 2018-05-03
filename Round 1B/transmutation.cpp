@@ -50,7 +50,7 @@ bool impossible(int64_t L, vector<vector<int64_t>> R, vector<int64_t> G) {
     for (int i = 0; i != G.size(); i = find_debt(G)) {
         auto& Ri = R[i];
         if (Ri[i] != 0LL ||
-            accumulate(G.cbegin(), G.cend(), -G[i]) <  // critical purning
+            accumulate(G.cbegin(), G.cend(), -G[i]) <  // avoid overflow
             -G[i] * accumulate(Ri.cbegin(), Ri.cend(), 0LL)) {
             return true;
         }
