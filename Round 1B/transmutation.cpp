@@ -23,41 +23,43 @@ using std::min_element;
 using std::distance;
 using std::find;
 
-int find_debt(const vector<int64_t>& G) {
+int find_debt(const vector<double>& G) {
     auto debt = *min_element(G.cbegin(), G.cend());
     return debt >= 0 ? G.size() :
                        distance(G.cbegin(), find(G.cbegin(), G.cend(), debt));
 }
 
-vector<int64_t> multiply(vector<int64_t> R, int64_t k) {
+vector<double> multiply(vector<double> R, double k) {
     for (auto& g : R) {
         g *= k;
     }
     return R;
 }
 
-void add(vector<int64_t> *R1, const vector<int64_t>& R2) {
+void add(vector<double> *R1, const vector<double>& R2) {
     for (int i = 0; i < R2.size(); ++i) {
         (*R1)[i] += R2[i];
     }
 }
 
-bool impossible(int64_t L, vector<vector<int64_t>> R, vector<int64_t> G) {
+bool impossible(double L, vector<vector<double>> R, vector<double> G) {
     G[0] -= L;
-    if (G[0] >= 0LL) {
+    if (G[0] >= 0.0f) {
         return false;
     }
     for (int i = 0; i != G.size(); i = find_debt(G)) {
         auto& Ri = R[i];
-        if (Ri[i] != 0LL ||
-            accumulate(G.cbegin(), G.cend(), -G[i]) <  // avoid overflow
-            -G[i] * accumulate(Ri.cbegin(), Ri.cend(), 0LL)) {
+        // any element in G or R is possible from -10^22 ~ 10^22,
+        // Using double instead of int64_t,
+        // it never overflows in the largest test set.
+        // (double gives 15 significant decimal digits precision)
+        if (Ri[i] != 0.0f) {
             return true;
         }
-        add(&G, multiply(Ri, G[i])), G[i] = 0LL;
+        add(&G, multiply(Ri, G[i])), G[i] = 0.0f;
         for (auto& Rj : R) {
-            if (!Rj.empty() && Rj[i] != 0LL) {
-                add(&Rj, multiply(Ri, Rj[i])), Rj[i] = 0LL;
+            if (!Rj.empty() && Rj[i] != 0.0f) {
+                add(&Rj, multiply(Ri, Rj[i])), Rj[i] = 0.0f;
             }
         }
         Ri.clear();
@@ -68,18 +70,18 @@ bool impossible(int64_t L, vector<vector<int64_t>> R, vector<int64_t> G) {
 int64_t transmutation() {
     int M;
     cin >> M;
-    vector<vector<int64_t>> R(M, vector<int64_t>(M, 0LL));
+    vector<vector<double>> R(M, vector<double>(M, 0.0f));
     for (int i = 0; i < M; ++i) {
         int R1, R2;
         cin >> R1 >> R2;
         R[i][R1 - 1] = R[i][R2 - 1] = 1;
     }
-    vector<int64_t> G(M, 0LL);
+    vector<double> G(M, 0.0f);
     for (int i = 0; i < M; ++i) {
         cin >> G[i];
     }
-    auto left = G[0];
-    auto right = accumulate(G.cbegin(), G.cend(), static_cast<int64_t>(0LL));
+    int64_t left = G[0];
+    int64_t right = accumulate(G.cbegin(), G.cend(), 0.0f);
     while (left <= right) {
         const auto mid = left + (right - left) / 2;
         if (impossible(mid, R, G)) {
