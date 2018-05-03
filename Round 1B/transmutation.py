@@ -26,7 +26,8 @@ def impossible(L, R, G):
     i = 0
     while i != len(G):
         Ri = R[i]
-        if Ri[i] != 0 or G[i]+sum(G) < 0:
+        if Ri[i] != 0 or
+           sum(G)-G[i] < -sum(Ri)*G[i]:
             return True
         add(G, multiply(Ri, G[i]))
         G[i] = 0
