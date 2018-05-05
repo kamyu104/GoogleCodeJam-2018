@@ -23,8 +23,22 @@ using std::numeric_limits;
 using std::min;
 using std::max;
 
-int ant_stack() {
-    const int K = 139;
+int get_upper_bound() {
+    const double MAX_W = 1e9;
+    double w = 1, accu = 0;
+    int cnt = 0;
+    while (w <= MAX_W) {
+        if (accu <= 6.0f * w) {
+            accu += w;
+            ++cnt;
+        } else {
+            w = (static_cast<int64_t>(accu) + 5LL) / 6LL;
+        }
+    }
+    return cnt;
+}
+
+int ant_stack(int K) {
     int N;
     cin >> N;
     vector<double> W(N, 0);
@@ -52,10 +66,11 @@ int ant_stack() {
 }
 
 int main() {
+    const auto K = get_upper_bound();
     int T;
     cin >> T;
     for (int test = 1; test <= T; ++test) {
-        cout << "Case #" << test << ": " << ant_stack() << endl;
+        cout << "Case #" << test << ": " << ant_stack(K) << endl;
     }
     return 0;
 }
