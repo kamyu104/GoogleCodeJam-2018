@@ -1,7 +1,6 @@
 import random
 
 T = 100
-M = 100
 G = 10**9
 
 print T
