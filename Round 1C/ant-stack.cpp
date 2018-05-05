@@ -48,8 +48,7 @@ int ant_stack(int K) {
     int result = 1;
     vector<vector<double>> dp(2,
         vector<double>(K + 1, numeric_limits<double>::max()));
-    dp[0][0] = 0.0f;
-    dp[0][1] = W[0];
+    dp[0][0] = 0.0f, dp[0][1] = W[0];
     for (int i = 1; i < N; ++i) {
         dp[i % 2][0] = 0.0f;
         for (int j = 1; j <= min(i+1, K); ++j) {
