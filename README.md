@@ -1,6 +1,6 @@
 # [GoogleCodeJam 2018](https://codejam.withgoogle.com/2018/challenges) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-13%20%2F%2013-ff69b4.svg)
 
-* Python solutions of Google Code Jam 2018. Solution begins with (*) means it will TLE in the hardest data set.
+Python solutions of Google Code Jam 2018. Solution begins with (*) means it will TLE in the hardest data set.
 
 * [Qualification Round](https://github.com/kamyu104/GoogleCodeJam-2018#qualification-round)
 * [Round 1A](https://github.com/kamyu104/GoogleCodeJam-2018#round-1a)
