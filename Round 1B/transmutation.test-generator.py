@@ -2,7 +2,7 @@ import random
 
 T = 100
 M = 100
-G = 1000000000
+G = 10**9
 
 print T
 for _ in xrange(T):
