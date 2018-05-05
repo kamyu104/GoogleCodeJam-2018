@@ -22,7 +22,6 @@ def sell(statistics, stock, prefs):
                     least_flavors = [i]
                 elif statistics[least_flavors[0]] == statistics[i]:
                     least_flavors.append(i)
-
         if least_flavors:
             i = random.randint(0, len(least_flavors)-1)
             stock.discard(least_flavors[i])
