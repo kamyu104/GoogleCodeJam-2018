@@ -20,10 +20,11 @@ def get_upper_bound():
     return cnt
 
 def ant_stack(K):
+    INF = float("inf")
     N = input()
     W = map(int, raw_input().strip().split())
     result = 1
-    dp = [[float("inf") for _ in xrange(K+1)] for _ in xrange(2)]
+    dp = [[INF for _ in xrange(K+1)] for _ in xrange(2)]
     dp[0][0], dp[0][1] = 0, W[0]
     for i in xrange(1, N):
         dp[i%2][0] = 0
@@ -31,7 +32,7 @@ def ant_stack(K):
             dp[i%2][j] = dp[(i-1)%2][j]
             if dp[(i-1)%2][j-1] <= 6*W[i]:
                 dp[i%2][j] = min(dp[i%2][j], dp[(i-1)%2][j-1]+W[i])
-            if dp[i%2][j] != float("inf"):
+            if dp[i%2][j] != INF:
                 result = max(result, j)
     return result
 
