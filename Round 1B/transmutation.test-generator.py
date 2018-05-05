@@ -6,6 +6,7 @@ G = 10**9
 
 print T
 for _ in xrange(T):
+    M = random.randint(2, 100)
     print M
     for i in xrange(M):
         print random.randint(1,M), random.randint(1,M)
