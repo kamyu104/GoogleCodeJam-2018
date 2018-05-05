@@ -1,3 +1,5 @@
+# time python transmutation.test-generator.py | python transmutation.py
+
 import random
 
 T = 100

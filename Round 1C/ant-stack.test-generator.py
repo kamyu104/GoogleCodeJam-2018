@@ -1,3 +1,5 @@
+# time python ant-stack.test-generator.py | python ant-stack.py
+
 import random
 
 T = 100
