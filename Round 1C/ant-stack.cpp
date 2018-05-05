@@ -65,7 +65,7 @@ int ant_stack(int K) {
 }
 
 int main() {
-    const auto K = get_upper_bound();
+    const auto& K = get_upper_bound();
     int T;
     cin >> T;
     for (int test = 1; test <= T; ++test) {

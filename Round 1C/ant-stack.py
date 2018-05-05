@@ -24,7 +24,7 @@ def ant_stack(K):
     W = map(int, raw_input().strip().split())
     INF = 10**14
     result = 1
-    dp = [INF for _ in xrange(2*K)]
+    dp = [INF for _ in xrange(2*(K+1))]
     dp[0], dp[1] = 0, W[0]
     for i in xrange(1, N):
         dp[(i%2)*K] = 0
