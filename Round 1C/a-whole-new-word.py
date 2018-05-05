@@ -15,14 +15,16 @@ def dfs(trie, lookup, i, curr):
         return "-"
     if len(trie) != len(lookup[i]):
         for c in lookup[i]:
-            if c not in trie:
+            if c in trie:
+                continue
+            # generate unique word
+            curr.append(c)
+            nodes = trie.values()[0]
+            while nodes:
+                c = nodes.keys()[0]
                 curr.append(c)
-                nodes = trie.values()[0]
-                while nodes:
-                    c = nodes.keys()[0]
-                    curr.append(c)
-                    nodes = nodes[c]
-                break
+                nodes = nodes[c]
+            break
         return "".join(curr)
     for c in trie:
         curr.append(c)
