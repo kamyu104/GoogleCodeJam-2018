@@ -51,7 +51,7 @@ int ant_stack(int K) {
     dp[0][0] = 0.0f, dp[0][1] = W[0];
     for (int i = 1; i < N; ++i) {
         dp[i % 2][0] = 0.0f;
-        for (int j = 1; j <= min(i+1, K); ++j) {
+        for (int j = 1; j <= min(i + 1, K); ++j) {
             dp[i % 2][j] = dp[(i - 1) % 2][j];
             if (dp[(i - 1) % 2][j - 1] <= 6.0f * W[i]) {
                 dp[i % 2][j] = min(dp[i % 2][j], dp[(i - 1) % 2][j - 1] + W[i]);
