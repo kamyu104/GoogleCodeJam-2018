@@ -47,7 +47,7 @@ int ant_stack(int K) {
     }
     int result = 1;
     vector<vector<double>> dp(2,
-        vector<double>(K + 1, numeric_limits<double>::max()));
+        vector<double>(K + 1, numeric_limits<double>::infinity()));
     dp[0][0] = 0.0f, dp[0][1] = W[0];
     for (int i = 1; i < N; ++i) {
         dp[i % 2][0] = 0.0f;
@@ -56,7 +56,7 @@ int ant_stack(int K) {
             if (dp[(i - 1) % 2][j - 1] <= 6.0f * W[i]) {
                 dp[i % 2][j] = min(dp[i % 2][j], dp[(i - 1) % 2][j - 1] + W[i]);
             }
-            if (dp[i % 2][j] != numeric_limits<double>::max()) {
+            if (dp[i % 2][j] != numeric_limits<double>::infinity()) {
                 result = max(result, j);
             }
         }
