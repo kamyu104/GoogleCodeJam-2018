@@ -38,14 +38,14 @@ int get_upper_bound(const double MAX_W) {
     return cnt;
 }
 
-int ant_stack(int K) {
+int ant_stack() {
     int N;
     cin >> N;
     vector<double> W(N, 0);
     for (int i = 0; i < N; ++i) {
         cin >> W[i];
     }
-    const int K = get_upper_bound(*std:max_element(W.cbegin(), W.cend()));
+    const int K = get_upper_bound(*max_element(W.cbegin(), W.cend()));
     int result = 1;
     vector<vector<double>> dp(2,
         vector<double>(K + 1, numeric_limits<double>::infinity()));
