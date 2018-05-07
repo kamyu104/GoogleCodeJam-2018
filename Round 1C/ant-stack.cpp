@@ -22,9 +22,9 @@ using std::vector;
 using std::numeric_limits;
 using std::min;
 using std::max;
+using std:max_element;
 
-int get_upper_bound() {
-    const double MAX_W = 1e9;
+int get_upper_bound(const double MAX_W) {
     double w = 1, accu = 0;
     int cnt = 0;
     while (w <= MAX_W) {
@@ -45,6 +45,7 @@ int ant_stack(int K) {
     for (int i = 0; i < N; ++i) {
         cin >> W[i];
     }
+    const int K = get_upper_bound(*std:max_element(W.cbegin(), W.cend()));
     int result = 1;
     vector<vector<double>> dp(2,
         vector<double>(K + 1, numeric_limits<double>::infinity()));
@@ -65,11 +66,10 @@ int ant_stack(int K) {
 }
 
 int main() {
-    const auto& K = 139;  // get_upper_bound();
     int T;
     cin >> T;
     for (int test = 1; test <= T; ++test) {
-        cout << "Case #" << test << ": " << ant_stack(K) << endl;
+        cout << "Case #" << test << ": " << ant_stack() << endl;
     }
     return 0;
 }
