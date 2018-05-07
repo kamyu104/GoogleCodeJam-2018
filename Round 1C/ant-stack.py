@@ -18,7 +18,7 @@ def get_upper_bound(MAX_W):
             w = (accu+5)//6
     return cnt
 
-def ant_stack(K):
+def ant_stack():
     INF = float("inf")
     N = input()
     W = map(int, raw_input().strip().split())
