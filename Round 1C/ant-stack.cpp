@@ -22,7 +22,7 @@ using std::vector;
 using std::numeric_limits;
 using std::min;
 using std::max;
-using std:max_element;
+using std::max_element;
 
 int get_upper_bound(const double MAX_W) {
     double w = 1, accu = 0;
