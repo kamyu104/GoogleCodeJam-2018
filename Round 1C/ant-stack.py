@@ -7,8 +7,7 @@
 # Space: O(K)
 #
 
-def get_upper_bound():
-    MAX_W = 10**9
+def get_upper_bound(MAX_W):
     w, accu = 1, 0
     cnt = 0
     while w <= MAX_W:
@@ -23,6 +22,7 @@ def ant_stack(K):
     INF = float("inf")
     N = input()
     W = map(int, raw_input().strip().split())
+    K = get_upper_bound(max(W))
     result = 1
     dp = [[INF for _ in xrange(K+1)] for _ in xrange(2)]
     dp[0][0], dp[0][1] = 0, W[0]
@@ -36,6 +36,5 @@ def ant_stack(K):
                 result = max(result, j)
     return result
 
-K = 139 #get_upper_bound()
 for case in xrange(input()):
-    print 'Case #%d: %s' % (case+1, ant_stack(K))
+    print 'Case #%d: %s' % (case+1, ant_stack())
