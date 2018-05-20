@@ -1,8 +1,8 @@
 // Copyright (c) 2018 kamyu. All rights reserved.
 
 /*
- * Google Code Jam 2018 Round 2 - Problem B. Graceful Chainsaw Jugglers
- * https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/00000000000459f3
+ * Google Code Jam 2018 Round 2 - Problem C. Costume Change
+ * https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/0000000000045875
  *
  * Time:  O(N^3 * sqrt(N))
  * Space: O(N)
