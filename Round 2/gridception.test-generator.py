@@ -1,20 +1,21 @@
+R, C = 3, 4
 total = 0
-for R in xrange(1, 4):
-    for C in xrange(1, 5):
-        total += 2**(R*C)
+for r in xrange(1, R+1):
+    for c in xrange(1, C+1):
+        total += 2**(r*c)
 print total
-for R in xrange(1, 4):
-    for C in xrange(1, 5):
-        def p(i):
+for r in xrange(1, R+1):
+    for c in xrange(1, C+1):
+        def generate(i):
             colors = []
-            for j in xrange(C):
+            for j in xrange(c):
                 if i & (1 << j):
                     colors.append('B')
                 else:
                     colors.append('W')
             print  "".join(colors)
 
-        for i in xrange(2**(R*C)):
-            print R, C
-            for j in xrange(1, R+1):
-                p((i >> (R*C-j*C)) & (2**C-1))
+        for i in xrange(2**(r*c)):
+            print r, c
+            for j in xrange(1, r+1):
+                generate((i >> (r*c-j*c)) & (2**c-1))
