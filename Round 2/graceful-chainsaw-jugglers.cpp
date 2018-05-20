@@ -28,7 +28,7 @@ const int MAX_R = 500;
 const int MAX_B = 500;
 
 int memoization(const vector<pair<int, int>>& V, int i, int r, int b,
-             vector<float> *lookup) {
+                vector<float> *lookup) {
     if (r < 0 || b < 0) {
         return -numeric_limits<float>::infinity();
     }
@@ -64,7 +64,7 @@ int main() {
             }
         }
     }
-    vector<float> lookup((V.size() + 1)*(MAX_R + 1) * (MAX_B + 1), -1);
+    vector<float> lookup((V.size() + 1) * (MAX_R + 1) * (MAX_B + 1), -1);
     int T;
     cin >> T;
     for (int test = 1; test <= T; ++test) {
