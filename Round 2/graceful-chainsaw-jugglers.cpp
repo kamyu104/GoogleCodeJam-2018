@@ -45,7 +45,7 @@ int memoization(const vector<pair<int, int>>& V, int i, int r, int b,
     return (*lookup)[key];
 }
 
-int transmutation(const vector<pair<int, int>>& V, vector<float> *lookup) {
+int graceful_chainsaw_jugglers(const vector<pair<int, int>>& V, vector<float> *lookup) {
     int R, B;
     cin >> R >> B;
     return memoization(V, V.size() - 1, R, B, lookup);
@@ -68,7 +68,7 @@ int main() {
     int T;
     cin >> T;
     for (int test = 1; test <= T; ++test) {
-        cout << "Case #" << test << ": " << transmutation(V, &lookup) << endl;
+        cout << "Case #" << test << ": " << graceful_chainsaw_jugglers(V, &lookup) << endl;
     }
     return 0;
 }
