@@ -29,7 +29,7 @@ def falling_balls():
                 result[r][right-r] = '/'
                 if r == len(result)-1:
                     result.append(['.']*C)
-    return str(len(result)) + "\n" + "\n".join(["".join(row) for row in result])
+    return "\n".join([str(len(result)), "\n".join(["".join(row) for row in result])])
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, falling_balls())
