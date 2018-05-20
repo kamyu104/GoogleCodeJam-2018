@@ -17,7 +17,7 @@ def falling_balls():
     for r in xrange(len(B)):
         if B[r] == 0:
             continue
-        target, left, right = r, c , c+B[r]-1
+        target, left, right = r, c, c+B[r]-1
         c += B[r]
         if left < target:
             for r in xrange(target-left):
