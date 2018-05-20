@@ -8,27 +8,25 @@
 #
 
 def falling_balls():
-    TARGET, LEFT, RIGHT = range(3)
     C = input()
     B = map(int, raw_input().strip().split())
     if B[0] == 0 or B[-1] == 0:
         return "IMPOSSIBLE"
-    groups = []
+    result = [['.']*C]
     c = 0
     for r in xrange(len(B)):
-        if B[r] > 0:
-            groups.append((r, c, c+B[r]-1))
-            c += B[r]
-    result = [['.']*C]
-    for group in groups:
-        if group[LEFT] < group[TARGET]:
-            for r in xrange(group[TARGET]-group[LEFT]):
-                result[r][group[LEFT]+r] = '\\'
+        if B[r] == 0:
+            continue
+        target, left, right = r, c , c+B[r]-1
+        c += B[r]
+        if left < target:
+            for r in xrange(target-left):
+                result[r][left+r] = '\\'
                 if r == len(result)-1:
                     result.append(['.']*C)
-        if group[RIGHT] > group[TARGET]:
-            for r in xrange(group[RIGHT]-group[TARGET]):
-                result[r][group[RIGHT]-r] = '/'
+        if right > target:
+            for r in xrange(right-target):
+                result[r][right-r] = '/'
                 if r == len(result)-1:
                     result.append(['.']*C)
     return str(len(result)) + "\n" + "\n".join(["".join(row) for row in result])
