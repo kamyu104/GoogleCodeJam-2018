@@ -11,9 +11,8 @@
 
 #include <iostream>
 #include <vector>
-#include <numeric>
-#include <algorithm>
 #include <utility>
+#include <algorithm>
 #include <limits>
 
 using std::cin;
@@ -21,19 +20,19 @@ using std::cout;
 using std::endl;
 using std::vector;
 using std::pair;
-using std::numeric_limits;
 using std::max;
+using std::numeric_limits;
 
 const int MAX_R = 500;
 const int MAX_B = 500;
 
-int memoization(const vector<pair<int, int>>& V, int i, int r, int b,
+float memoization(const vector<pair<int, int>>& V, int i, int r, int b,
                 vector<float> *lookup) {
     if (r < 0 || b < 0) {
         return -numeric_limits<float>::infinity();
     }
     if (i < 0) {
-        return 0;
+        return 0.0f;
     }
     int key = i * (MAX_R + 1) * (MAX_B + 1) + r * (MAX_B + 1) + b;
     if ((*lookup)[key] == -1) {
@@ -45,7 +44,8 @@ int memoization(const vector<pair<int, int>>& V, int i, int r, int b,
     return (*lookup)[key];
 }
 
-int graceful_chainsaw_jugglers(const vector<pair<int, int>>& V, vector<float> *lookup) {
+int graceful_chainsaw_jugglers(const vector<pair<int, int>>& V,
+                               vector<float> *lookup) {
     int R, B;
     cin >> R >> B;
     return memoization(V, V.size() - 1, R, B, lookup);
@@ -68,7 +68,8 @@ int main() {
     int T;
     cin >> T;
     for (int test = 1; test <= T; ++test) {
-        cout << "Case #" << test << ": " << graceful_chainsaw_jugglers(V, &lookup) << endl;
+        cout << "Case #" << test << ": "
+             << graceful_chainsaw_jugglers(V, &lookup) << endl;
     }
     return 0;
 }
