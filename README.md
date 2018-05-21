@@ -1,4 +1,4 @@
-# [GoogleCodeJam 2018](https://codejam.withgoogle.com/2018/challenges) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-13%20%2F%2013-ff69b4.svg)
+# [GoogleCodeJam 2018](https://codejam.withgoogle.com/2018/challenges) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-17%20%2F%2017-ff69b4.svg)
 
 Python solutions of Google Code Jam 2018. Solution begins with `*` means it will get TLE in the hardest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
 
@@ -6,6 +6,7 @@ Python solutions of Google Code Jam 2018. Solution begins with `*` means it will
 * [Round 1A](https://github.com/kamyu104/GoogleCodeJam-2018#round-1a)
 * [Round 1B](https://github.com/kamyu104/GoogleCodeJam-2018#round-1b)
 * [Round 1C](https://github.com/kamyu104/GoogleCodeJam-2018#round-1c)
+* [Round 2](https://github.com/kamyu104/GoogleCodeJam-2018#round-2)
 
 ## Qualification Round
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -35,3 +36,11 @@ Python solutions of Google Code Jam 2018. Solution begins with `*` means it will
 |A| [A Whole New Word](https://codejam.withgoogle.com/2018/challenges/0000000000007765/dashboard)| [Python](./Round%201C/a-whole-new-word.py)| _O(T)_ | _O(T)_ | Easy | | Trie |
 |B| [Lollipop Shop](https://codejam.withgoogle.com/2018/challenges/0000000000007765/dashboard/000000000003e068)| [Python](./Round%201C/lollipop-shop.py)| _O(N^2)_ | _O(N)_ | Easy | | Probability |
 |C| [Ant Stack](https://codejam.withgoogle.com/2018/challenges/0000000000007765/dashboard/000000000003e0a8)| [C++](./Round%201C/ant-stack.cpp) [*Python](./Round%201C/ant-stack.py)| _O(N * K)_ | _O(K)_ | Medium | | DP |
+
+## Round 2
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|A| [Falling Balls](https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard)| [Python](./Round%202/falling-balls.py)| _O(C^2)_ | _O(C^2)_ | Easy | | Greedy |
+|B| [Graceful Chainsaw Jugglers](https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/00000000000459f3)| [C++](./Round%202/graceful-chainsaw-jugglers.cpp) [*Python](./Round%202/graceful-chainsaw-jugglers.py))| _O(R^(4/3)*B^(4/3))_ | _O(R^(4/3)*B^(4/3))_ | Medium | | Memoization |
+|C| [Costume Change](https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/0000000000045875)| [C++](./Round%202/costume-change.cpp) [*Python](./Round%202/costume-change.py)| _O(N^3 * sqrt(N))_ | _O(N)_ | Medium | | Bipartite Matching |
+|D| [Gridception](https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/00000000000459f4)| [C++](./Round%202/gridception.cpp) [*Python](./Round%202/gridception.py)| _O(2^4 * R^2 * C^2)_ | _O(R * C)_ | Medium | | Graph, DFS |
