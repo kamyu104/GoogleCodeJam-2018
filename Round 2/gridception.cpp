@@ -23,7 +23,6 @@ using std::max;
 using std::pair;
 using std::unordered_set;
 
-
 int expected_color(int color, int r, int c, int i, int j) {
     if (i < r && j < c) {
         return (color & 1) ? 1 : 0;
