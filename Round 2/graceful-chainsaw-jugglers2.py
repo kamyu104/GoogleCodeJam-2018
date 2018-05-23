@@ -25,12 +25,8 @@ for i in xrange(MAX_R+1):
             V.append((i, j))
 dp = [[0 for _ in xrange(MAX_B+1)] for _ in xrange(MAX_R+1)]
 for i in xrange(len(V)):
-   for r in reversed(xrange(MAX_R+1)):
-       if r-V[i][0] < 0:
-           break
-       for b in reversed(xrange(MAX_B+1)):
-           if b-V[i][1] < 0:
-               break
+   for r in reversed(xrange(V[i][0], MAX_R+1)):
+       for b in reversed(xrange(V[i][1], MAX_B+1)):
            dp[r][b] = max(dp[r][b], 1+dp[r-V[i][0]][b-V[i][1]])
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, graceful_chainsaw_jugglers(dp))
