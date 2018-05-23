@@ -39,8 +39,8 @@ int main() {
             if (i == 0 && j == 0) {
                 continue;
             }
-            if (!((j + 1) * i * (i + 1) / 2 <= MAX_R &&
-                  (i + 1) * j * (j + 1) / 2 <= MAX_B)) {
+            if ((j + 1) * i * (i + 1) / 2 > MAX_R ||
+                (i + 1) * j * (j + 1) / 2 > MAX_B) {
                 break;
             }
             for (int r = MAX_R; r - i >= 0; --r) {
