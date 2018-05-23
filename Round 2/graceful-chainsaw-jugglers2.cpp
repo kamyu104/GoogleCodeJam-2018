@@ -53,15 +53,16 @@ int graceful_chainsaw_jugglers(const vector<pair<int, int>>& V,
 
 int main() {
     vector<pair<int, int>> V;
-    for (int i = 0; i <= MAX_R; ++i) {
-        for (int j = 0; j <= MAX_B; ++j) {
+    for (int i = 0; i * (i + 1) / 2 <= MAX_R; ++i) {
+        for (int j = 0; j * (j + 1) / 2 <= MAX_B; ++j) {
             if (i == 0 && j == 0) {
                 continue;
             }
-            if ((j + 1) * i * (i + 1) / 2 <= MAX_R &&
-                (i + 1) * j * (j + 1) / 2 <= MAX_B) {
-                V.emplace_back(i, j);
+            if ((j + 1) * i * (i + 1) / 2 > MAX_R ||
+                (i + 1) * j * (j + 1) / 2 > MAX_B) {
+                break;
             }
+            V.emplace_back(i, j);
         }
     }
     vector<float> lookup((V.size() + 1) * (MAX_R + 1) * (MAX_B + 1), -1);
