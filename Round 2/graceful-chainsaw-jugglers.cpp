@@ -36,10 +36,12 @@ int main() {
     vector<vector<float>> dp(MAX_R + 1, vector<float>(MAX_B + 1));
     for (int i = 0; i <= MAX_R; ++i) {
         for (int j = 0; j <= MAX_B; ++j) {
-            if ((i == 0 && j == 0) ||
-                !((j + 1) * i * (i + 1) / 2 <= MAX_R &&
-                  (i + 1) * j * (j + 1) / 2 <= MAX_B)) {
+            if (i == 0 && j == 0) {
                 continue;
+            }
+            if (!((j + 1) * i * (i + 1) / 2 <= MAX_R &&
+                  (i + 1) * j * (j + 1) / 2 <= MAX_B)) {
+                break;
             }
             for (int r = MAX_R; r - i >= 0; --r) {
                 for (int b = MAX_B; b - j >= 0; --b) {
