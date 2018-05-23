@@ -49,7 +49,8 @@ int main() {
     for (int i = 0; i < V.size(); ++i) {
         for (int r = MAX_R; r - V[i].first >= 0; --r) {
             for (int b = MAX_B; b - V[i].second >= 0; --b) {
-                dp[r][b] = max(dp[r][b], 1 + dp[r - V[i].first][b - V[i].second]);
+                dp[r][b] = max(dp[r][b],
+                               1 + dp[r - V[i].first][b - V[i].second]);
             }
         }
     }
