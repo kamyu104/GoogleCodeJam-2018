@@ -18,7 +18,11 @@ def graceful_chainsaw_jugglers(dp):
 
 dp = [[0 for _ in xrange(MAX_B+1)] for _ in xrange(MAX_R+1)]
 for i in xrange(MAX_R+1):
+    if i*(i+1)//2 > MAX_R:
+        break
     for j in xrange(MAX_B+1):
+        if j*(j+1)//2 > MAX_B:
+            break
         if (i, j) == (0, 0):
             continue
         if (j+1)*i*(i+1)//2 > MAX_R or (i+1)*j*(j+1)//2 > MAX_B:
