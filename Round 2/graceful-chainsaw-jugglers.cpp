@@ -34,8 +34,8 @@ int graceful_chainsaw_jugglers(const vector<vector<float>>& dp) {
 
 int main() {
     vector<vector<float>> dp(MAX_R + 1, vector<float>(MAX_B + 1));
-    for (int i = 0; i <= MAX_R; ++i) {
-        for (int j = 0; j <= MAX_B; ++j) {
+    for (int i = 0; i * (i + 1) / 2 <= MAX_R; ++i) {
+        for (int j = 0; j * (j + 1) / 2 <= MAX_B; ++j) {
             if (i == 0 && j == 0) {
                 continue;
             }
