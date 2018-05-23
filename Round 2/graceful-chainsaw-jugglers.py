@@ -29,11 +29,16 @@ def graceful_chainsaw_jugglers(V, lookup):
 
 V = []
 for i in xrange(MAX_R+1):
+    if i*(i+1)//2 > MAX_R:
+        break
     for j in xrange(MAX_B+1):
+        if j*(j+1)//2 > MAX_B:
+            break
         if (i, j) == (0, 0):
             continue
-        if (j+1)*i*(i+1)//2 <= MAX_R and (i+1)*j*(j+1)//2 <= MAX_B:
-            V.append((i, j))
+        if (j+1)*i*(i+1)//2 > MAX_R or (i+1)*j*(j+1)//2 > MAX_B:
+            break
+        V.append((i, j))
 lookup = [None] * (len(V)+1)*(MAX_R+1)*(MAX_B+1)
 sys.setrecursionlimit((len(V)+1)+(MAX_R+1)+(MAX_B+1))
 for case in xrange(input()):
