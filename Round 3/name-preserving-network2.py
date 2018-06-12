@@ -87,6 +87,6 @@ def name_preserving_network():
     print " ".join(map(str, result))
     sys.stdout.flush()
 
-t = input()
-for case in xrange(t):
+T = input()
+for case in xrange(T):
     name_preserving_network()
