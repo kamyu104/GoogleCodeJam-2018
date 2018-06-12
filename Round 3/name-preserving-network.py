@@ -10,7 +10,6 @@
 import sys
 import collections
 import random
-import itertools
 
 def random_generate_graph(N):
     array = range(N)*4
