@@ -13,8 +13,8 @@ import random
 import itertools
 
 def random_generate_graph(N):
+    array = range(N)*4
     while True:
-        array = range(N)*4
         random.shuffle(array)
         edges = set()
         for i in xrange(0, len(array), 2):
