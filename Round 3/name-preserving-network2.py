@@ -3,8 +3,8 @@
 # Google Code Jam 2018 Round 3 - Name-Preserving Network
 # https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard/000000000004ba29
 #
-# Time:  O(LlogL)
-# Space: O(L)
+# Time:  O(L^2 * logL)
+# Space: O(L^2)
 #
 
 import sys
@@ -29,31 +29,29 @@ def random_generate_graph(N):
     return edges
 
 def get_signature(edges):
-    MAGIC = 4
+    def matrix_expo(A, K):
+        def matrix_mult(A, B):
+            ZB = zip(*B)
+            return [[sum(a*b for a, b in itertools.izip(row, col)) \
+                        for col in ZB] for row in A]
+
+        if K == 0:
+            return [[int(i==j) for j in xrange(len(A))] \
+                    for i in xrange(len(A))]
+        if K == 1:
+            return A
+        if K % 2:
+            return matrix_mult(matrix_expo(A, K-1), A)
+        B = matrix_expo(A, K//2)
+        return matrix_mult(B, B)
+
+    MAGIC = 7
     N = len(edges)//2
-    G = collections.defaultdict(set)
+    G = [[0 for _ in xrange(N)] for _ in xrange(N)]
     for i, j in edges:
-        G[i].add(j)
-        G[j].add(i)
-    sig = [[0 for _ in xrange(N)] for _ in xrange(2)]
-    for i in xrange(N):
-        tmp = collections.defaultdict(int)
-        for nei in G[i]:
-            tmp[nei] += 1
-            for nei2 in G[nei]:
-                if nei2 in G[i]:
-                    tmp[nei] += 1
-        tmp = tmp.values()
-        tmp.sort()
-        sig[0][i] = tuple(tmp)
-    for level in xrange(1, MAGIC):
-        for i in xrange(N):
-            tmp = []
-            for nei in G[i]:
-                tmp.append(sig[(level-1) % 2][nei])
-            tmp.sort()
-            sig[level % 2][i] = tuple(tmp)
-    return sig[(MAGIC-1) % 2]
+        G[i][j], G[j][i] = 1, 1
+    matrix_expo(G, MAGIC)
+    return map(tuple, map(sorted, matrix_expo(G, MAGIC)))
 
 def generate_graph(L, U):
     while True:
