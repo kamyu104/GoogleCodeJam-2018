@@ -12,23 +12,23 @@ import collections
 import random
 import itertools
 
-def random_generate_graph(C):
+def random_generate_graph(N):
     while True:
-        array = range(C)*4
+        array = range(N)*4
         random.shuffle(array)
-        G = [[0 for _ in xrange(C)] for _ in xrange(C)]
+        edges = set()
         for i in xrange(0, len(array), 2):
             if array[i] != array[i+1] and \
-            G[array[i]][array[i+1]] == 0 and \
-            G[array[i+1]][array[i]] == 0:
-                G[array[i]][array[i+1]], G[array[i+1]][array[i]] = 1, 1
+              (array[i], array[i+1]) not in edges and \
+              (array[i+1], array[i]) not in edges:
+                edges.add((array[i], array[i+1]))
             else:
                 break
         else:
             break
-    return G
+    return edges
 
-def get_signature(G):
+def get_signature(edges):
     def matrix_expo(A, K):
         def matrix_mult(A, B):
             ZB = zip(*B)
@@ -46,16 +46,20 @@ def get_signature(G):
         return matrix_mult(B, B)
 
     MAGIC = 7
+    N = len(edges)//2
+    G = [[0 for _ in xrange(N)] for _ in xrange(N)]
+    for i, j in edges:
+        G[i][j], G[j][i] = 1, 1
     matrix_expo(G, MAGIC)
     return map(tuple, map(sorted, matrix_expo(G, MAGIC)))
 
 def generate_graph(L, U):
     while True:
-        G = random_generate_graph(L)
-        sig = get_signature(G)
-        if len(set(sig)) == len(G):
+        edges = random_generate_graph(L)
+        sig = get_signature(edges)
+        if len(set(sig)) == len(edges)//2:
             break
-    return G, sig
+    return edges, sig
 
 def inv_idx(array):
     result = collections.defaultdict(int)
@@ -65,23 +69,19 @@ def inv_idx(array):
 
 def name_preserving_network():
     L, U = map(int, raw_input().strip().split())
-
-    G, sig = generate_graph(L, U)
-    print len(G)
-    for i in xrange(len(G)):
-        for j in xrange(i+1, len(G[i])):
-            if G[i][j]:
-                print i+1, j+1
+    edges, sig = generate_graph(L, U)
+    print len(edges)//2
+    for i, j in edges:
+        print i+1, j+1
     sys.stdout.flush()
 
-    permuted_G = [[0 for j in xrange(len(G[i]))] for i in xrange(len(G))]
+    permuted_edges = set()
     N = input()
     for _ in xrange(2*N):
         i, j = map(int, raw_input().strip().split())
-        permuted_G[i-1][j-1], permuted_G[j-1][i-1] = 1, 1
-
+        permuted_edges.add((i-1, j-1))
     result = []
-    inv_sig = inv_idx(get_signature(permuted_G))
+    inv_sig = inv_idx(get_signature(permuted_edges))
     for i in xrange(len(sig)):
         result.append(inv_sig[sig[i]]+1)
     print " ".join(map(str, result))
