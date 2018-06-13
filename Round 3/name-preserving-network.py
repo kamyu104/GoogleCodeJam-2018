@@ -41,8 +41,8 @@ def get_signature(edges):
                 counts = collections.defaultdict(int)
                 for nei in G[i]:
                     counts[nei] += 1
-                    for nei2 in G[nei]:
-                        if nei2 in G[i]:
+                    for nei_nei in G[nei]:
+                        if nei_nei in G[i]:
                             counts[nei] += 1
                 label = counts.values()
             else:
