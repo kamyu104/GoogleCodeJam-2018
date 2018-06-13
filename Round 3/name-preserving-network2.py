@@ -56,10 +56,10 @@ def get_signature(edges):
 def generate_graph(L, U):
     while True:
         edges = random_generate_graph(L)
-        sig = get_signature(edges)
-        if len(set(sig)) == len(edges)//2:
+        signatures = get_signature(edges)
+        if len(set(signatures)) == len(edges)//2:
             break
-    return edges, sig
+    return edges, signatures
 
 def inv_idx(array):
     result = collections.defaultdict(int)
@@ -69,7 +69,7 @@ def inv_idx(array):
 
 def name_preserving_network():
     L, U = map(int, raw_input().strip().split())
-    edges, sig = generate_graph(L, U)
+    edges, signatures = generate_graph(L, U)
     print len(edges)//2
     for i, j in edges:
         print i+1, j+1
@@ -82,8 +82,8 @@ def name_preserving_network():
         permuted_edges.add((i-1, j-1))
     result = []
     inv_sig = inv_idx(get_signature(permuted_edges))
-    for i in xrange(len(sig)):
-        result.append(inv_sig[sig[i]]+1)
+    for i in xrange(len(signatures)):
+        result.append(inv_sig[signatures[i]]+1)
     print " ".join(map(str, result))
     sys.stdout.flush()
 
