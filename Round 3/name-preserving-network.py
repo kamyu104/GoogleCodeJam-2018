@@ -49,8 +49,7 @@ def get_signature(edges):
                 label = []
                 for nei in G[i]:
                     label.append(signatures[(level-1) % 2][nei])
-            label.sort()
-            signatures[level % 2][i] = tuple(label)
+            signatures[level % 2][i] = tuple(sorted(label))
     return signatures[(MAGIC-1) % 2]
 
 def generate_graph(L, U):
