@@ -34,7 +34,7 @@ def dual_graph(edges):
         adj_nodes[e[0]].append(e[1])
         adj_nodes[e[1]].append(e[0])
     for node in adj_nodes:
-        adj_nodes[node].sort(key=lambda x: clockwiseangle_and_distance(x, node))
+        adj_nodes[node].sort(key=lambda x: clockwiseangle_and_distance(x, node))  # Time: O(FlogF)
     inv_idx_adj_nodes = collections.defaultdict(lambda: collections.defaultdict(int))
     for node in adj_nodes:
         for i in xrange(len(adj_nodes[node])):
@@ -99,7 +99,7 @@ def fence_construction():
     visited_fence = set([K-1])
     max_heap = [-(K-1)]
     while max_heap:
-        i = -heapq.heappop(max_heap)
+        i = -heapq.heappop(max_heap)  # Time: O(FlogF)
         result.append(i+1)
         for face in edge_faces[i]:
             if face in visited_face:
