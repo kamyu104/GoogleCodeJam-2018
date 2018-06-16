@@ -87,7 +87,7 @@ def dual_graph(edges):
 
 def fence_construction():
     F, K = map(int, raw_input().strip().split())
-    edges = [None] * F
+    edges = [None]*F
     for i in xrange(F):
         A, B, C, D = map(int, raw_input().strip().split())
         edges[i] = [(A, B), (C, D)]
