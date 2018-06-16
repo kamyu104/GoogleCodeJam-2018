@@ -96,7 +96,7 @@ def fence_construction():
 
     result = []
     visited_face = set()
-    visited_fence = set([K-1])
+    visited_edge = set([K-1])
     max_heap = [-(K-1)]
     while max_heap:
         i = -heapq.heappop(max_heap)  # Time: O(FlogF)
@@ -106,9 +106,9 @@ def fence_construction():
                 continue
             visited_face.add(face)
             for nei in face_edges[face]:
-                if nei in visited_fence:
+                if nei in visited_edge:
                     continue
-                visited_fence.add(nei)
+                visited_edge.add(nei)
                 heapq.heappush(max_heap, -nei)
     result.reverse()              
     return " ".join(map(str, result))
