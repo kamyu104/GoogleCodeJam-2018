@@ -86,18 +86,18 @@ def dual_graph(edges):
     return edge_faces, face_edges
 
 def fence_construction():
-    K, F = map(int, raw_input().strip().split())
-    edges = [None] * K
-    for i in xrange(K):
+    F, K = map(int, raw_input().strip().split())
+    edges = [None] * F
+    for i in xrange(F):
         A, B, C, D = map(int, raw_input().strip().split())
         edges[i] = [(A, B), (C, D)]
             
     edge_faces, face_edges = dual_graph(edges)  
 
     result = []
-    visited_fence = set([F-1])
     visited_face = set()
-    max_heap = [-(F-1)]
+    visited_fence = set([K-1])
+    max_heap = [-(K-1)]
     while max_heap:
         i = -heapq.heappop(max_heap)
         result.append(i+1)
