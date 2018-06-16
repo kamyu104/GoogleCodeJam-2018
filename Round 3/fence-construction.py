@@ -27,35 +27,37 @@ def clockwiseangle_and_distance(point, origin):
 
 # Time:  O(FlogF)
 # Space: O(F)
-def get_faces(edges):
-    embedding = collections.defaultdict(list)
+def dual_graph(edges):
+    # pre-process
+    adj_nodes = collections.defaultdict(list)
     for e in edges:
-        embedding[e[0]].append(e[1])
-        embedding[e[1]].append(e[0])
-    for node in embedding:
-        embedding[node].sort(key=lambda x: clockwiseangle_and_distance(x, node))
-    inv_idx_embedding = collections.defaultdict(lambda: collections.defaultdict(int))
-    for node in embedding:
-        for i in xrange(len(embedding[node])):
-            inv_idx_embedding[node][embedding[node][i]] = i
+        adj_nodes[e[0]].append(e[1])
+        adj_nodes[e[1]].append(e[0])
+    for node in adj_nodes:
+        adj_nodes[node].sort(key=lambda x: clockwiseangle_and_distance(x, node))
+    inv_idx_adj_nodes = collections.defaultdict(lambda: collections.defaultdict(int))
+    for node in adj_nodes:
+        for i in xrange(len(adj_nodes[node])):
+            inv_idx_adj_nodes[node][adj_nodes[node][i]] = i
 
+    # process
     edgeset = set()
     for edge in edges:
         edge = list(edge)
         edgeset |= set([(edge[0],edge[1]),(edge[1],edge[0])])
-    faces = []
+    face_paths = []
     path  = []
     for edge in edgeset:
         path.append(edge)
         edgeset -= set([edge])
         break
     while edgeset:
-        neighbors = embedding[path[-1][-1]]
-        inv_idx_neighbors = inv_idx_embedding[path[-1][-1]]
+        neighbors = adj_nodes[path[-1][-1]]
+        inv_idx_neighbors = inv_idx_adj_nodes[path[-1][-1]]
         next_node = neighbors[(inv_idx_neighbors[path[-1][-2]]+1)%(len(neighbors))]
         tup = (path[-1][-1],next_node)
         if tup == path[0]:
-            faces.append(path)
+            face_paths.append(path)
             path = []
             for edge in edgeset:
                 path.append(edge)
@@ -65,43 +67,49 @@ def get_faces(edges):
             path.append(tup)
             edgeset -= set([tup])
     if path:
-        faces.append(path)
-    return faces
+        face_paths.append(path)
+
+    # post-process
+    inv_idx_edges = collections.defaultdict(lambda: collections.defaultdict(int))
+    for i, e in enumerate(edges):
+        inv_idx_edges[(e[0], e[1])] = i
+        inv_idx_edges[(e[1], e[0])] = i    
+    edge_faces = collections.defaultdict(list)
+    face_edges = []
+    for i, path in enumerate(face_paths):
+        face_edge = set()
+        for node in path:
+            face_edge.add(inv_idx_edges[node])
+        face_edges.append(face_edge)
+        for edge in face_edge:
+            edge_faces[edge].append(i)
+    return edge_faces, face_edges
 
 def fence_construction():
     K, F = map(int, raw_input().strip().split())
-    fences, edges = [None] * K, []
-    inv_idx_fences = collections.defaultdict(lambda: collections.defaultdict(int))
+    edges = [None] * K
     for i in xrange(K):
         A, B, C, D = map(int, raw_input().strip().split())
-        edges.append([(A, B), (C, D)])
-        fences[i] = [(A, B), (C, D)]
-        inv_idx_fences[((A, B), (C, D))] = i
-        inv_idx_fences[((C, D), (A, B))] = i
+        edges[i] = [(A, B), (C, D)]
             
-    faces = get_faces(edges)  
-    fence_faces = collections.defaultdict(list)
-    face_sets = []
-    for i, face in enumerate(faces):
-        fence_face = set()
-        for n in face:
-            fence_face.add(inv_idx_fences[n])
-        face_sets.append(fence_face)
-        for j in fence_face:
-            fence_faces[j].append(i)
+    edge_faces, face_edges = dual_graph(edges)  
 
     result = []
-    visited = set([F-1])
+    visited_fence = set([F-1])
+    visited_face = set()
     max_heap = [-(F-1)]
     while max_heap:
         i = -heapq.heappop(max_heap)
         result.append(i+1)
-        for face in fence_faces[i]:
-            for nei in face_sets[face]:
-                if nei not in visited:
-                    visited.add(nei)
-                    heapq.heappush(max_heap, -nei)
-            face_sets[face] = set()
+        for face in edge_faces[i]:
+            if face in visited_face:
+                continue
+            visited_face.add(face)
+            for nei in face_edges[face]:
+                if nei in visited_fence:
+                    continue
+                visited_fence.add(nei)
+                heapq.heappush(max_heap, -nei)
     result.reverse()              
     return " ".join(map(str, result))
 
