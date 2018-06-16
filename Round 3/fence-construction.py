@@ -95,20 +95,20 @@ def fence_construction():
     edge_faces, face_edges = dual_graph(edges)  
 
     result = []
-    visited_face = set()
-    visited_edge = set([K-1])
+    visited_faces = set()
+    visited_edges = set([K-1])
     max_heap = [-(K-1)]
     while max_heap:
         i = -heapq.heappop(max_heap)  # Time: O(FlogF)
         result.append(i+1)
         for face in edge_faces[i]:
-            if face in visited_face:
+            if face in visited_faces:
                 continue
-            visited_face.add(face)
+            visited_faces.add(face)
             for nei in face_edges[face]:
-                if nei in visited_edge:
+                if nei in visited_edges:
                     continue
-                visited_edge.add(nei)
+                visited_edges.add(nei)
                 heapq.heappush(max_heap, -nei)
     result.reverse()              
     return " ".join(map(str, result))
