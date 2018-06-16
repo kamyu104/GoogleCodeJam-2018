@@ -3,8 +3,8 @@
 # Google Code Jam 2018 Round 3 - Problem D. Fence Construction
 # https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard
 #
-# Time:  O(NlogN)
-# Space: O(N)
+# Time:  O(FlogF)
+# Space: O(F)
 #
 
 import collections
