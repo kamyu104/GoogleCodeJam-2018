@@ -7,6 +7,7 @@ Python solutions of Google Code Jam 2018. Solution begins with `*` means it will
 * [Round 1B](https://github.com/kamyu104/GoogleCodeJam-2018#round-1b)
 * [Round 1C](https://github.com/kamyu104/GoogleCodeJam-2018#round-1c)
 * [Round 2](https://github.com/kamyu104/GoogleCodeJam-2018#round-2)
+* [Round 3](https://github.com/kamyu104/GoogleCodeJam-2018#round-3)
 
 ## Qualification Round
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -44,3 +45,11 @@ Python solutions of Google Code Jam 2018. Solution begins with `*` means it will
 |B| [Graceful Chainsaw Jugglers](https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/00000000000459f3)| [C++](./Round%202/graceful-chainsaw-jugglers.cpp) [*Python](./Round%202/graceful-chainsaw-jugglers.py)| _O(R^(4/3)*B^(4/3))_ | _O(R^(4/3)*B^(4/3))_ | Medium | | DP, Memoization |
 |C| [Costume Change](https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/0000000000045875)| [C++](./Round%202/costume-change.cpp) [*Python](./Round%202/costume-change.py)| _O(N^2 * sqrt(N))_ | _O(N)_ | Medium | | Bipartite Matching |
 |D| [Gridception](https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/00000000000459f4)| [C++](./Round%202/gridception.cpp) [*Python](./Round%202/gridception.py)| _O(2^4 * R^2 * C^2)_ | _O(R * C)_ | Medium | | Graph, DFS |
+
+## Round 3
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|A| [Field Trip](https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard)| [Python](./Round%203/field-trip.py)| _O(N)_ | _O(1)_ | Easy | | Greedy |
+|B| [Name-Preserving Network](https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard/000000000004ba29)| [Python](./Round%203/name-preserving-network.py)| _O(LlogL)_ | _O(L)_ | Medium | | Probability |
+|C| [Raise the Roof](https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard/000000000004b90d)| [Python](./Round%203/raise-the-roof.py)| _O(N^2)_ | _O(N)_ | Hard | | Geometry |
+|D| [Fence Construction](https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard/000000000004b90e)| [Python](./Round%203/fence-construction.py)| _O(FlogF)_ | _O(F)_ | Hard | | Dual Graph, Greedy |
