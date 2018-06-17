@@ -25,37 +25,36 @@ def length(vector):
 
 def normalized(vector):
     l = length(vector)
-    result = (vector[X]/l, vector[Y]/l, vector[Z]/l)
-    if inner_product(result, NORMAL_Z) < 0:
+    if vector[Z] < 0:  # same direction with Z_PLANE_NORMAL
         return (-vector[X]/l, -vector[Y]/l, -vector[Z]/l)
-    return result
+    return (vector[X]/l, vector[Y]/l, vector[Z]/l)
 
-def find_next_column(columns, unused_columns_set, p, q, last_normal):
-    r_less_than_90 = None
-    r_more_than_90 = None
-    curr_normal_less_than_90 = None
-    curr_normal_more_than_90 = None
+def find_next_column(columns, unused_columns_set, p, q, last_plane_normal):
+    r_angle_rotate_less_than_90 = None
+    r_angle_rotate_more_than_90 = None
+    curr_plane_normal_angle_rotate_less_than_90 = None
+    curr_plane_normal_angle_rotate_more_than_90 = None
     for i in unused_columns_set:
-        # find r which minimizes the angle between the plane pqr and the last plane
-        normal = normalized(outer_product(vector(columns[q], columns[p]), \
+        # find r which minimizes the angle theta between the plane pqr and the last plane
+        plane_normal = normalized(outer_product(vector(columns[q], columns[p]), \
                                           vector(columns[q], columns[i])))
-        if inner_product(normal, last_normal) > 0:
-            if curr_normal_less_than_90 is None or \
-                length(outer_product(curr_normal_less_than_90, last_normal)) > \
-                length(outer_product(normal, last_normal)):
-                curr_normal_less_than_90 = normal
-                r_less_than_90 = i
+        if inner_product(plane_normal, last_plane_normal) > 0:
+            if curr_plane_normal_angle_rotate_less_than_90 is None or \
+                length(outer_product(curr_plane_normal_angle_rotate_less_than_90, last_plane_normal)) > \
+                length(outer_product(plane_normal, last_plane_normal)):  # theta < 90, sin-theta the smaller the better
+                curr_plane_normal_angle_rotate_less_than_90 = plane_normal
+                r_angle_rotate_less_than_90 = i
         else:
-            if curr_normal_more_than_90 is None or \
-                length(outer_product(curr_normal_more_than_90, last_normal)) < \
-                length(outer_product(normal, last_normal)):
-                curr_normal_more_than_90 = normal
-                r_more_than_90 = i
+            if curr_plane_normal_angle_rotate_more_than_90 is None or \
+                length(outer_product(curr_plane_normal_angle_rotate_more_than_90, last_plane_normal)) < \
+                length(outer_product(plane_normal, last_plane_normal)):  # theta > 90, sin-theta the bigger the better
+                curr_plane_normal_angle_rotate_more_than_90 = plane_normal
+                r_angle_rotate_more_than_90 = i
     return q, \
-           r_less_than_90 if r_less_than_90 is not None else r_more_than_90, \
-           curr_normal_less_than_90 if curr_normal_less_than_90 is not None else curr_normal_more_than_90
+           r_angle_rotate_less_than_90 if r_angle_rotate_less_than_90 is not None else r_angle_rotate_more_than_90, \
+           curr_plane_normal_angle_rotate_less_than_90 if curr_plane_normal_angle_rotate_less_than_90 is not None else curr_plane_normal_angle_rotate_more_than_90
 
-def fence_construction():
+def raise_the_roof():
     N = input()
     
     columns = [None]*(N)
@@ -76,25 +75,26 @@ def fence_construction():
     q = None
     pq = None
     for i in unused_columns_set:
-        # find q which minimizes the angle between the vector pq and z-plane
-        normal = normalized(vector(columns[p], columns[i]))
+        # find q which minimizes the angle between the vector pq and z-plane,
+        # i.e. find q which maximizes the angle theta between the vector pq and Z_PLANE_NORMAL
+        vector_normal = normalized(vector(columns[p], columns[i]))
         if pq is None or \
-           length(outer_product(pq, NORMAL_Z)) < \
-           length(outer_product(normal, NORMAL_Z)):
-            pq = normal
+           length(outer_product(pq, Z_PLANE_NORMAL)) < \
+           length(outer_product(vector_normal, Z_PLANE_NORMAL)):  # sin-theta the bigger the better
+            pq = vector_normal
             q = i
     unused_columns_set.remove(q)
     result.append(q+1)
 
-    last_normal = normalized(outer_product(pq, outer_product(pq, NORMAL_Z)))
+    last_plane_normal = normalized(outer_product(pq, outer_product(pq, Z_PLANE_NORMAL)))
     while unused_columns_set:
-        p, q, last_normal = find_next_column(columns, unused_columns_set, p, q, last_normal)
+        p, q, last_plane_normal = find_next_column(columns, unused_columns_set, p, q, last_plane_normal)
         unused_columns_set.remove(q)
         result.append(q+1)
     result.reverse()
     return " ".join(map(str, result))
 
-NORMAL_Z = (0, 0, 1)
+Z_PLANE_NORMAL = (0, 0, 1)
 X, Y, Z = range(3)
 for case in xrange(input()):
-    print 'Case #%d: %s' % (case+1, fence_construction())
+    print 'Case #%d: %s' % (case+1, raise_the_roof())
