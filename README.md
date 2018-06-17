@@ -51,5 +51,5 @@ Python solutions of Google Code Jam 2018. Solution begins with `*` means it will
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Field Trip](https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard)| [Python](./Round%203/field-trip.py)| _O(N)_ | _O(1)_ | Easy | | Greedy |
 |B| [Name-Preserving Network](https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard/000000000004ba29)| [Python](./Round%203/name-preserving-network.py)| _O(LlogL)_ | _O(L)_ | Medium | | Probability |
-|C| [Raise the Roof](https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard/000000000004b90d)| [Python](./Round%203/raise-the-roof.py)| _O(N^2)_ | _O(N)_ | Hard | | Geometry |
+|C| [Raise the Roof](https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard/000000000004b90d)| [Python](./Round%203/raise-the-roof.py)| _O(N^2)_ | _O(N)_ | Hard | | Geometry, Vector |
 |D| [Fence Construction](https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard/000000000004b90e)| [Python](./Round%203/fence-construction.py)| _O(FlogF)_ | _O(F)_ | Hard | | Dual Graph, Greedy |
