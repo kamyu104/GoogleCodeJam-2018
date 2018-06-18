@@ -23,24 +23,28 @@ def vector(point1, point2):
 def length(vector):
     return math.sqrt(vector[X]**2 + vector[Y]**2 + vector[Z]**2)
 
+def negative(vector):
+    return [-vector[0], -vector[1], -vector[2]]
+
 def normalized(vector):
     l = length(vector)
+    result = (vector[X]/l, vector[Y]/l, vector[Z]/l)
     if vector[Z] < 0:  # same direction with Z_PLANE_NORMAL
-        return (-vector[X]/l, -vector[Y]/l, -vector[Z]/l)
-    return (vector[X]/l, vector[Y]/l, vector[Z]/l)
+        return negative(result)
+    return result
 
 def find_next_column(columns, unused_columns_set, p, q, last_plane_normal):
     r = None
     curr_angle = None
     curr_plane_normal = None
     for i in unused_columns_set:
-        # find r which minimizes the angle theta between the plane pqr and the last plane
+        # find r which minimizes the angle between the plane pqr and the last plane
         plane_normal = normalized(outer_product(vector(columns[q], columns[p]), \
                                                 vector(columns[q], columns[i])))
         diffprod = length(outer_product(plane_normal, last_plane_normal))
         dotprod  = inner_product(plane_normal, last_plane_normal)
         angle = math.atan2(diffprod, dotprod)
-        if curr_angle is None or curr_angle > angle:  # theta the smaller the better
+        if curr_angle is None or curr_angle > angle:  # angle the smaller the better
             curr_angle = angle
             curr_plane_normal = plane_normal
             r = i
@@ -65,14 +69,17 @@ def raise_the_roof():
     result.append(p+1)
 
     q = None
+    curr_angle = None
     pq = None
     for i in unused_columns_set:
         # find q which minimizes the angle between the vector pq and z-plane,
-        # i.e. find q which maximizes the angle theta between the vector pq and Z_PLANE_NORMAL
-        vector_normal = normalized(vector(columns[p], columns[i]))
-        if pq is None or \
-           length(outer_product(pq, Z_PLANE_NORMAL)) < \
-           length(outer_product(vector_normal, Z_PLANE_NORMAL)):  # sin-theta the bigger the better
+        vector_normal = negative(normalized(vector(columns[p], columns[i])))
+        diffprod = length(outer_product(vector_normal, Z_PLANE_NORMAL))
+        dotprod = inner_product(vector_normal, Z_PLANE_NORMAL)
+        angle = math.atan2(diffprod, dotprod)
+        if curr_angle is None or \
+           curr_angle > angle:  # angle the smaller the better
+            curr_angle = angle
             pq = vector_normal
             q = i
     unused_columns_set.remove(q)
