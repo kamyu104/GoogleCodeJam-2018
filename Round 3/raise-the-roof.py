@@ -41,9 +41,9 @@ def find_next_column(columns, unused_columns_set, p, q, last_plane_normal):
         # find r which minimizes the angle between the plane pqr and the last plane
         plane_normal = normalized(outer_product(vector(columns[q], columns[p]), \
                                                 vector(columns[q], columns[i])))
-        diffprod = length(outer_product(plane_normal, last_plane_normal))
+        crossprod = length(outer_product(plane_normal, last_plane_normal))
         dotprod = inner_product(plane_normal, last_plane_normal)
-        angle = math.atan2(diffprod, dotprod)
+        angle = math.atan2(crossprod, dotprod)
         if curr_angle is None or curr_angle > angle:  # angle the smaller the better
             curr_angle = angle
             curr_plane_normal = plane_normal
@@ -74,9 +74,9 @@ def raise_the_roof():
     for i in unused_columns_set:
         # find q which minimizes the angle between the vector pq and z-plane,
         vector_normal = negative(normalized(vector(columns[p], columns[i])))
-        diffprod = length(outer_product(vector_normal, Z_PLANE_NORMAL))
+        crossprod = length(outer_product(vector_normal, Z_PLANE_NORMAL))
         dotprod = inner_product(vector_normal, Z_PLANE_NORMAL)
-        angle = math.atan2(diffprod, dotprod)
+        angle = math.atan2(crossprod, dotprod)
         if curr_angle is None or \
            curr_angle > angle:  # angle the smaller the better
             curr_angle = angle
