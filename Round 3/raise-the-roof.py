@@ -37,7 +37,7 @@ def find_next_column(columns, unused_columns_set, p, q, last_plane_normal):
     for i in unused_columns_set:
         # find r which minimizes the angle theta between the plane pqr and the last plane
         plane_normal = normalized(outer_product(vector(columns[q], columns[p]), \
-                                          vector(columns[q], columns[i])))
+                                                vector(columns[q], columns[i])))
         if inner_product(plane_normal, last_plane_normal) > 0:
             if curr_plane_normal_angle_rotate_less_than_90 is None or \
                 length(outer_product(curr_plane_normal_angle_rotate_less_than_90, last_plane_normal)) > \
