@@ -42,7 +42,7 @@ def find_next_column(columns, unused_columns_set, p, q, last_plane_normal):
         plane_normal = normalized(outer_product(vector(columns[q], columns[p]), \
                                                 vector(columns[q], columns[i])))
         diffprod = length(outer_product(plane_normal, last_plane_normal))
-        dotprod  = inner_product(plane_normal, last_plane_normal)
+        dotprod = inner_product(plane_normal, last_plane_normal)
         angle = math.atan2(diffprod, dotprod)
         if curr_angle is None or curr_angle > angle:  # angle the smaller the better
             curr_angle = angle
