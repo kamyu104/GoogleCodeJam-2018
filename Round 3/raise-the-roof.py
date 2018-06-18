@@ -9,6 +9,9 @@
 
 import math
 
+Z_PLANE_NORMAL = (0, 0, 1)
+X, Y, Z = range(3)
+
 def inner_product(vector1, vector2):
     return vector1[X]*vector2[X] + vector1[Y]*vector2[Y] + vector1[Z]*vector2[Z]
 
@@ -93,7 +96,5 @@ def raise_the_roof():
     result.reverse()
     return " ".join(map(str, result))
 
-Z_PLANE_NORMAL = (0, 0, 1)
-X, Y, Z = range(3)
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, raise_the_roof())
