@@ -30,9 +30,9 @@ def clockwiseangle_and_distance(point, origin):
 def dual_graph(edges):
     # pre-process
     adj_nodes = collections.defaultdict(list)
-    for e in edges:
-        adj_nodes[e[0]].append(e[1])
-        adj_nodes[e[1]].append(e[0])
+    for edge in edges:
+        adj_nodes[edge[0]].append(edge[1])
+        adj_nodes[edge[1]].append(edge[0])
     for node in adj_nodes:
         adj_nodes[node].sort(key=lambda x: clockwiseangle_and_distance(x, node))  # Time: O(FlogF)
     inv_idx_adj_nodes = collections.defaultdict(lambda: collections.defaultdict(int))
