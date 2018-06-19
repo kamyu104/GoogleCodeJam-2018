@@ -58,7 +58,7 @@ def raise_the_roof():
     
     columns = [None]*(N)
     for i in xrange(N):
-        columns[i]= tuple(map(int, raw_input().strip().split()))
+        columns[i] = tuple(map(int, raw_input().strip().split()))
 
     result = []
     unused_columns_set = set(range(N))
