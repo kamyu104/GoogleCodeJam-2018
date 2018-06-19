@@ -71,9 +71,9 @@ def dual_graph(edges):
 
     # post-process
     inv_idx_edges = collections.defaultdict(lambda: collections.defaultdict(int))
-    for i, e in enumerate(edges):
-        inv_idx_edges[(e[0], e[1])] = i
-        inv_idx_edges[(e[1], e[0])] = i    
+    for i, edge in enumerate(edges):
+        inv_idx_edges[(edge[0], edge[1])] = i
+        inv_idx_edges[(edge[1], edge[0])] = i    
     edge_faces = collections.defaultdict(list)
     face_edges = []
     for i, path in enumerate(face_paths):
