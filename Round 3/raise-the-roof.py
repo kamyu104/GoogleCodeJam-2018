@@ -55,7 +55,6 @@ def find_next_column(columns, unused_columns_set, p, q, last_plane_normal):
 
 def raise_the_roof():
     N = input()
-    
     columns = [None]*N
     for i in xrange(N):
         columns[i] = tuple(map(int, raw_input().strip().split()))
