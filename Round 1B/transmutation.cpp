@@ -25,7 +25,7 @@ using std::find;
 
 int find_debt(const vector<double>& G) {
     auto debt = *min_element(G.cbegin(), G.cend());
-    return debt >= 0.0f ?
+    return debt >= 0.0 ?
         G.size() : distance(G.cbegin(), find(G.cbegin(), G.cend(), debt));
 }
 
@@ -44,7 +44,7 @@ void add(vector<double> *R1, const vector<double>& R2) {
 
 bool impossible(double L, vector<vector<double>> R, vector<double> G) {
     G[0] -= L;
-    if (G[0] >= 0.0f) {
+    if (G[0] >= 0.0) {
         return false;
     }
     for (int i = 0; i != G.size(); i = find_debt(G)) {
@@ -53,13 +53,13 @@ bool impossible(double L, vector<vector<double>> R, vector<double> G) {
         // Using double instead of int64_t,
         // it never overflows in the largest test set.
         // (double gives 15 significant decimal digits precision)
-        if (Ri[i] != 0.0f) {
+        if (Ri[i] != 0.0) {
             return true;
         }
-        add(&G, multiply(Ri, G[i])), G[i] = 0.0f;
+        add(&G, multiply(Ri, G[i])), G[i] = 0.0;
         for (auto& Rj : R) {
-            if (!Rj.empty() && Rj[i] != 0.0f) {
-                add(&Rj, multiply(Ri, Rj[i])), Rj[i] = 0.0f;
+            if (!Rj.empty() && Rj[i] != 0.0) {
+                add(&Rj, multiply(Ri, Rj[i])), Rj[i] = 0.0;
             }
         }
         Ri.clear();
@@ -70,18 +70,18 @@ bool impossible(double L, vector<vector<double>> R, vector<double> G) {
 int64_t transmutation() {
     int M;
     cin >> M;
-    vector<vector<double>> R(M, vector<double>(M, 0.0f));
+    vector<vector<double>> R(M, vector<double>(M, 0.0));
     for (int i = 0; i < M; ++i) {
         int R1, R2;
         cin >> R1 >> R2;
         R[i][R1 - 1] = R[i][R2 - 1] = 1;
     }
-    vector<double> G(M, 0.0f);
+    vector<double> G(M, 0.0);
     for (int i = 0; i < M; ++i) {
         cin >> G[i];
     }
     int64_t left = G[0];
-    int64_t right = accumulate(G.cbegin(), G.cend(), 0.0f);
+    int64_t right = accumulate(G.cbegin(), G.cend(), 0.0);
     while (left <= right) {
         const auto mid = left + (right - left) / 2;
         if (impossible(mid, R, G)) {
