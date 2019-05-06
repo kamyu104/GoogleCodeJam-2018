@@ -2,7 +2,7 @@
 
 /*
  * Google Code Jam 2018 Round 2 - Problem B. Graceful Chainsaw Jugglers
- * https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/00000000000459f3
+ * https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f3
  *
  * Time:  O(R^(4/3)*B^(4/3))
  * Space: O(R^(4/3)*B^(4/3))
