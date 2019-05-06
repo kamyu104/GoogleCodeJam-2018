@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Round 1C - Problem C. Ant Stack
-# https://codejam.withgoogle.com/2018/challenges/0000000000007765/dashboard/000000000003e0a8
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007765/000000000003e0a8
 #
 # Time:  O(N * K)
 # Space: O(K)
