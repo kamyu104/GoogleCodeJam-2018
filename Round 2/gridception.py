@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Round 2 - Problem D. Gridception
-# https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/00000000000459f4
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f4
 #
 # Time:  O(2^4 * R^2 * C^2)
 # Space: O(R * C)
