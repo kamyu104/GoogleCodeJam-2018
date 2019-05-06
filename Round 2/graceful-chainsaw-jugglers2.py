@@ -3,7 +3,7 @@
 # Google Code Jam 2018 Round 2 - Problem B. Graceful Chainsaw Jugglers
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f3
 #
-# Time:  O(R^(4/3)*B^(4/3))
+# Time:  O(R^(4/3)*B^(4/3)), pass in PyPy2 but Python2
 # Space: O(R^(4/3)*B^(4/3))
 #
 
