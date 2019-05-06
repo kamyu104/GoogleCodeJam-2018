@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Round 1A - Problem A. Waffle Choppers
-# https://codejam.withgoogle.com/2018/challenges/0000000000007883/dashboard
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007883/000000000003005a
 #
 # Time:  O(R * C)
 # Space: O(R + C)
