@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Round 3 - Problem A. Field Trip
-# https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007707/000000000004b7fe
 #
 # Time:  O(N)
 # Space: O(1)
