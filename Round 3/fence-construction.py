@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Round 3 - Problem D. Fence Construction
-# https://codejam.withgoogle.com/2018/challenges/0000000000007707/dashboard/000000000004b90e
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007707/000000000004b90e
 #
 # Time:  O(FlogF)
 # Space: O(F)
