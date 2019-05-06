@@ -3,7 +3,7 @@
 # Google Code Jam 2018 Round 2 - Problem C. Costume Change
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/0000000000045875
 #
-# Time:  O(sum(E * sqrt(V))) = O(N^2 * sqrt(N))
+# Time:  O(sum(E * sqrt(V))) = O(N^2 * sqrt(N)), pass in PyPy2 but Python2
 # Space: O(V) = O(N)
 #
 
