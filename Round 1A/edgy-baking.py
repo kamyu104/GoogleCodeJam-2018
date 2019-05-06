@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Round 1A - Problem C. Edgy Baking
-# https://codejam.withgoogle.com/2018/challenges/0000000000007883/dashboard/000000000002fff7
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007883/000000000002fff7
 #
 # Time:  O(N^2)
 # Space: O(N)
