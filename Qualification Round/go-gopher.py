@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Qualification Round - Problem C. Go, Gopher!
-# https://codejam.withgoogle.com/2018/challenges/00000000000000cb/dashboard/0000000000007a30
+# https://codingcompetitions.withgoogle.com/codejam/round/00000000000000cb/0000000000007a30
 #
 # Time:  O(P)
 # Space: O(1)
