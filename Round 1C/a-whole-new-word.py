@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Round 1C - Problem A. A Whole New Word
-# https://codejam.withgoogle.com/2018/challenges/0000000000007765/dashboard
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007765/000000000003e064
 #
 # Time:  O(T), T is the number of nodes in trie
 # Space: O(T)
