@@ -3,7 +3,7 @@
 # Google Code Jam 2018 Round 1C - Problem C. Ant Stack
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007765/000000000003e0a8
 #
-# Time:  O(N * K)
+# Time:  O(N * K), pass in PyPy2 but Python2
 # Space: O(K)
 #
 
