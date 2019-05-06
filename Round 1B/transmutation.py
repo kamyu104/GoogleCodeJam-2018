@@ -3,7 +3,7 @@
 # Google Code Jam 2018 Round 1B - Problem C. Transmutation
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007764/000000000003675c
 #
-# Time:  O(M^3 * logS)
+# Time:  O(M^3 * logS), pass in PyPy2 but Python2
 # Space: O(M^2)
 #
 
