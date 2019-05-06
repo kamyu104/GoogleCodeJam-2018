@@ -4,7 +4,7 @@
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f3
 #
 # Time:  O(R^(4/3)*B^(4/3)), pass in PyPy2 but Python2
-# Space: O(R^(4/3)*B^(4/3))
+# Space: O(R * B)
 #
 
 import collections
