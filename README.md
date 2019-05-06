@@ -42,7 +42,7 @@ Python solutions of Google Code Jam 2018. Solution begins with `*` means it will
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Falling Balls](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f2)| [Python](./Round%202/falling-balls.py)| _O(C^2)_ | _O(C^2)_ | Easy | | Greedy |
-|B| [Graceful Chainsaw Jugglers](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f3)| [C++](./Round%202/graceful-chainsaw-jugglers.cpp) [*Python](./Round%202/graceful-chainsaw-jugglers.py)| _O(R^(4/3)*B^(4/3))_ | _O(R^(4/3)*B^(4/3))_ | Medium | | DP |
+|B| [Graceful Chainsaw Jugglers](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f3)| [C++](./Round%202/graceful-chainsaw-jugglers.cpp) [*Python](./Round%202/graceful-chainsaw-jugglers.py)| _O(R^(4/3)*B^(4/3))_ | _O(R^(4/3)*B^(4/3))_ | Medium | | DP, Memoization |
 |C| [Costume Change](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/0000000000045875)| [C++](./Round%202/costume-change.cpp) [*Python](./Round%202/costume-change.py)| _O(N^2 * sqrt(N))_ | _O(N)_ | Medium | | Bipartite Matching |
 |D| [Gridception](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f4)| [C++](./Round%202/gridception.cpp) [*Python](./Round%202/gridception.py)| _O(2^4 * R^2 * C^2)_ | _O(R * C)_ | Medium | | Graph, DFS |
 
