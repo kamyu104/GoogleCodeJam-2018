@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Round 1B - Problem A. Rounding Error
-# https://codejam.withgoogle.com/2018/challenges/0000000000007764/dashboard
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007764/0000000000036601
 #
 # Time:  O(NlogN)
 # Space: O(N)
