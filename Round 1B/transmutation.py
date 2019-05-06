@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Round 1B - Problem C. Transmutation
-# https://codejam.withgoogle.com/2018/challenges/0000000000007764/dashboard/000000000003675c
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007764/000000000003675c
 #
 # Time:  O(M^3 * logS)
 # Space: O(M^2)
