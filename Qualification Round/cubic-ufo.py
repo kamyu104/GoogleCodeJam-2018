@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Qualification Round - Problem D. Cubic UFO
-# https://codejam.withgoogle.com/2018/challenges/00000000000000cb/dashboard/00000000000079cc
+# https://codingcompetitions.withgoogle.com/codejam/round/00000000000000cb/00000000000079cc
 #
 # Time:  O(1)
 # Space: O(1)
