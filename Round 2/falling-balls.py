@@ -1,7 +1,7 @@
 # Copyright (c) 2018 kamyu. All rights reserved.
 #
 # Google Code Jam 2018 Round 2 - Problem A. Falling Balls
-# https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f2
 #
 # Time:  O(C^2)
 # Space: O(C^2)
