@@ -2,7 +2,7 @@
 
 /*
  * Google Code Jam 2018 Round 2 - Problem C. Costume Change
- * https://codejam.withgoogle.com/2018/challenges/0000000000007706/dashboard/0000000000045875
+ * https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/0000000000045875
  *
  * Time:  O(sum(E * sqrt(V))) = O(N^2 * sqrt(N))
  * Space: O(V) = O(N)
