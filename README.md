@@ -29,22 +29,22 @@ Python solutions of Google Code Jam 2018. Solution begins with `*` means it will
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Rounding Error](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007764/0000000000036601)| [Python](./Round%201B/rounding-error.py)| _O(NlogN)_ | _O(N)_ | Medium | | Greedy, Memoization |
 |B| [Mysterious Road Signs](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007764/000000000003675b)| [Python](./Round%201B/mysterious-road-signs.py)| _O(S)_ | _O(1)_ | Medium | | Graph, Sliding Window |
-|C| [Transmutation](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007764/000000000003675c)| [C++](./Round%201B/transmutation.cpp) [*Python](./Round%201B/transmutation.py)| _O(M^3 * logS)_ | _O(M^2)_ | Hard | | Binary Search, Overflow Pruning |
+|C| [Transmutation](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007764/000000000003675c)| [C++](./Round%201B/transmutation.cpp) [PyPy2](./Round%201B/transmutation.py)| _O(M^3 * logS)_ | _O(M^2)_ | Hard | | Binary Search, Overflow Pruning |
 
 ## Round 1C
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [A Whole New Word](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007765/000000000003e064)| [Python](./Round%201C/a-whole-new-word.py)| _O(T)_ | _O(T)_ | Easy | | Trie |
 |B| [Lollipop Shop](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007765/000000000003e068)| [Python](./Round%201C/lollipop-shop.py)| _O(N^2)_ | _O(N)_ | Easy | | Probability |
-|C| [Ant Stack](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007765/000000000003e0a8)| [C++](./Round%201C/ant-stack.cpp) [*Python](./Round%201C/ant-stack.py)| _O(N * K)_ | _O(K)_ | Medium | | DP |
+|C| [Ant Stack](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007765/000000000003e0a8)| [C++](./Round%201C/ant-stack.cpp) [PyPy2](./Round%201C/ant-stack.py)| _O(N * K)_ | _O(K)_ | Medium | | DP |
 
 ## Round 2
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Falling Balls](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f2)| [Python](./Round%202/falling-balls.py)| _O(C^2)_ | _O(C^2)_ | Easy | | Greedy |
-|B| [Graceful Chainsaw Jugglers](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f3)| [C++](./Round%202/graceful-chainsaw-jugglers.cpp) [*Python](./Round%202/graceful-chainsaw-jugglers.py)| _O(R^(4/3)*B^(4/3))_ | _O(R * B)_ | Medium | | DP, Memoization |
-|C| [Costume Change](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/0000000000045875)| [C++](./Round%202/costume-change.cpp) [*Python](./Round%202/costume-change.py)| _O(N^2 * sqrt(N))_ | _O(N)_ | Medium | | Bipartite Matching |
-|D| [Gridception](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f4)| [C++](./Round%202/gridception.cpp) [*Python](./Round%202/gridception.py)| _O(2^4 * R^2 * C^2)_ | _O(R * C)_ | Medium | | Graph, DFS |
+|B| [Graceful Chainsaw Jugglers](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f3)| [C++](./Round%202/graceful-chainsaw-jugglers.cpp) [PyPy2](./Round%202/graceful-chainsaw-jugglers.py)| _O(R^(4/3)*B^(4/3))_ | _O(R * B)_ | Medium | | DP, Memoization |
+|C| [Costume Change](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/0000000000045875)| [C++](./Round%202/costume-change.cpp) [PyPy2](./Round%202/costume-change.py)| _O(N^2 * sqrt(N))_ | _O(N)_ | Medium | | Bipartite Matching |
+|D| [Gridception](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007706/00000000000459f4)| [C++](./Round%202/gridception.cpp) [*PyPy2](./Round%202/gridception.py)| _O(2^4 * R^2 * C^2)_ | _O(R * C)_ | Medium | | Graph, DFS |
 
 ## Round 3
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
