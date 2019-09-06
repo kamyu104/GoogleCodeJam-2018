@@ -40,7 +40,7 @@ def jurisdiction_restrictions():
     min_p, max_p = R*C, 0
     for i in xrange(1, len(area)):
         min_p = min(min_p, area[i]//COUNT_OF_ONE[i])  # floor(area[i]/count)
-        max_p = max(max_p, (area[-1]-area[-1-i]+COUNT_OF_ONE[i]-1)//COUNT_OF_ONE[i])  # ceil((area[all]-area[all^i])/count)
+        max_p = max(max_p, (area[-1]-area[-1-i]-1)//COUNT_OF_ONE[i]+1)  # ceil((area[all]-area[all^i])/count)
     return max_p-min_p
 
 def count_of_one(n):
