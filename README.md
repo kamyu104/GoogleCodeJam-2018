@@ -60,7 +60,7 @@ You can relive the magic of the 2018 Code Jam World Finals by watching the [Live
 
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
-|A| [Jurisdiction Restrictions](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004dbbd)| [Python](./World%20Finals/jurisdiction-restrictions.py) | _O(2^(2S))_ | _O(2^S)_ | Medium | | Inclusion-Exclusion Principle, Math |
+|A| [Jurisdiction Restrictions](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004dbbd)| [PyPy](./World%20Finals/jurisdiction-restrictions.py) | _O(2^(2S))_ | _O(2^S)_ | Medium | | Inclusion-Exclusion Principle, Math |
 |B| [Two-Tiling](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da97)| | | | Hard | | |
 |C| [Go, Gophers!](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da2d)| | | | Medium | | |
 |D| [Swordmaster](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004d961)| | | | Hard | | |
