@@ -51,8 +51,6 @@ def count_of_one(n):
     return result
 
 MAX_S = 15
-COUNT_OF_ONE = [0]*(2**MAX_S)
-for i in xrange(len(COUNT_OF_ONE)):
-    COUNT_OF_ONE[i] = count_of_one(i)
+COUNT_OF_ONE = [count_of_one(i) for i in xrange(2**MAX_S)]
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, jurisdiction_restrictions())
