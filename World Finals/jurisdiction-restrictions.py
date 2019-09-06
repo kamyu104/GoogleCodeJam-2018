@@ -1,6 +1,6 @@
 # Copyright (c) 2019 kamyu. All rights reserved.
 #
-# Google Code Jam 2019 World Finals - Problem A. Jurisdiction Restrictions
+# Google Code Jam 2018 World Finals - Problem A. Jurisdiction Restrictions
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004dbbd
 #
 # Time:  O(2^(2S)), pass in PyPy2 but Python2
