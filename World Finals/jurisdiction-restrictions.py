@@ -19,19 +19,18 @@ def jurisdiction_restrictions():
     for i in xrange(1, len(intersections)):
         min_r, max_r = 0, R-1
         min_c, max_c = 0, C-1
+        bitmask = 1
         for j in xrange(S):
-            if not (i & (1<<j)):
-                continue
-            min_r, max_r = max(min_r, Rs[j]-Ds[j]), min(max_r, Rs[j]+Ds[j])
-            min_c, max_c = max(min_c, Cs[j]-Ds[j]), min(max_c, Cs[j]+Ds[j])
+            if i & bitmask:
+                min_r, max_r = max(min_r, Rs[j]-Ds[j]), min(max_r, Rs[j]+Ds[j])
+                min_c, max_c = max(min_c, Cs[j]-Ds[j]), min(max_c, Cs[j]+Ds[j])
+            bitmask <<= 1
         if not (min_r <= max_r and min_c <= max_c):
             continue
         intersections[i] = (max_r-min_r+1)*(max_c-min_c+1)
         for j in xrange(S):
-            if not (min_r <= Rs[j] <= max_r and
-                    min_c <= Cs[j] <= max_c):
-                continue
-            intersections[i] -= 1
+            intersections[i] -= int(min_r <= Rs[j] <= max_r and
+                                    min_c <= Cs[j] <= max_c)
     area = [0]*len(intersections)
     for i in xrange(1, len(area)):
         s = i
