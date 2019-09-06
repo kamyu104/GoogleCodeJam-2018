@@ -36,7 +36,7 @@ def jurisdiction_restrictions():
         s = i
         while s:  # inclusion-exclusion principle
             area[i] += (-1)**(COUNT_OF_ONE[s]%2+1) * intersections[s]
-            s = (s-1)&i
+            s = (s-1)&i  # at most 14,316,139 times if S = 15
     min_p, max_p = R*C, 0
     for i in xrange(1, len(area)):
         min_p = min(min_p, area[i]//COUNT_OF_ONE[i])  # floor(area[i]/count)
