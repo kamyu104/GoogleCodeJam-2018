@@ -5,7 +5,7 @@
 #
 # Time:  O(S^6 * log(R * C)), pass in PyPy2 but Python2,
 #                             by using better but complicated max flow algorithm (Time: O(V * E)),
-#                             it can be improved to O(S^4 * log(R * C))
+#                             it can be improved to O(S^4 * log(R * C)), but Dinic is enough
 # Space: O(S^2)
 #
 
