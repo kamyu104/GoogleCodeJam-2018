@@ -8,6 +8,7 @@
 #
 
 from itertools import izip
+from collections import deque
 
 def print_bin(i, size):
     result = []
@@ -49,7 +50,21 @@ def rotate(pattern):  # ccw rotate
     return int("".join(map(lambda x: format(x, "0{}b".format(PATTERN_SIZE)), result)), 2)
 
 def shift(pattern):  # shift to left-up most
-    return pattern
+    assert(pattern != 0)
+    result = deque()
+    bitmask = BITMASKS[PATTERN_SIZE]-1
+    for _ in xrange(PATTERN_SIZE):
+        result.append(pattern & bitmask)
+        pattern >>= PATTERN_SIZE
+    count = 0
+    for i in reversed(xrange(PATTERN_SIZE)):
+        if not all(bits & BITMASKS[i] == 0 for bits in result):
+            break
+        count += 1
+    while not result[-1]:
+        result.rotate(1)
+    result.reverse()
+    return int("".join(map(lambda x: format(x<<count, "0{}b".format(PATTERN_SIZE)), result)), 2)
 
 def get_patterns(pattern):
     result = set()
@@ -67,17 +82,18 @@ def add_pattern(state, pos, pattern):
 
 def get_placement(state, get_patterns, choices):
     # TODO
-    result = ['*'*N for _ in xrange(N)]
+    result = [['.' for _ in xrange(N)] for _ in xrange(N)]
     return result
 
 def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, result2):
+    return True
     if curr == N and curr_state1 == curr_state2 == 0:
         return False  # shift up, impossible in the following search
     if curr_state1 == curr_state2 != 0:
         return True  # find a solution, right away return
     if curr == len(BITMASKS):
         return False  # search to the end
-    has_pattern1, has_pattern2 = BITMASKS[curr]&curr_state1, BITMASKS[curr]&curr_state2
+    has_pattern1, has_pattern2 = BITMASKS[-1-curr]&curr_state1, BITMASKS[-1-curr]&curr_state2
     if has_pattern1 and has_pattern2:  # A, B
         return backtracking(patterns1, patterns2, curr+1, curr_state1, curr_state2, result1, result2)
     if not has_pattern1 and not has_pattern2:  # empty
@@ -117,6 +133,7 @@ def two_tiling():
     patterns1, patterns2 = map(get_patterns,
                                map(lambda x: int("".join(x).replace('.', '0').replace('@', '1'), 2), 
                                    [pattern1, pattern2]))
+    # map(print_pattern, patterns1)
     is_swapped = False
     if patterns1[0] > patterns2[0]:
         is_swapped = True
@@ -131,14 +148,15 @@ def two_tiling():
     if is_swapped:
         result.reverse()
     return "IMPOSSIBLE" if not result else \
-            "\n".join(["POSSIBLE", "\n".join(" ".join(pair) for pair in izip(*result))])
+            "\n".join(["POSSIBLE", "\n".join(" ".join(map(lambda x: "".join(x), pair)) for pair in izip(*result))])
 
 N = 8
+CHAR_SET = "!?0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 PATTERN_SIZE = 3
 ROTATE_CYCLE = 4
 BITMASKS = [0]*(N**2)
 bitmask = 1
-for i in reversed(xrange(len(BITMASKS))):
+for i in xrange(len(BITMASKS)):
     BITMASKS[i] = bitmask
     bitmask <<= 1
 lookup = {}
