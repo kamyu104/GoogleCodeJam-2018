@@ -105,7 +105,7 @@ def jurisdiction_restrictions():
                 areas.append(area)
 
     total_area = sum(areas)
-    left, right = 0, R*C
+    left, right = 0, R*C-S
     while left <= right:
         mid = left + (right-left)//2
         if check(S, areas, neighbors, total_area, mid):
