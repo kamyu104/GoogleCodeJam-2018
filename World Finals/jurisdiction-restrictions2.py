@@ -31,16 +31,16 @@ def jurisdiction_restrictions():
         for j in xrange(S):
             intersections[i] -= int(min_r <= Rs[j] < max_r and
                                     min_c <= Cs[j] < max_c)
-    area = [0]*len(intersections)
-    for i in xrange(1, len(area)):
+    areas = [0]*len(intersections)
+    for i in xrange(1, len(areas)):
         s = i
         while s:  # inclusion-exclusion principle
-            area[i] += (-1)**(COUNT_OF_ONE[s]%2+1) * intersections[s]
+            areas[i] += (-1)**(COUNT_OF_ONE[s]%2+1) * intersections[s]
             s = (s-1)&i  # at most 14,316,139 times if S = 15
     min_p, max_p = R*C, 0
-    for i in xrange(1, len(area)):
-        min_p = min(min_p, area[i]//COUNT_OF_ONE[i])  # floor(area[i]/count)
-        max_p = max(max_p, (area[-1]-area[-1-i]-1)//COUNT_OF_ONE[i]+1)  # ceil((area[all]-area[all^i])/count)
+    for i in xrange(1, len(areas)):
+        min_p = min(min_p, areas[i]//COUNT_OF_ONE[i])  # floor(areas[i]/count)
+        max_p = max(max_p, (areas[-1]-areas[-1-i]-1)//COUNT_OF_ONE[i]+1)  # ceil((areas[all]-areas[all^i])/count)
     return max_p-min_p
 
 def count_of_one(n):
