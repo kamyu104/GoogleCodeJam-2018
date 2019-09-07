@@ -107,7 +107,7 @@ def jurisdiction_restrictions():
 
     left, right = 0, R*C
     while left <= right:
-        mid = left +(right-left)//2
+        mid = left + (right-left)//2
         if check(S, areas, neighbors, total_area, mid):
             right = mid-1
         else:
@@ -116,7 +116,7 @@ def jurisdiction_restrictions():
 
     left, right = 0, max_p
     while left <= right:
-        mid = left +(right-left)//2
+        mid = left + (right-left)//2
         if not check(S, areas, neighbors, mid*S, mid):
             right = mid-1
         else:
