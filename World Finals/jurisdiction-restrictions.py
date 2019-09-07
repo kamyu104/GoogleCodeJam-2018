@@ -61,16 +61,16 @@ class Dinic(object):
                 f += t
         return f
 
-def get_flow(S, total_area, areas, graphs, p):  # V = S^2, E = S^2, Time:  O(V^2 * E) = O(S^6)
+def get_flow(S, total_area, areas, neighbors, p):  # V = S^2, E = S^2, Time:  O(V^2 * E) = O(S^6)
     s = len(areas)+S
     t = s+1
     dinic = Dinic(t+1)
     for i in xrange(S):
         dinic.add_edge(s, i, p)
-        for a in graphs[i]:
+        for a in neighbors[i]:
             dinic.add_edge(i, a+S, areas[a])
-    for i in xrange(len(areas)):
-        dinic.add_edge(i+S, t, areas[i])
+    for a in xrange(len(areas)):
+        dinic.add_edge(a+S, t, areas[a])
     return dinic.max_flow(s, t)
 
 def jurisdiction_restrictions():
@@ -89,7 +89,7 @@ def jurisdiction_restrictions():
         cols_set.add(min(Cs[i]+Ds[i]+1, C))
     rows, cols = sorted(rows_set), sorted(cols_set)
 
-    total_area, areas, graphs = 0, [], [[] for _ in xrange(S)]
+    total_area, areas, neighbors = 0, [], [[] for _ in xrange(S)]
     for i in xrange(len(rows)-1):
         for j in xrange(len(cols)-1):
             area = (rows[i+1]-rows[i])*(cols[j+1]-cols[j])
@@ -101,7 +101,7 @@ def jurisdiction_restrictions():
             for k in xrange(S):
                 if abs(rows[i]-Rs[k]) <= Ds[k] and abs(cols[j]-Cs[k]) <= Ds[k]:
                    is_used = True
-                   graphs[k].append(len(areas))
+                   neighbors[k].append(len(areas))
             if is_used:
                 areas.append(area)
                 total_area += area
@@ -109,7 +109,7 @@ def jurisdiction_restrictions():
     left, right = 0, R*C
     while left <= right:
         mid = left +(right-left)//2
-        if get_flow(S, total_area, areas, graphs, mid) == total_area:
+        if get_flow(S, total_area, areas, neighbors, mid) == total_area:
             right = mid-1
         else:
             left = mid+1
@@ -118,7 +118,7 @@ def jurisdiction_restrictions():
     left, right = 0, max_p
     while left <= right:
         mid = left +(right-left)//2
-        if not (get_flow(S, total_area, areas, graphs, mid) == mid*S):
+        if not (get_flow(S, total_area, areas, neighbors, mid) == mid*S):
             right = mid-1
         else:
             left = mid+1
