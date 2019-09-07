@@ -3,7 +3,7 @@
 # Google Code Jam 2018 World Finals - Problem A. Jurisdiction Restrictions
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004dbbd
 #
-# Time:  O(2^(2S)), pass in PyPy2 but Python2
+# Time:  O(2^(S * 2)), pass in PyPy2 but Python2
 # Space: O(2^S)
 #
 
