@@ -4,7 +4,7 @@
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004dbbd
 #
 # Time:  O(S^6 * log(R * C)), pass in PyPy2 but Python2,
-#                             by using better but complicated max flow algorithm,
+#                             by using better but complicated max flow algorithm (Time: O(V * E)),
 #                             it can be improved to O(S^4 * log(R * C))
 # Space: O(S^2)
 #
