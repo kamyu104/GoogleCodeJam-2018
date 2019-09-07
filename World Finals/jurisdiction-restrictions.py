@@ -89,7 +89,7 @@ def jurisdiction_restrictions():
         cols_set.add(max(Cs[i]-Ds[i], 0)), cols_set.add(min(Cs[i]+Ds[i]+1, C))
     rows, cols = sorted(rows_set), sorted(cols_set)
 
-    areas, neighbors, total_area = [], [[] for _ in xrange(S)], 0
+    areas, neighbors = [], [[] for _ in xrange(S)]
     for i in xrange(len(rows)-1):
         for j in xrange(len(cols)-1):
             area = (rows[i+1]-rows[i])*(cols[j+1]-cols[j])
@@ -103,8 +103,8 @@ def jurisdiction_restrictions():
                    neighbors[k].append(len(areas))
             if is_used:
                 areas.append(area)
-                total_area += area
 
+    total_area = sum(areas)
     left, right = 0, R*C
     while left <= right:
         mid = left + (right-left)//2
