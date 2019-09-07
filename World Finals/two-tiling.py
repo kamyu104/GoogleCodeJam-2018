@@ -7,8 +7,8 @@
 # Space: O(N^2)
 #
 
-from itertools import izip
 from collections import deque
+from itertools import izip
 
 def print_bin(i, size):
     result = []
@@ -77,16 +77,15 @@ def get_patterns(pattern):
     return tuple(sorted(result))
 
 def add_pattern(state, pos, pattern):
-    # TODO
+    # TODO, check in grids, empty
     return state  # 0 if invalid
 
-def get_placement(state, get_patterns, choices):
-    # TODO
+def get_placement(state, choices):
+    # TODO, fill in by choices
     result = [['.' for _ in xrange(N)] for _ in xrange(N)]
     return result
 
 def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, result2):
-    return True
     if curr == N and curr_state1 == curr_state2 == 0:
         return False  # shift up, impossible in the following search
     if curr_state1 == curr_state2 != 0:
@@ -104,20 +103,20 @@ def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, 
         choices1 = patterns1
     if not has_pattern2:
         choices2 = patterns2
-    for i, p1 in enumerate(choices1):
+    for c1 in choices1:
         next_state1 = curr_state1
-        if p1:
-            next_state1 = add_pattern(curr_state1, i, p1)
+        if c1:
+            next_state1 = add_pattern(curr_state1, curr, c1)
             if not next_state1:
                 continue
-            result1.append(i)
-        for j, p2 in enumerate(choices2):
+            result1.append(c1)
+        for c2 in choices2:
             next_state2 = curr_state1
-            if p2:
-                next_state2 = add_pattern(curr_state2, i, p2)
+            if c2:
+                next_state2 = add_pattern(curr_state2, curr, c2)
                 if not next_state2:
                     continue
-                result2.append(j)
+                result2.append(c2)
             if backtracking(patterns1, patterns2, curr+1, next_state1, next_state2, result1, result2):
                 return True
             if p2:
@@ -142,8 +141,7 @@ def two_tiling():
         lookup[patterns1[0], patterns2[0]] = []
         start, state1, state2, result1, result2 = 0, 0, 0, [], []
         if backtracking(patterns1, patterns2, start, state1, state2, result1, result2):
-            lookup[patterns1[0], patterns2[0]] = [get_placement(state1, patterns1, result1), \
-                                                  get_placement(state2, patterns2, result2)]
+            lookup[patterns1[0], patterns2[0]] = [get_placement(state1, result1), get_placement(state2, result2)]
     result = lookup[patterns1[0], patterns2[0]]
     if is_swapped:
         result.reverse()
