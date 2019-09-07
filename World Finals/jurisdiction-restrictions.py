@@ -61,7 +61,7 @@ class Dinic(object):
                 f += t
         return f
 
-def get_flow(S, total_area, areas, neighbors, p):  # V = S^2, E = S^2, Time:  O(V^2 * E) = O(S^6)
+def check(S, areas, neighbors, p, expected_flow):  # V = S^2, E = S^2, Time:  O(V^2 * E) = O(S^6)
     s = len(areas)+S
     t = s+1
     dinic = Dinic(t+1)
@@ -71,7 +71,7 @@ def get_flow(S, total_area, areas, neighbors, p):  # V = S^2, E = S^2, Time:  O(
             dinic.add_edge(i, a+S, areas[a])
     for a in xrange(len(areas)):
         dinic.add_edge(a+S, t, areas[a])
-    return dinic.max_flow(s, t)
+    return dinic.max_flow(s, t) == expected_flow
 
 def jurisdiction_restrictions():
     R, C, S = map(int, raw_input().strip().split())
@@ -89,7 +89,7 @@ def jurisdiction_restrictions():
         cols_set.add(min(Cs[i]+Ds[i]+1, C))
     rows, cols = sorted(rows_set), sorted(cols_set)
 
-    total_area, areas, neighbors = 0, [], [[] for _ in xrange(S)]
+    areas, neighbors, total_area = [], [[] for _ in xrange(S)], 0
     for i in xrange(len(rows)-1):
         for j in xrange(len(cols)-1):
             area = (rows[i+1]-rows[i])*(cols[j+1]-cols[j])
@@ -109,7 +109,7 @@ def jurisdiction_restrictions():
     left, right = 0, R*C
     while left <= right:
         mid = left +(right-left)//2
-        if get_flow(S, total_area, areas, neighbors, mid) == total_area:
+        if check(S, areas, neighbors, mid, total_area):
             right = mid-1
         else:
             left = mid+1
@@ -118,7 +118,7 @@ def jurisdiction_restrictions():
     left, right = 0, max_p
     while left <= right:
         mid = left +(right-left)//2
-        if not (get_flow(S, total_area, areas, neighbors, mid) == mid*S):
+        if not check(S, areas, neighbors, mid, mid*S):
             right = mid-1
         else:
             left = mid+1
