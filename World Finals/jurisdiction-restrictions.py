@@ -63,12 +63,12 @@ class Dinic(object):
                 f += t
         return f
 
-def check(S, areas, neighbors, expected_flow, p):  # V = S^2, E = S^2, Time:  O(V^2 * E) = O(S^6)
+def check(S, areas, neighbors, expected_flow, x):  # V = S^2, E = S^2, Time:  O(V^2 * E) = O(S^6)
     s = len(areas)+S
     t = s+1
     dinic = Dinic(t+1)
     for i in xrange(S):
-        dinic.add_edge(s, i, p)
+        dinic.add_edge(s, i, x)
         for a in neighbors[i]:
             dinic.add_edge(i, a+S, areas[a])
     for a in xrange(len(areas)):
