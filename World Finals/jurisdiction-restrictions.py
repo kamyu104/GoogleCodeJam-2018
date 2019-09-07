@@ -94,9 +94,8 @@ def jurisdiction_restrictions():
         for j in xrange(len(cols)-1):
             area = (rows[i+1]-rows[i])*(cols[j+1]-cols[j])
             for k in xrange(S):
-                if rows[i] <= Rs[k] < rows[i+1] and \
-                   cols[j] <= Cs[k] < cols[j+1]:
-                    area -= 1
+                area -= int(rows[i] <= Rs[k] < rows[i+1] and
+                            cols[j] <= Cs[k] < cols[j+1])
             is_used = False
             for k in xrange(S):
                 if abs(rows[i]-Rs[k]) <= Ds[k] and abs(cols[j]-Cs[k]) <= Ds[k]:
