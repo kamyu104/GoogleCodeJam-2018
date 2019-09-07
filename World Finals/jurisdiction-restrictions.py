@@ -61,7 +61,7 @@ class Dinic(object):
                 f += t
         return f
 
-def check(S, areas, neighbors, p, expected_flow):  # V = S^2, E = S^2, Time:  O(V^2 * E) = O(S^6)
+def check(S, areas, neighbors, expected_flow, p):  # V = S^2, E = S^2, Time:  O(V^2 * E) = O(S^6)
     s = len(areas)+S
     t = s+1
     dinic = Dinic(t+1)
@@ -109,7 +109,7 @@ def jurisdiction_restrictions():
     left, right = 0, R*C
     while left <= right:
         mid = left +(right-left)//2
-        if check(S, areas, neighbors, mid, total_area):
+        if check(S, areas, neighbors, total_area, mid):
             right = mid-1
         else:
             left = mid+1
@@ -118,7 +118,7 @@ def jurisdiction_restrictions():
     left, right = 0, max_p
     while left <= right:
         mid = left +(right-left)//2
-        if not check(S, areas, neighbors, mid, mid*S):
+        if not check(S, areas, neighbors, mid*S, mid):
             right = mid-1
         else:
             left = mid+1
