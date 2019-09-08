@@ -82,7 +82,6 @@ def get_patterns(pattern):
     return tuple(sorted(result))
 
 def add_pattern(state, pos, pattern):
-    prev = state
     for i in xrange(M):
         if get_bit(pattern, i):
             break
@@ -97,8 +96,6 @@ def add_pattern(state, pos, pattern):
             if r+i >= N or c+j >= N or get_bit(state, (r+i)*N+(c+j)):
                 return 0
             state = set_bit(state, (r+i)*N+(c+j))
-    # print pos
-    # print_state(prev), print_pattern(pattern), print_state(state)
     return state
 
 def get_placement(state, choices):
@@ -109,6 +106,23 @@ def get_placement(state, choices):
         result.append(state & bitmask)
         state >>= N
     result = map(lambda x: list(format(x, "0{}b".format(N))[::-1].replace('0', '.').replace('1', '@')), result)
+    pos = 0
+    for k, pattern in enumerate(choices):
+        # print_pattern(pattern)
+        while pos != len(BITMASKS):
+            r, c = divmod(pos, N)
+            pos += 1
+            if result[r][c] == '@':
+                break
+        for i in xrange(M):
+            if get_bit(pattern, i):
+                break
+        c -= i
+        for i in xrange(M):
+            for j in xrange(M):
+                if not get_bit(pattern, i*M+j):
+                    continue
+                result[r+i][c+j] = CHAR_SET[k]
     return result
 
 def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, result2):
