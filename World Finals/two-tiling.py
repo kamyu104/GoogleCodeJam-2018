@@ -65,13 +65,13 @@ def get_patterns(pattern):
     return tuple(sorted(result))
 
 def add_pattern(state, pos, pattern):
-    for i in xrange(M):
-        if get_bit(pattern, i):
+    for j in xrange(M):
+        if get_bit(pattern, j):
             break
     r, c = divmod(pos, N)
-    if c < i:  # out of board
+    if c < j:  # out of board
         return 0
-    c -= i
+    c -= j
     for i in xrange(M):
         for j in xrange(M):
             if not get_bit(pattern, i*M+j):
@@ -142,10 +142,10 @@ def get_placement(state, choices):
             pos += 1
             if result[r][c] == '@':
                 break
-        for i in xrange(M):
-            if get_bit(pattern, i):
+        for j in xrange(M):
+            if get_bit(pattern, j):
                 break
-        c -= i
+        c -= j
         for i in xrange(M):
             for j in xrange(M):
                 if not get_bit(pattern, i*M+j):
