@@ -102,8 +102,13 @@ def add_pattern(state, pos, pattern):
     return state
 
 def get_placement(state, choices):
-    # TODO, fill in by choices
-    result = [['.' for _ in xrange(N)] for _ in xrange(N)]
+    # print_state(state)
+    result = []
+    bitmask = BITMASKS[N]-1
+    for _ in xrange(N):
+        result.append(state & bitmask)
+        state >>= N
+    result = map(lambda x: list(format(x, "0{}b".format(N))[::-1].replace('0', '.').replace('1', '@')), result)
     return result
 
 def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, result2):
@@ -111,14 +116,14 @@ def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, 
     # print curr
     # print_state(curr_state1), print_state(curr_state2)
     # print '-'*5
-    if curr == N and curr_state1 == curr_state2 == 0:
+    if curr == N and curr_state1[0] == curr_state2[0] == 0:
         return False  # no state in the first row, like shift up, impossible in the following search
-    if curr_state1 == curr_state2 != 0:
+    if curr_state1[0] == curr_state2[0] != 0:
         #print curr, result1, result2
         return True  # find a solution, right away return
     if curr == N*N:
         return False  # search to the end
-    has_pattern1, has_pattern2 = get_bit(curr_state1, curr), get_bit(curr_state2, curr)
+    has_pattern1, has_pattern2 = get_bit(curr_state1[0], curr), get_bit(curr_state2[0], curr)
     if has_pattern1 and has_pattern2:  # A, B
         return backtracking(patterns1, patterns2, curr+1, curr_state1, curr_state2, result1, result2)
     if not has_pattern1 and not has_pattern2:  # empty
@@ -131,29 +136,33 @@ def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, 
         choices2 = patterns2
     #print choices1, choices2
     for c1 in choices1:
-        next_state1 = curr_state1
         # print curr
         # print_state(curr_state1)
         # print_pattern(c1)
         if c1:
-            next_state1 = add_pattern(curr_state1, curr, c1)
+            next_state1 = add_pattern(curr_state1[0], curr, c1)
             if not next_state1:
                 continue
+            prev_state1 = curr_state1[0]
+            curr_state1[0] = next_state1
             result1.append(c1)
         for c2 in choices2:
-            next_state2 = curr_state2
             # print_pattern(c2)
             if c2:
-                next_state2 = add_pattern(curr_state2, curr, c2)
+                next_state2 = add_pattern(curr_state2[0], curr, c2)
                 if not next_state2:
                     continue
+                prev_state2 = curr_state2[0]
+                curr_state2[0] = next_state2
                 result2.append(c2)
-            if backtracking(patterns1, patterns2, curr+1, next_state1, next_state2, result1, result2):
+            if backtracking(patterns1, patterns2, curr+1, curr_state1, curr_state2, result1, result2):
                 return True
             if c2:
                 result2.pop()
+                curr_state2[0] = prev_state2
         if c1:
             result1.pop()
+            curr_state1[0] = prev_state1
     return False
 
 def two_tiling():
@@ -170,9 +179,9 @@ def two_tiling():
         patterns1, patterns2 = patterns2, patterns1
     if (patterns1[0], patterns2[0]) not in lookup:
         lookup[patterns1[0], patterns2[0]] = []
-        start, state1, state2, result1, result2 = 0, 0, 0, [], []
+        start, state1, state2, result1, result2 = 0, [0], [0], [], []
         if backtracking(patterns1, patterns2, start, state1, state2, result1, result2):
-            lookup[patterns1[0], patterns2[0]] = [get_placement(state1, result1), get_placement(state2, result2)]
+            lookup[patterns1[0], patterns2[0]] = [get_placement(state1[0], result1), get_placement(state2[0], result2)]
     result = lookup[patterns1[0], patterns2[0]]
     if is_swapped:
         result.reverse()
