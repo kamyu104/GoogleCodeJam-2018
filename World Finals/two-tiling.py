@@ -45,8 +45,8 @@ def shift(pattern):  # shift to left-up most
         result.append(pattern & bitmask)
         pattern >>= M
     count = 0
-    for i in xrange(M):
-        if not all(get_bit(bits, i) == 0 for bits in result):
+    for j in xrange(M):
+        if not all(get_bit(bits, j) == 0 for bits in result):
             break
         count += 1
     while not result[0]:
