@@ -164,7 +164,7 @@ def get_result(patterns):
         start, state1, state2, result1, result2 = 0, [0], [0], [], []
         if backtracking(patterns1, patterns2, start, state1, state2, result1, result2, set()):
             LOOKUP[patterns1[0], patterns2[0]] = [get_placement(state1[0], result1), get_placement(state2[0], result2)]
-    result = LOOKUP[patterns1[0], patterns2[0]]
+    result = list(LOOKUP[patterns1[0], patterns2[0]])
     if is_swapped:
         result.reverse()
     return "IMPOSSIBLE" if not result else \
