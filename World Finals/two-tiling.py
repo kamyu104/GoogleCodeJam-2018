@@ -69,7 +69,7 @@ def add_pattern(state, pos, pattern):
         if get_bit(pattern, i):
             break
     r, c = divmod(pos, N)
-    if c < i:  # out of grids
+    if c < i:  # out of board
         return 0
     c -= i
     for i in xrange(M):
