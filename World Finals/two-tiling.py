@@ -10,11 +10,8 @@
 from collections import deque
 from itertools import izip
 
-def get_bit(bits, i):
-    return int(bits&BITMASKS[i] != 0)
-
-def set_bit(bits, i):
-    return bits|BITMASKS[i]
+def has_bit(bits, i):
+    return bits&BITMASKS[i] != 0
 
 def reflect(pattern):
     result = []
@@ -33,8 +30,8 @@ def rotate(pattern):  # ccw rotate
     result = [0]*M
     for j, bits in enumerate(tmp):
         for i in xrange(M):
-            if get_bit(bits, i):
-                result[i] = set_bit(result[i], j)
+            if has_bit(bits, i):
+                result[i] |= BITMASKS[j]
     return int("".join(map(lambda x: format(x, "0{}b".format(M)), result)), 2)
 
 def shift(pattern):  # shift to left-up most
@@ -46,7 +43,7 @@ def shift(pattern):  # shift to left-up most
         pattern >>= M
     count = 0
     for j in xrange(M):
-        if not all(get_bit(bits, j) == 0 for bits in result):
+        if any(has_bit(bits, j) for bits in result):
             break
         count += 1
     while not result[0]:
@@ -66,7 +63,7 @@ def get_patterns(pattern):
 
 def add_pattern(state, pos, pattern):
     for j in xrange(M):
-        if get_bit(pattern, j):
+        if has_bit(pattern, j):
             break
     r, c = divmod(pos, N)
     if c < j:  # out of board
@@ -74,11 +71,11 @@ def add_pattern(state, pos, pattern):
     c -= j
     for i in xrange(M):
         for j in xrange(M):
-            if not get_bit(pattern, i*M+j):
+            if not has_bit(pattern, i*M+j):
                 continue
-            if r+i >= N or c+j >= N or get_bit(state, (r+i)*N+(c+j)):
+            if r+i >= N or c+j >= N or has_bit(state, (r+i)*N+(c+j)):
                 return 0
-            state = set_bit(state, (r+i)*N+(c+j))
+            state |= BITMASKS[(r+i)*N+(c+j)]
     return state
 
 def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, result2, is_visited):
@@ -91,7 +88,7 @@ def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, 
         return True  # find a solution, right away return
     if curr == N*N:
         return False  # search to the end
-    has_pattern1, has_pattern2 = get_bit(curr_state1[0], curr), get_bit(curr_state2[0], curr)
+    has_pattern1, has_pattern2 = has_bit(curr_state1[0], curr), has_bit(curr_state2[0], curr)
     if has_pattern1 and has_pattern2:  # A, B
         return backtracking(patterns1, patterns2, curr+1, curr_state1, curr_state2, result1, result2, is_visited)
     if not has_pattern1 and not has_pattern2:  # empty
@@ -143,17 +140,17 @@ def get_placement(state, choices):
             if result[r][c] == '@':
                 break
         for j in xrange(M):
-            if get_bit(pattern, j):
+            if has_bit(pattern, j):
                 break
         c -= j
         for i in xrange(M):
             for j in xrange(M):
-                if not get_bit(pattern, i*M+j):
+                if not has_bit(pattern, i*M+j):
                     continue
                 result[r+i][c+j] = CHAR_SET[k]
     return map(lambda x: "".join(x), result)
 
-def check_possible(pattern1, pattern2):
+def is_possible(pattern1, pattern2):
     def count_of_one(n):
         result = 0
         while n:
@@ -180,7 +177,7 @@ def get_result(patterns):
     if (patterns1[0], patterns2[0]) not in LOOKUP:
         LOOKUP[patterns1[0], patterns2[0]] = []
         start, state1, state2, result1, result2 = 0, [0], [0], [], []
-        if check_possible(patterns1[0], patterns2[0]) and \
+        if is_possible(patterns1[0], patterns2[0]) and \
            backtracking(patterns1, patterns2, start, state1, state2, result1, result2, set()):
             LOOKUP[patterns1[0], patterns2[0]] = [get_placement(state1[0], result1), get_placement(state2[0], result2)]
     result = list(LOOKUP[patterns1[0], patterns2[0]])
@@ -230,17 +227,17 @@ def is_valid_pattern(pattern):
     idxs = {}
     for i in xrange(M):
         for j in xrange(M):
-            if not get_bit(pattern, i*M+j):
+            if not has_bit(pattern, i*M+j):
                 continue
             idxs[i*M+j] = len(idxs)
     union_find = UnionFind(len(idxs))
     for i in xrange(M):
         for j in xrange(M):
-            if not get_bit(pattern, i*M+j):
+            if not has_bit(pattern, i*M+j):
                 continue
             for di, dj in [(-1, 0), (0, -1)]:
                 ni, nj = i+di, j+dj
-                if not (0 <= ni and 0 <= nj and get_bit(pattern, ni*M+nj)):
+                if not (0 <= ni and 0 <= nj and has_bit(pattern, ni*M+nj)):
                     continue
                 union_find.union_set(idxs[i*M+j], idxs[ni*M+nj])
     return union_find.count == 1
