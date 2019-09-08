@@ -168,7 +168,7 @@ def get_result(patterns):
     if is_swapped:
         result.reverse()
     return "IMPOSSIBLE" if not result else \
-            "\n".join(["POSSIBLE", "\n".join(" ".join(pair) for pair in izip(*result))])
+           "\n".join(["POSSIBLE", "\n".join(" ".join(pair) for pair in izip(*result))])
 
 def two_tiling():
     pattern1, pattern2 = [0 for _ in xrange(M)], [0 for _ in xrange(M)]
