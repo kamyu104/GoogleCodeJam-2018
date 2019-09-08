@@ -12,11 +12,11 @@ from itertools import izip
 
 def print_bin(i, size):
     result = []
-    bitmask = (1<<size)-1
+    bitmask = BITMASKS[size]-1
     for _ in xrange(size):
         result.append(i & bitmask)
         i >>= size
-    print "\n".join(map(lambda x: format(x, "0{}b".format(size)), result)[::-1]), "\n"
+    print "\n".join(map(lambda x: format(x, "0{}b".format(size))[::-1], result)), "\n"
 
 def print_pattern(i):
     print_bin(i, M)
@@ -58,15 +58,15 @@ def shift(pattern):  # shift to left-up most
     for _ in xrange(M):
         result.append(pattern & bitmask)
         pattern >>= M
-    result.reverse()
     count = 0
-    for i in reversed(xrange(M)):
+    for i in xrange(M):
         if not all(get_bit(bits, i) == 0 for bits in result):
             break
         count += 1
     while not result[0]:
-        result.rotate(-1)
-    return int("".join(map(lambda x: format(x<<count, "0{}b".format(M)), result)), 2)
+       result.rotate(-1)
+    result.reverse()
+    return int("".join(map(lambda x: format(x>>count, "0{}b".format(M)), result)), 2)
 
 def get_patterns(pattern):
     result = set()
@@ -75,13 +75,14 @@ def get_patterns(pattern):
             pattern = reflect(pattern)
         for _ in xrange(ROTATE_CYCLE):
             result.add(shift(pattern))
-            #print_pattern(pattern)
-            #print_pattern(shift(pattern))
+            # print_pattern(pattern)
+            # print_pattern(shift(pattern))
+            # print "-"*5
             pattern = rotate(pattern)
     return tuple(sorted(result))
 
 def add_pattern(state, pos, pattern):
-    # TODO, check in grids, empty
+    prev = state
     for i in xrange(M):
         if get_bit(pattern, i):
             break
@@ -89,13 +90,15 @@ def add_pattern(state, pos, pattern):
     if c < i:  # out of grids
         return 0
     c -= i
-    for i in xrange(r, r+3):
-        for j in xrange(c, c+3):
+    for i in xrange(M):
+        for j in xrange(M):
             if not get_bit(pattern, i*M+j):
                 continue
-            if j >= N or get_bit(state, i*N+j):
+            if r+i >= N or c+j >= N or get_bit(state, (r+i)*N+(c+j)):
                 return 0
-            state = set_bit(state, i*N+j)
+            state = set_bit(state, (r+i)*N+(c+j))
+    # print pos
+    # print_state(prev), print_pattern(pattern), print_state(state)
     return state
 
 def get_placement(state, choices):
@@ -104,14 +107,18 @@ def get_placement(state, choices):
     return result
 
 def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, result2):
-    return True
+    # return False
+    # print curr
+    # print_state(curr_state1), print_state(curr_state2)
+    # print '-'*5
     if curr == N and curr_state1 == curr_state2 == 0:
         return False  # no state in the first row, like shift up, impossible in the following search
     if curr_state1 == curr_state2 != 0:
+        #print curr, result1, result2
         return True  # find a solution, right away return
     if curr == N*N:
         return False  # search to the end
-    has_pattern1, has_pattern2 = get_bit(curr_state1, N*N-1-curr), get_bit(curr_state2, N*N-1-curr)
+    has_pattern1, has_pattern2 = get_bit(curr_state1, curr), get_bit(curr_state2, curr)
     if has_pattern1 and has_pattern2:  # A, B
         return backtracking(patterns1, patterns2, curr+1, curr_state1, curr_state2, result1, result2)
     if not has_pattern1 and not has_pattern2:  # empty
@@ -122,15 +129,20 @@ def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, 
         choices1 = patterns1
     if not has_pattern2:
         choices2 = patterns2
+    #print choices1, choices2
     for c1 in choices1:
         next_state1 = curr_state1
+        # print curr
+        # print_state(curr_state1)
+        # print_pattern(c1)
         if c1:
             next_state1 = add_pattern(curr_state1, curr, c1)
             if not next_state1:
                 continue
             result1.append(c1)
         for c2 in choices2:
-            next_state2 = curr_state1
+            next_state2 = curr_state2
+            # print_pattern(c2)
             if c2:
                 next_state2 = add_pattern(curr_state2, curr, c2)
                 if not next_state2:
