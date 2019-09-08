@@ -16,55 +16,57 @@ def print_bin(i, size):
     for _ in xrange(size):
         result.append(i & bitmask)
         i >>= size
-    result.reverse()
-    print "\n".join(map(lambda x: format(x, "0{}b".format(size)), result)), "\n"
+    print "\n".join(map(lambda x: format(x, "0{}b".format(size)), result)[::-1]), "\n"
 
 def print_pattern(i):
-    print_bin(i, PATTERN_SIZE)
+    print_bin(i, M)
 
 def print_state(i):
     print_bin(i, N)
 
+def get_bit(bits, i):
+    return int(bits&BITMASKS[i] != 0)
+
+def set_bit(bits, i):
+    return bits|BITMASKS[i]
+
 def reflect(pattern):
     result = []
-    bitmask = (1<<PATTERN_SIZE)-1
-    for _ in xrange(PATTERN_SIZE):
+    bitmask = (1<<M)-1
+    for _ in xrange(M):
         result.append(pattern & bitmask)
-        pattern >>= PATTERN_SIZE
-    return int("".join(map(lambda x: format(x, "0{}b".format(PATTERN_SIZE)), result)), 2)
+        pattern >>= M
+    return int("".join(map(lambda x: format(x, "0{}b".format(M)), result)), 2)
 
 def rotate(pattern):  # ccw rotate
     tmp = []
-    bitmask = (1<<PATTERN_SIZE)-1
-    for _ in xrange(PATTERN_SIZE):
+    bitmask = (1<<M)-1
+    for _ in xrange(M):
         tmp.append(pattern & bitmask)
-        pattern >>= PATTERN_SIZE
-    result = [0]*PATTERN_SIZE
-    bitmask = 1
-    for bits in tmp:
-        for i in xrange(PATTERN_SIZE):
-            if bits & 1:
-                result[i] |= bitmask
-            bits >>= 1
-        bitmask <<= 1
-    return int("".join(map(lambda x: format(x, "0{}b".format(PATTERN_SIZE)), result)), 2)
+        pattern >>= M
+    result = [0]*M
+    for j, bits in enumerate(tmp):
+        for i in xrange(M):
+            if get_bit(bits, i):
+                result[i] = set_bit(result[i], j)
+    return int("".join(map(lambda x: format(x, "0{}b".format(M)), result)), 2)
 
 def shift(pattern):  # shift to left-up most
     assert(pattern != 0)
     result = deque()
-    bitmask = BITMASKS[PATTERN_SIZE]-1
-    for _ in xrange(PATTERN_SIZE):
+    bitmask = BITMASKS[M]-1
+    for _ in xrange(M):
         result.append(pattern & bitmask)
-        pattern >>= PATTERN_SIZE
+        pattern >>= M
+    result.reverse()
     count = 0
-    for i in reversed(xrange(PATTERN_SIZE)):
-        if not all(bits & BITMASKS[i] == 0 for bits in result):
+    for i in reversed(xrange(M)):
+        if not all(get_bit(bits, i) == 0 for bits in result):
             break
         count += 1
-    while not result[-1]:
-        result.rotate(1)
-    result.reverse()
-    return int("".join(map(lambda x: format(x<<count, "0{}b".format(PATTERN_SIZE)), result)), 2)
+    while not result[0]:
+        result.rotate(-1)
+    return int("".join(map(lambda x: format(x<<count, "0{}b".format(M)), result)), 2)
 
 def get_patterns(pattern):
     result = set()
@@ -72,13 +74,29 @@ def get_patterns(pattern):
         if is_reflect:
             pattern = reflect(pattern)
         for _ in xrange(ROTATE_CYCLE):
-            pattern = rotate(pattern)
             result.add(shift(pattern))
+            #print_pattern(pattern)
+            #print_pattern(shift(pattern))
+            pattern = rotate(pattern)
     return tuple(sorted(result))
 
 def add_pattern(state, pos, pattern):
     # TODO, check in grids, empty
-    return state  # 0 if invalid
+    for i in xrange(M):
+        if get_bit(pattern, i):
+            break
+    r, c = divmod(pos, N)
+    if c < i:  # out of grids
+        return 0
+    c -= i
+    for i in xrange(r, r+3):
+        for j in xrange(c, c+3):
+            if not get_bit(pattern, i*M+j):
+                continue
+            if j >= N or get_bit(state, i*N+j):
+                return 0
+            state = set_bit(state, i*N+j)
+    return state
 
 def get_placement(state, choices):
     # TODO, fill in by choices
@@ -86,13 +104,14 @@ def get_placement(state, choices):
     return result
 
 def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, result2):
+    return True
     if curr == N and curr_state1 == curr_state2 == 0:
-        return False  # shift up, impossible in the following search
+        return False  # no state in the first row, like shift up, impossible in the following search
     if curr_state1 == curr_state2 != 0:
         return True  # find a solution, right away return
-    if curr == len(BITMASKS):
+    if curr == N*N:
         return False  # search to the end
-    has_pattern1, has_pattern2 = BITMASKS[-1-curr]&curr_state1, BITMASKS[-1-curr]&curr_state2
+    has_pattern1, has_pattern2 = get_bit(curr_state1, N*N-1-curr), get_bit(curr_state2, N*N-1-curr)
     if has_pattern1 and has_pattern2:  # A, B
         return backtracking(patterns1, patterns2, curr+1, curr_state1, curr_state2, result1, result2)
     if not has_pattern1 and not has_pattern2:  # empty
@@ -119,20 +138,20 @@ def backtracking(patterns1, patterns2, curr, curr_state1, curr_state2, result1, 
                 result2.append(c2)
             if backtracking(patterns1, patterns2, curr+1, next_state1, next_state2, result1, result2):
                 return True
-            if p2:
+            if c2:
                 result2.pop()
-        if p1:
+        if c1:
             result1.pop()
     return False
 
 def two_tiling():
-    pattern1, pattern2 = [0 for _ in xrange(PATTERN_SIZE)], [0 for _ in xrange(PATTERN_SIZE)]
-    for i in xrange(PATTERN_SIZE):
+    pattern1, pattern2 = [0 for _ in xrange(M)], [0 for _ in xrange(M)]
+    for i in xrange(M):
         pattern1[i], pattern2[i] = raw_input().strip().split(' ')
     patterns1, patterns2 = map(get_patterns,
-                               map(lambda x: int("".join(x).replace('.', '0').replace('@', '1'), 2), 
+                               map(lambda x: int("".join(x).replace('.', '0').replace('@', '1')[::-1], 2), 
                                    [pattern1, pattern2]))
-    # map(print_pattern, patterns1)
+    #map(print_pattern, patterns1)
     is_swapped = False
     if patterns1[0] > patterns2[0]:
         is_swapped = True
@@ -150,7 +169,7 @@ def two_tiling():
 
 N = 8
 CHAR_SET = "!?0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-PATTERN_SIZE = 3
+M = 3
 ROTATE_CYCLE = 4
 BITMASKS = [0]*(N**2)
 bitmask = 1
