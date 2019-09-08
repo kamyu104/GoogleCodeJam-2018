@@ -61,7 +61,7 @@ You can relive the magic of the 2018 Code Jam World Finals by watching the [Live
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Jurisdiction Restrictions](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004dbbd)| [PyPy](./World%20Finals/jurisdiction-restrictions.py) [PyPy](./World%20Finals/jurisdiction-restrictions2.py) | _O(S^6 * log(R * C))_ | _O(S^2)_ | Medium | | Dinic's Algorithm, Max-Flow Min-Cut Theorem, Binary Search, Inclusion-Exclusion Principle, Math |
-|B| [Two-Tiling](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da97)| [Python](./World%20Finals/two-tiling.py) | O((1+8+8+65)^(N^2)) | Space: O(N^2) | Hard | | Backtracking, Bit Manipulation, Union Find, Precompute |
+|B| [Two-Tiling](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da97)| [Python](./World%20Finals/two-tiling.py) | O((1+8+8+65)^(N^2)) | Space: O(2^(2 * M^2 - 1) * N^2) | Hard | | Backtracking, Bit Manipulation, Union Find, Precompute |
 |C| [Go, Gophers!](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da2d)| | | | Medium | | |
 |D| [Swordmaster](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004d961)| | | | Hard | | |
 |E| [The Cartesian Job](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004d962)| | | | Hard | | | 
