@@ -3,7 +3,7 @@
 # Google Code Jam 2018 World Finals - Problem B. Two-Tiling
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da97
 #
-# Time:  O((1+8+8+65)^(N^2)), required to precompute LOOKUP around 50 seconds by PyPy2
+# Time:  O((1+8+8+65)^(N^2)), required to precompute LOOKUP around 40 seconds by PyPy2
 # Space: O(N^2)
 #
 
@@ -153,6 +153,24 @@ def get_placement(state, choices):
                 result[r+i][c+j] = CHAR_SET[k]
     return map(lambda x: "".join(x), result)
 
+def check_possible(pattern1, pattern2):
+    def count_of_one(n):
+        result = 0
+        while n:
+            n &= n-1
+            result += 1
+        return result
+    
+    def gcd(a, b):
+        while b:
+            a, b = b, a % b
+        return a
+
+    def lcm(a, b):
+        return a//gcd(a, b)*b
+
+    return lcm(*map(count_of_one, [pattern1, pattern2])) <= N*N
+
 def get_result(patterns):
     patterns1, patterns2 = map(get_patterns, patterns)
     is_swapped = False
@@ -162,7 +180,8 @@ def get_result(patterns):
     if (patterns1[0], patterns2[0]) not in LOOKUP:
         LOOKUP[patterns1[0], patterns2[0]] = []
         start, state1, state2, result1, result2 = 0, [0], [0], [], []
-        if backtracking(patterns1, patterns2, start, state1, state2, result1, result2, set()):
+        if check_possible(patterns1[0], patterns2[0]) and \
+           backtracking(patterns1, patterns2, start, state1, state2, result1, result2, set()):
             LOOKUP[patterns1[0], patterns2[0]] = [get_placement(state1[0], result1), get_placement(state2[0], result2)]
     result = list(LOOKUP[patterns1[0], patterns2[0]])
     if is_swapped:
