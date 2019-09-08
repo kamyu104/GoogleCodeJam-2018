@@ -196,7 +196,7 @@ N, M = 8, 3
 CHAR_SET = "!?0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 ROTATE_CYCLE = 4
 
-BITMASKS = [0]*(N**2)
+BITMASKS = [0]*(N*N)
 bitmask = 1
 for i in xrange(len(BITMASKS)):
     BITMASKS[i] = bitmask
