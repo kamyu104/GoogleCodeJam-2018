@@ -4,7 +4,7 @@
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da97
 #
 # Time:  O((1+8+8+65)^(N^2)), required to precompute LOOKUP around 40 seconds by PyPy2
-# Space: O(N^2)
+# Space: O(2^(2 * M^2 - 1) * N^2)
 #
 
 from collections import deque
