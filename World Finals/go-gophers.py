@@ -1,6 +1,6 @@
 # Copyright (c) 2019 kamyu. All rights reserved.
 #
-# Google Code Jam 2019 World Finals - Problem C. Go, Gophers!
+# Google Code Jam 2018 World Finals - Problem C. Go, Gophers!
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da2d
 #
 # Time:  O(M * (S + (S/W)^2)), W is tuned by testing, and larger W is not necessarily good
