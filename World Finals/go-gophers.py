@@ -3,7 +3,7 @@
 # Google Code Jam 2019 World Finals - Problem C. Go, Gophers!
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da2d
 #
-# Time:  O(M * S * (WlogW + S/W)) <= O(M*SlogS)
+# Time:  O(M * (S + (S/W)^2)), W is tuned by testing
 # Space: O(S)
 #
 
@@ -28,7 +28,7 @@ def read_line():
     return s
 
 def query(queries, results, level, S):
-    assert(len(queries)+W <= S)
+    #assert(len(queries)+W <= S)
     query = [level]*W
     queries += query
     print_line("\n".join(map(str, query)))
@@ -116,13 +116,13 @@ def go_gophers():
                 continue
             query(queries, results, level, S)
             break
-    assert(len(queries)*100//S <= 20)
+    assert(len(queries)*100//S <= 10)
     print_line(str(-next(iter(candidates))))
 
 seed(0)
 MIN_L, MAX_L = 1, 10**6
 M = 25
-W = M  # tuned by online judge
+W = 2*W
 T = int(input())
 for case in xrange(T):
     go_gophers()
