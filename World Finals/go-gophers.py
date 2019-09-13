@@ -110,14 +110,13 @@ def go_gophers():
             break
         levels = []
         for left, right in diff_intervals:
-            levels.append((left+right)//2)
-            levels.append((left+right+1)//2)  # make left, right endpoints both have chance to be queried
-        while True:
-            level = levels[randint(0, len(levels)-1)]
-            if level == MIN_L-1:
-                continue
-            query(queries, results, level, S)
-            break
+            for i in xrange(2):
+                mid = (left+right+i)//2
+                if mid == MIN_L-1:
+                    continue
+                levels.append(mid)  # make left, right endpoints both have chance to be queried
+        level = levels[randint(0, len(levels)-1)]
+        query(queries, results, level, S)
     assert(len(queries) <= 0.15*S)  # 15% of S is used on average
     print_line(str(-next(iter(candidates))))
 
