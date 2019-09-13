@@ -7,11 +7,10 @@
 # Space: O(S)
 #
 
-from sys import stdout, stderr
+from sys import stdout
 from collections import defaultdict
 from itertools import islice
 from random import randint, seed
-from bisect import bisect_right
 
 def gcd(a, b):
     while b:
@@ -35,6 +34,18 @@ def query(queries, results, level, S):
     print_line("\n".join(map(str, query)))
     for _ in xrange(W):
         results.append(int(read_line()))
+
+def merge_sorted_lists(a, b):
+    result = []
+    i, j = 0, 0
+    while i != len(a) or j != len(b):
+        if j == len(b) or (i != len(a) and a[i][0] < b[j][0]):
+            result.append(a[i])
+            i += 1
+        else:
+            result.append(b[j])
+            j += 1
+    return result
 
 def check(candidates, queries, results, statistics, sorted_statistics):
     diff_intervals = set()
@@ -61,8 +72,7 @@ def check(candidates, queries, results, statistics, sorted_statistics):
             continue
         assert(len(new_levels) <= 1)
         if new_levels:
-            new_level = next(iter(new_levels))
-            sorted_statistics[m].insert(bisect_right(sorted_statistics[m], new_level), new_level)
+            sorted_statistics[m] = merge_sorted_lists(sorted(new_levels), sorted_statistics[m])
         curr_diff_intervals = set()
         prev_level, prev_count, known_count, known_gcd = MIN_L-1, 0, 0, 0
         for curr_level, curr_count in sorted_statistics[m]:
