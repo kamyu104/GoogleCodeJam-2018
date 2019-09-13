@@ -4,8 +4,8 @@
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da2d
 #
 # Time:  O(M * (S + (S/W)^2)), W is tuned by testing, and smaller or larger W is not necessarily good
-#                            , for example, if W = 13, it uses 50% of S on average
-#                            , for another example, if W = 316, then S = (S/W)^2), O(M * (S + (S/W)^2)) = O(M * S)
+#                            , for samller example, W = 13, it uses 50% of S on average
+#                            , for larger example, W = 316, then S = (S/W)^2), O(M * (S + (S/W)^2)) = O(M * S)
 #                            , but it uses 60% of S on average and worse than that of W = 25 (10% of S)
 # Space: O(S)
 #
