@@ -79,7 +79,7 @@ def check_m(queries, results, statistic, sorted_statistic, m):
             curr_diff_intervals.append((prev_level, curr_level))  # even same level could be asked again
             prev_count = curr_count
         prev_level = curr_level  # increase prev_level even if count is same to make interval with shorter length
-    if known_count == m and known_gcd > 1:
+    if known_count == m and known_gcd != 1:
         return
     if m != prev_count:
         curr_diff_intervals.append((prev_level, MAX_L+1))
