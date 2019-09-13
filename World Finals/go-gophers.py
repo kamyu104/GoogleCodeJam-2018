@@ -66,7 +66,7 @@ def check_candidate(queries, results, statistic, sorted_statistic, m):
             return
     assert(len(new_statistic) <= 1)
     if new_statistic:
-        sorted_statistic[:] = merge_sorted_lists(sorted(new_statistic), sorted_statistic)
+        sorted_statistic[:] = merge_sorted_lists(sorted_statistic, sorted(new_statistic))
     curr_diff_intervals = []
     prev_level, prev_count, known_count, known_gcd = MIN_L-1, 0, 0, 0
     for curr_level, curr_count in sorted_statistic:
