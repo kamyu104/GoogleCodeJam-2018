@@ -92,7 +92,7 @@ def check(candidates, queries, results, statistics, sorted_statistics):
             continue
         m_diff_intervals = check_candidate(queries, results, statistics[m], sorted_statistics[m], m)
         if not m_diff_intervals:
-            candidates.discard(m)
+            candidates.pop(m)
             continue
         for m_diff_interval in m_diff_intervals:
             diff_intervals.add(m_diff_interval)
@@ -111,10 +111,8 @@ def go_gophers():
         level_set = set()
         for left, right in diff_intervals:
             for i in xrange(2):  # make left, right endpoints both have chance to be queried
-                mid = (left+right+i)//2
-                if mid == MIN_L-1:
-                    continue
-                level_set.add(mid)
+                level_set.add((left+right+i)//2)
+        level_set.discard(MIN_L-1)
         levels = list(level_set)
         query(queries, results, levels[randint(0, len(levels)-1)], S)  # add random to avoid worst case
     assert(len(queries) <= 0.1*S)  # 10% of S is used on average
