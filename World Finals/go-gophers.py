@@ -68,7 +68,7 @@ def check_m(queries, results, statistic, sorted_statistic, m):
     curr_diff_intervals = []
     prev_level, prev_count, known_count, known_gcd = MIN_L-1, 0, 0, 0
     for curr_level, curr_count in sorted_statistic:
-        if prev_count > curr_count:   # levels are not compressed by same count because they can be still checked in this case
+        if prev_count > curr_count:  # levels are not compressed by same count because they can be still checked in this case
             return
         if curr_count != prev_count:
             if prev_level+1 == curr_level:
@@ -76,7 +76,7 @@ def check_m(queries, results, statistic, sorted_statistic, m):
                 known_gcd = gcd(known_gcd, curr_count-prev_count)
             curr_diff_intervals.append((prev_level, curr_level))  # even same level could be asked again
             prev_count = curr_count
-        prev_level = curr_level  # increase prev_level even if count is same to make smaller interval
+        prev_level = curr_level  # increase prev_level even if count is same to make interval with shorter length
     if known_count == m and known_gcd > 1:
         return
     if m != prev_count:
