@@ -47,53 +47,53 @@ def merge_sorted_lists(a, b):
             j += 1
     return result
 
+def check_m(queries, results, statistic, sorted_statistic, m):
+    i = max((len(queries)-W)//m*m, 0)
+    new_levels = set()
+    while i+m-1 < len(queries):
+        i += m
+        level = queries[i-m]
+        if any(x != level for x in islice(queries, i-m, i)):
+            continue
+        count = sum((islice(results, i-m, i)))
+        if level not in statistic:
+            statistic[level] = count
+            new_levels.add((level, count))
+            continue
+        if statistic[level] != count:
+            return
+    assert(len(new_levels) <= 1)
+    if new_levels:
+        sorted_statistic[:] = merge_sorted_lists(sorted(new_levels), sorted_statistic)
+    curr_diff_intervals = []
+    prev_level, prev_count, known_count, known_gcd = MIN_L-1, 0, 0, 0
+    for curr_level, curr_count in sorted_statistic:
+        if prev_count > curr_count:
+            return
+        if curr_count != prev_count:
+            if prev_level+1 == curr_level:
+                known_count += curr_count-prev_count
+                known_gcd = gcd(known_gcd, curr_count-prev_count)
+            curr_diff_intervals.append((prev_level, curr_level))  # even same level could be asked again
+            prev_count = curr_count
+        prev_level = curr_level  # increase prev_level even if count is same to make smaller interval
+    if known_count == m and known_gcd > 1:
+        return
+    if m != prev_count:
+        curr_diff_intervals.append((prev_level, MAX_L+1))
+    return curr_diff_intervals
+
 def check(candidates, queries, results, statistics, sorted_statistics):
     diff_intervals = set()
     for m in xrange(2, M+1):
         if m not in candidates:
             continue
-        statistic = statistics[m]
-        i = max((len(queries)-W)//m*m, 0)
-        new_levels = set()
-        while i+m-1 < len(queries):
-            i += m
-            level = queries[i-m]
-            if any(x != level for x in islice(queries, i-m, i)):
-                continue
-            count = sum((islice(results, i-m, i)))
-            if level not in statistic:
-                statistic[level] = count
-                new_levels.add((level, count))
-                continue
-            if statistic[level] != count:
-                candidates.discard(m)
-                break
-        if m not in candidates:
-            continue
-        assert(len(new_levels) <= 1)
-        if new_levels:
-            sorted_statistics[m] = merge_sorted_lists(sorted(new_levels), sorted_statistics[m])
-        curr_diff_intervals = set()
-        prev_level, prev_count, known_count, known_gcd = MIN_L-1, 0, 0, 0
-        for curr_level, curr_count in sorted_statistics[m]:
-            if prev_count > curr_count:
-                candidates.discard(m)
-                break
-            if curr_count != prev_count:
-                if prev_level+1 == curr_level:
-                    known_count += curr_count-prev_count
-                    known_gcd = gcd(known_gcd, curr_count-prev_count)
-                curr_diff_intervals.add((prev_level, curr_level))  # even same level could be asked again
-                prev_count = curr_count
-            prev_level = curr_level  # increase prev_level even if count is same to make smaller interval
-        if m not in candidates:
-            continue
-        if m != prev_count:
-            curr_diff_intervals.add((prev_level, MAX_L+1))
-        if known_count == m and known_gcd > 1:
+        m_diff_intervals = check_m(queries, results, statistics[m], sorted_statistics[m], m)
+        if not m_diff_intervals:
             candidates.discard(m)
             continue
-        diff_intervals |= curr_diff_intervals
+        for m_diff_interval in m_diff_intervals:
+            diff_intervals.add(m_diff_interval)
     if not diff_intervals:
         diff_intervals.add((MIN_L-1, MAX_L+1))
     return diff_intervals
