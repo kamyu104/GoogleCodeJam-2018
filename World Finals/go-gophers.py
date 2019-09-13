@@ -118,7 +118,7 @@ def go_gophers():
                 continue
             query(queries, results, level, S)
             break
-    assert(len(queries) <= 0.2*S)  # 20% of S is used on average
+    assert(len(queries) <= 0.15*S)  # 15% of S is used on average
     print_line(str(-next(iter(candidates))))
 
 seed(0)
