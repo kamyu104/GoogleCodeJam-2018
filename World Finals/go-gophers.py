@@ -111,7 +111,7 @@ def go_gophers():
         levels = []
         for left, right in diff_intervals:
             levels.append((left+right)//2)
-            levels.append((left+right+1)//2)
+            levels.append((left+right+1)//2)  # make left, right endpoints both have chance to be queried
         while True:
             level = levels[randint(0, len(levels)-1)]
             if not (MIN_L <= level <= MAX_L):
