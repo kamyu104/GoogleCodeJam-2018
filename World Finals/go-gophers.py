@@ -49,6 +49,25 @@ def merge_sorted_lists(a, b):
             j += 1
     return result
 
+def diff_intervals(sorted_statistic, m):
+    result = []
+    prev_level, prev_count, known_count, known_gcd = MIN_L-1, 0, 0, 0
+    for curr_level, curr_count in sorted_statistic:
+        if prev_count > curr_count:  # levels are not compressed by same count because they can be still checked in this case
+            return
+        if curr_count != prev_count:
+            if prev_level+1 == curr_level:
+                known_count += curr_count-prev_count
+                known_gcd = gcd(known_gcd, curr_count-prev_count)
+            result.append((prev_level, curr_level))  # even same level could be asked again
+            prev_count = curr_count
+        prev_level = curr_level  # increase prev_level even if count is same to make interval with shorter length
+    if known_count == m and known_gcd != 1:
+        return
+    if m != prev_count:
+        result.append((prev_level, MAX_L))
+    return result
+
 def check_candidate(queries, results, statistic, sorted_statistic, m):
     i = max((len(queries)-W)//m*m, 0)
     new_statistic = set()
@@ -67,23 +86,7 @@ def check_candidate(queries, results, statistic, sorted_statistic, m):
     assert(len(new_statistic) <= 1)
     if new_statistic:
         sorted_statistic[:] = merge_sorted_lists(sorted_statistic, sorted(new_statistic))
-    curr_diff_intervals = []
-    prev_level, prev_count, known_count, known_gcd = MIN_L-1, 0, 0, 0
-    for curr_level, curr_count in sorted_statistic:
-        if prev_count > curr_count:  # levels are not compressed by same count because they can be still checked in this case
-            return
-        if curr_count != prev_count:
-            if prev_level+1 == curr_level:
-                known_count += curr_count-prev_count
-                known_gcd = gcd(known_gcd, curr_count-prev_count)
-            curr_diff_intervals.append((prev_level, curr_level))  # even same level could be asked again
-            prev_count = curr_count
-        prev_level = curr_level  # increase prev_level even if count is same to make interval with shorter length
-    if known_count == m and known_gcd != 1:
-        return
-    if m != prev_count:
-        curr_diff_intervals.append((prev_level, MAX_L))
-    return curr_diff_intervals
+    return diff_intervals(sorted_statistic, m)
 
 def check(candidates, queries, results, statistics, sorted_statistics):
     diff_intervals = set()
