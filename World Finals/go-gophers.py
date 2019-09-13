@@ -49,7 +49,7 @@ def merge_sorted_lists(a, b):
 
 def check_m(queries, results, statistic, sorted_statistic, m):
     i = max((len(queries)-W)//m*m, 0)
-    new_levels = set()
+    new_statistic = set()
     while i+m-1 < len(queries):
         i += m
         level = queries[i-m]
@@ -58,13 +58,13 @@ def check_m(queries, results, statistic, sorted_statistic, m):
         count = sum((islice(results, i-m, i)))
         if level not in statistic:
             statistic[level] = count
-            new_levels.add((level, count))
+            new_statistic.add((level, count))
             continue
         if statistic[level] != count:
             return
-    assert(len(new_levels) <= 1)
-    if new_levels:
-        sorted_statistic[:] = merge_sorted_lists(sorted(new_levels), sorted_statistic)
+    assert(len(new_statistic) <= 1)
+    if new_statistic:
+        sorted_statistic[:] = merge_sorted_lists(sorted(new_statistic), sorted_statistic)
     curr_diff_intervals = []
     prev_level, prev_count, known_count, known_gcd = MIN_L-1, 0, 0, 0
     for curr_level, curr_count in sorted_statistic:
