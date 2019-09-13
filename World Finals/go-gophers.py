@@ -92,7 +92,7 @@ def check(candidates, queries, results, statistics, sorted_statistics):
             continue
         m_diff_intervals = check_candidate(queries, results, statistics[m], sorted_statistics[m], m)
         if not m_diff_intervals:
-            candidates.pop(m)
+            candidates.discard(m)
             continue
         for m_diff_interval in m_diff_intervals:
             diff_intervals.add(m_diff_interval)
