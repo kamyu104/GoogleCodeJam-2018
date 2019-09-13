@@ -115,7 +115,7 @@ def go_gophers():
                 if mid == MIN_L-1:
                     continue
                 levels.append(mid)
-        query(queries, results, levels[randint(0, len(levels)-1)], S)
+        query(queries, results, levels[randint(0, len(levels)-1)], S)  # add random to avoid worst case
     assert(len(queries) <= 0.15*S)  # 15% of S is used on average
     print_line(str(-next(iter(candidates))))
 
