@@ -82,7 +82,7 @@ def check_m(queries, results, statistic, sorted_statistic, m):
     if known_count == m and known_gcd != 1:
         return
     if m != prev_count:
-        curr_diff_intervals.append((prev_level, MAX_L+1))
+        curr_diff_intervals.append((prev_level, MAX_L))
     return curr_diff_intervals
 
 def check(candidates, queries, results, statistics, sorted_statistics):
@@ -97,7 +97,7 @@ def check(candidates, queries, results, statistics, sorted_statistics):
         for m_diff_interval in m_diff_intervals:
             diff_intervals.add(m_diff_interval)
     if not diff_intervals:
-        diff_intervals.add((MIN_L-1, MAX_L+1))
+        diff_intervals.add((MIN_L, MAX_L))
     return diff_intervals
 
 def go_gophers():
@@ -118,7 +118,7 @@ def go_gophers():
                 continue
             query(queries, results, level, S)
             break
-    assert(len(queries) <= 0.1*S)  # 10% of S is used on average
+    assert(len(queries) <= 0.2*S)  # 20% of S is used on average
     print_line(str(-next(iter(candidates))))
 
 seed(0)
