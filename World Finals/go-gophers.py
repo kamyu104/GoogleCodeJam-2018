@@ -49,7 +49,7 @@ def merge_sorted_lists(a, b):
             j += 1
     return result
 
-def check_m(queries, results, statistic, sorted_statistic, m):
+def check_candidate(queries, results, statistic, sorted_statistic, m):
     i = max((len(queries)-W)//m*m, 0)
     new_statistic = set()
     while i+m-1 < len(queries):
@@ -90,7 +90,7 @@ def check(candidates, queries, results, statistics, sorted_statistics):
     for m in xrange(2, M+1):
         if m not in candidates:
             continue
-        m_diff_intervals = check_m(queries, results, statistics[m], sorted_statistics[m], m)
+        m_diff_intervals = check_candidate(queries, results, statistics[m], sorted_statistics[m], m)
         if not m_diff_intervals:
             candidates.discard(m)
             continue
