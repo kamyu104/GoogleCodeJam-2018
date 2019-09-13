@@ -11,6 +11,7 @@ from sys import stdout, stderr
 from collections import defaultdict
 from itertools import islice
 from random import randint, seed
+from bisect import bisect_right
 
 def gcd(a, b):
     while b:
@@ -35,13 +36,14 @@ def query(queries, results, level, S):
     for _ in xrange(W):
         results.append(int(read_line()))
 
-def check(candidates, queries, results, statistics):
+def check(candidates, queries, results, statistics, sorted_statistics):
     diff_intervals = set()
     for m in xrange(2, M+1):
         if m not in candidates:
             continue
         statistic = statistics[m]
         i = max((len(queries)-W)//m*m, 0)
+        new_levels = set()
         while i+m-1 < len(queries):
             i += m
             level = queries[i-m]
@@ -50,15 +52,23 @@ def check(candidates, queries, results, statistics):
             count = sum((islice(results, i-m, i)))
             if level not in statistic:
                 statistic[level] = count
+                new_levels.add((level, count))
                 continue
             if statistic[level] != count:
                 candidates.discard(m)
                 break
         if m not in candidates:
             continue
+        assert(len(new_levels) <= 1)
+        if new_levels:
+            new_level = next(iter(new_levels))
+            sorted_statistics[m].insert(bisect_right(sorted_statistics[m], new_level), new_level)
         curr_diff_intervals = set()
         prev_level, prev_count, known_count, known_gcd = MIN_L-1, 0, 0, 0
-        for curr_level, curr_count in sorted(statistic.iteritems()):
+        for curr_level, curr_count in sorted_statistics[m]:
+            if prev_count > curr_count:
+                candidates.discard(m)
+                break
             if curr_count != prev_count:
                 if prev_level+1 == curr_level:
                     known_count += curr_count-prev_count
@@ -66,6 +76,8 @@ def check(candidates, queries, results, statistics):
                 curr_diff_intervals.add((prev_level, curr_level))  # even same level could be asked again
                 prev_count = curr_count
             prev_level = curr_level  # increase prev_level even if count is same to make smaller interval
+        if m not in candidates:
+            continue
         if m != prev_count:
             curr_diff_intervals.add((prev_level, MAX_L+1))
         if known_count == m and known_gcd > 1:
@@ -79,9 +91,9 @@ def check(candidates, queries, results, statistics):
 def go_gophers():
     S = int(input())
     candidates = set(range(2, M+1))
-    queries, results, statistics = [], [], defaultdict(dict)
+    queries, results, statistics, sorted_statistics = [], [], defaultdict(dict), defaultdict(list)
     while True:
-        diff_intervals = check(candidates, queries, results, statistics)
+        diff_intervals = check(candidates, queries, results, statistics, sorted_statistics)
         if len(candidates) == 1:
             break
         levels = []
