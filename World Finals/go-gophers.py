@@ -115,8 +115,7 @@ def go_gophers():
                 if mid == MIN_L-1:
                     continue
                 levels.append(mid)  # make left, right endpoints both have chance to be queried
-        level = levels[randint(0, len(levels)-1)]
-        query(queries, results, level, S)
+        query(queries, results, levels[randint(0, len(levels)-1)], S)
     assert(len(queries) <= 0.15*S)  # 15% of S is used on average
     print_line(str(-next(iter(candidates))))
 
