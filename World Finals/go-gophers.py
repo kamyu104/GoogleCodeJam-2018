@@ -5,7 +5,7 @@
 #
 # Time:  O(M * (S + (S/W)^2)), W is tuned by testing, and larger W is not necessarily good
 #                            , if W = 316, then S = (S/W)^2), O(M * (S + (S/W)^2)) = O(M * S)
-#                            , but it uses 50% of S on average and is slower than W = M
+#                            , but it uses 50% of S on average and is slower than the time used by W = M
 # Space: O(S)
 #
 
