@@ -3,7 +3,7 @@
 # Google Code Jam 2019 World Finals - Problem C. Go, Gophers!
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da2d
 #
-# Time:  O(M * (S + (S/W)^2)), W is tuned by testing
+# Time:  O(M * (S + (S/W)^2))
 # Space: O(S)
 #
 
@@ -28,7 +28,7 @@ def read_line():
     return s
 
 def query(queries, results, level, S):
-    #assert(len(queries)+W <= S)
+    assert(len(queries)+W <= S)
     query = [level]*W
     queries += query
     print_line("\n".join(map(str, query)))
@@ -68,7 +68,7 @@ def check_m(queries, results, statistic, sorted_statistic, m):
     curr_diff_intervals = []
     prev_level, prev_count, known_count, known_gcd = MIN_L-1, 0, 0, 0
     for curr_level, curr_count in sorted_statistic:
-        if prev_count > curr_count:
+        if prev_count > curr_count:   # levels are not compressed by same count because they can be still checked in this case
             return
         if curr_count != prev_count:
             if prev_level+1 == curr_level:
@@ -116,13 +116,13 @@ def go_gophers():
                 continue
             query(queries, results, level, S)
             break
-    assert(len(queries)*100//S <= 10)
+    assert(len(queries) <= 0.1*S)  # 10% of S is used on average
     print_line(str(-next(iter(candidates))))
 
 seed(0)
 MIN_L, MAX_L = 1, 10**6
 M = 25
-W = 2*W
+W = M
 T = int(input())
 for case in xrange(T):
     go_gophers()
