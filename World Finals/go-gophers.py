@@ -108,13 +108,14 @@ def go_gophers():
         diff_intervals = check(candidates, queries, results, statistics, sorted_statistics)
         if len(candidates) == 1:
             break
-        levels = []
+        level_set = set()
         for left, right in diff_intervals:
             for i in xrange(2):  # make left, right endpoints both have chance to be queried
                 mid = (left+right+i)//2
                 if mid == MIN_L-1:
                     continue
-                levels.append(mid)
+                level_set.add(mid)
+        levels = list(level_set)
         query(queries, results, levels[randint(0, len(levels)-1)], S)  # add random to avoid worst case
     assert(len(queries) <= 0.15*S)  # 15% of S is used on average
     print_line(str(-next(iter(candidates))))
