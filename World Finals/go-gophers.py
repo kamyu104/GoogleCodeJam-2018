@@ -117,7 +117,7 @@ def go_gophers():
                 level_set.add(mid)
         levels = list(level_set)
         query(queries, results, levels[randint(0, len(levels)-1)], S)  # add random to avoid worst case
-    assert(len(queries) <= 0.15*S)  # 15% of S is used on average
+    assert(len(queries) <= 0.1*S)  # 10% of S is used on average
     print_line(str(-next(iter(candidates))))
 
 seed(0)
