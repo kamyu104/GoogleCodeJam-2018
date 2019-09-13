@@ -114,7 +114,7 @@ def go_gophers():
             levels.append((left+right+1)//2)  # make left, right endpoints both have chance to be queried
         while True:
             level = levels[randint(0, len(levels)-1)]
-            if not (MIN_L <= level <= MAX_L):
+            if level == MIN_L-1:
                 continue
             query(queries, results, level, S)
             break
