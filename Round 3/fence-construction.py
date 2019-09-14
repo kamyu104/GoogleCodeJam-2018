@@ -43,7 +43,7 @@ def dual_graph(edges):
     edgeset = set()
     for edge in edges:
         edge = list(edge)
-        edgeset |= set([(edge[0],edge[1]),(edge[1],edge[0])])
+        edgeset |= set([(edge[0], edge[1]), (edge[1], edge[0])])
     face_paths = []
     path  = []
     for edge in edgeset:
