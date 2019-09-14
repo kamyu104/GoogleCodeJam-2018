@@ -4,9 +4,9 @@
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da2d
 #
 # Time:  O(M * (S + (S/W)^2)), W is tuned by testing, and smaller or larger W is not necessarily good
-#                            , for samller example, W = 15, it uses 40% of S on average
+#                            , for samller example, W = 13, it uses 50% of S on average
 #                            , for larger example, W = 316, then S = (S/W)^2), O(M * (S + (S/W)^2)) = O(M * S)
-#                            , but it uses 50% of S on average and worse than that of W = 25 (30% of S)
+#                            , but it uses 60% of S on average and worse than that of W = 25 (10% of S)
 # Space: O(S)
 #
 
@@ -114,11 +114,12 @@ def go_gophers():
             break
         level_set = set()
         for left, right in diff_intervals:
-            level_set.add((left+right+1)//2)  # rounding mid to choose possible new level or found level
+            for i in xrange(2):  # make left, right endpoints both have chance to be queried
+                level_set.add((left+right+i)//2)
         level_set.discard(MIN_L-1)
         levels = list(level_set)
         query(queries, results, levels[randint(0, len(levels)-1)], S)  # add random to avoid worst case
-    assert(len(queries) <= 0.3*S)  # 30% of S is used on average
+    assert(len(queries) <= 0.1*S)  # 10% of S is used on average
     print_line(str(-next(iter(candidates))))
 
 seed(0)
