@@ -17,9 +17,8 @@ def clockwiseangle_and_distance(point, origin):
     lenvector = math.hypot(vector[0], vector[1])
     if lenvector == 0:
         return -math.pi, 0
-    normalized = [vector[0]/lenvector, vector[1]/lenvector]
-    crossprod = refvec[1]*normalized[0] - refvec[0]*normalized[1]
-    dotprod = normalized[0]*refvec[0] + normalized[1]*refvec[1]
+    crossprod = refvec[1]*vector[0] - refvec[0]*vector[1]
+    dotprod = refvec[0]*vector[0] + refvec[1]*vector[1]
     angle = math.atan2(crossprod, dotprod)
     if angle < 0:
         return 2*math.pi+angle, lenvector
