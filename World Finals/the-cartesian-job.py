@@ -75,7 +75,7 @@ def dp(intervals):
             if p < float_info.epsilon:
                 continue
             new_states[tuple(sorted([max_tan(s1, b), s2], cmp=compare_tan))] += p/2
-            new_states[tuple(sorted([max_tan(s2, b), s1], cmp=compare_tan))] += p/2
+            new_states[tuple(sorted([s1, max_tan(s2, b)], cmp=compare_tan))] += p/2
         states = new_states
     return result
 
