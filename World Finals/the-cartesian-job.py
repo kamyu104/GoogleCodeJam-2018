@@ -71,6 +71,7 @@ def dp(intervals, s, e):
     result = 0.0
     states = defaultdict(float)
     states[(s, s)] = 1.0
+    intervals.append([e, e])  # end of intervals
     for a, b in intervals:
         assert(len(states) <= K)
         #print "prob", map(lambda x: (map(lambda y: theta(*y), x[0]), x[1]), states.iteritems()), "interval", [theta(*a), theta(*b)]
@@ -92,19 +93,24 @@ def dp(intervals, s, e):
 def the_cartesian_job():
     N = input()
     intervals = []
+    s, e = (1, 0), (-1, 0)
     for _ in xrange(N):
         X0, Y0, X1, Y1 = map(int, raw_input().strip().split())
         interval = []
         for X2, Y2 in SEGMENT_POINTS:
             interval.append(tan((X1-X0, Y1-Y0), (X2-X0, Y2-Y0)))
-        interval = map(lambda x: min_tan(x, reflect_across_x(x)), interval)  # remove overlapped area
-        interval.sort(cmp=compare_tan)
+        quadrants = sorted(map(lambda x: quadrant(x), interval))
+        interval = sorted(map(lambda x: min_tan(x, reflect_across_x(x)), interval), cmp=compare_tan)  # remove overlapped area
+        if quadrants == [1, 4]:
+            if compare_tan(s, interval[0]) == -1:
+                s = interval[0]
+        elif quadrants == [2, 3]:
+            if compare_tan(interval[1], e) == -1:
+                e = interval[1]
         intervals.append(interval)
-    s, e = intervals[0][0], intervals[-1][1]  # TODO: find the right s, e
-    intervals.append([e, e])  # end of intervals
     intervals.sort(cmp=compare_interval)
-    #print map(lambda x: [theta(*x[0]), theta(*x[1])], intervals)
-    return dp(intervals)
+    # print theta(*s), map(lambda x: [theta(*x[0]), theta(*x[1])], intervals), theta(*e)
+    return dp(intervals, s, e)  # find prob of not covering all [s, e]
 
 K = 53
 SEGMENT_POINTS = [(0, 0), (0, 1000)]
