@@ -25,12 +25,6 @@ def real_angle(dotprod, crossprod):
 def angle(v1, v2):  # represented in |v1|*|v2|*cos(theta), |v1|*|v2|*sin(theta) form
     return (dotprod(v1, v2), crossprod(v1, v2))
 
-# Compute the cross product of vectors AB and AC
-CW, COLLINEAR, CCW = range(-1, 2)
-def ccw(A, B, C):
-    area = (B[0]-A[0])*(C[1]-A[1]) - (B[1]-A[1])*(C[0]-A[0])
-    return CCW if area > 0 else CW if area < 0 else COLLINEAR
-
 def quadrant(v1):
     x, y = v1
     if x >= 0:
@@ -39,26 +33,28 @@ def quadrant(v1):
 
 def compare_angle(v1, v2):
     q1, q2 = quadrant(v1), quadrant(v2)
-    side = ccw((0, 0), v1, v2) 
     if q1 != q2:
-        return q1 < q2 if side == COLLINEAR else side != CW
-    return v2[0]*v1[1] < v1[0]*v2[1]
+        return -1 if q1 < q2 else 1
+    return -1 if v2[0]*v1[1] < v1[0]*v2[1] else 1
 
 def reflect_across_x(v):
     return (v[0], -v[1])
 
+def min_angle(v1, v2):
+    return v2 if compare_angle(v1, v2) != -1 else v1
+
 def max_angle(v1, v2):
-    return v2 if compare_angle(v1, v2) else v1
+    return v2 if compare_angle(v1, v2) == -1 else v1
 
 def compare_interval(interval_a, interval_b):
-    # x = real_angle(*interval_a[0]) < real_angle(*interval_b[0])
-    # y = compare_angle(interval_a[0], interval_b[0])
-    # if x != y:
-    #     print x, y
-    #     print real_angle(*interval_a[0]), real_angle(*interval_b[0])
-    #     print interval_a[0], interval_b[0]
-    #     assert(False)
-    return -1 if compare_angle(interval_a[0], interval_b[0]) else 1
+    x = real_angle(*interval_a[0]) < real_angle(*interval_b[0])
+    y = compare_angle(interval_a[0], interval_b[0]) == -1
+    if x != y:
+        print x, y
+        print real_angle(*interval_a[0]), real_angle(*interval_b[0])
+        print interval_a[0], interval_b[0]
+        assert(False)
+    return compare_angle(interval_a[0], interval_b[0])
 
 def dp(intervals):
     result = 0.0
@@ -73,15 +69,13 @@ def the_cartesian_job():
         interval = []
         for X2, Y2 in SEGMENT_POINTS:
             interval.append(angle((X1-X0, Y1-Y0), (X2-X0, Y2-Y0)))
+        print map(lambda x: real_angle(*x), interval)
+        interval = map(lambda x: min_angle(x, reflect_across_x(x)), interval)
         interval.sort(cmp=compare_angle)
-        symmetric_angle = reflect_across_x(interval[1])
-        print real_angle(*interval[0]), real_angle(*interval[1]), real_angle(*symmetric_angle)
-        if compare_angle(symmetric_angle, interval[1]):
-            print "swap", real_angle(*interval[1]), real_angle(*symmetric_angle)
-            interval[1] = symmetric_angle
+        print map(lambda x: real_angle(*x), interval)
+        print "-"*5
         intervals.append(interval)
     intervals.sort(cmp=compare_interval)
-    #intervals.sort(key=lambda x: real_angle(*x[0]))
     print map(lambda x: [real_angle(*x[0]), real_angle(*x[1])], intervals)
     return dp(intervals)
 
