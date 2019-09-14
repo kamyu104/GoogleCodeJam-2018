@@ -67,9 +67,8 @@ def debug(a, b):
         print a, b
         assert(False)
 
-def dp(intervals):
+def dp(intervals, s, e):
     result = 0.0
-    s = intervals[0][0]
     states = defaultdict(float)
     states[(s, s)] = 1.0
     for a, b in intervals:
@@ -101,7 +100,7 @@ def the_cartesian_job():
         interval = map(lambda x: min_tan(x, reflect_across_x(x)), interval)  # remove overlapped area
         interval.sort(cmp=compare_tan)
         intervals.append(interval)
-    e = intervals[-1][1]
+    s, e = intervals[0][0], intervals[-1][1]  # TODO: find the right s, e
     intervals.append([e, e])  # end of intervals
     intervals.sort(cmp=compare_interval)
     #print map(lambda x: [theta(*x[0]), theta(*x[1])], intervals)
