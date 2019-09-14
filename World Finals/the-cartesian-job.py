@@ -1,7 +1,7 @@
 # Copyright (c) 2019 kamyu. All rights reserved.
 #
-# Google Code Jam 2018 World Finals - Problem C. Go, Gophers!
-# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da2d
+# Google Code Jam 2018 World Finals - Problem E. The Cartesian Job
+# https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004d962
 #
 # Time:  O(K * N), K min of x s.t. 2^(-x) < epsilon => K = 53
 # Space: O(K)
