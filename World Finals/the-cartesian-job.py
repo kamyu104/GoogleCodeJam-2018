@@ -57,6 +57,8 @@ def compare_interval(interval_a, interval_b):
     return compare_tan(interval_a[0], interval_b[0])
 
 def dp(intervals):
+    # if not intervals:
+    #     return
     result = 0.0
     s = intervals[0][0]
     states = {(s, s):1.0}
@@ -89,6 +91,8 @@ def the_cartesian_job():
         interval.sort(cmp=compare_tan)
         # print map(lambda x: theta(*x), interval)
         # print "-"*5
+        # if compare_tan(interval[0], interval[1]) == 1:
+        #     continue
         intervals.append(interval)
     intervals.sort(cmp=compare_interval)
     #print map(lambda x: [theta(*x[0]), theta(*x[1])], intervals)
