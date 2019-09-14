@@ -96,7 +96,7 @@ def the_cartesian_job():
         # if compare_tan(interval[0], interval[1]) == 1:
         #     continue
         intervals.append(interval)
-    intervals.append([(-1, 0), (-1, 0)])
+    intervals.append([(-1, 0), (-1, 0)])  # end of intervals
     intervals.sort(cmp=compare_interval)
     #print map(lambda x: [theta(*x[0]), theta(*x[1])], intervals)
     return dp(intervals)
