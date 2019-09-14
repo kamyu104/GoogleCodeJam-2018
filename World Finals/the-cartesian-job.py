@@ -8,6 +8,7 @@
 #
 
 from sys import float_info
+from collections import defaultdict
 from math import atan2, pi
 
 def crossprod(v1, v2):
@@ -61,20 +62,20 @@ def dp(intervals):
     #     return
     result = 0.0
     s = intervals[0][0]
-    states = {(s, s):1.0}
+    states = defaultdict(float)
+    states[(s, s)] = 1.0
     for a, b in intervals:
         #print map(lambda x: (map(lambda y: theta(*y), x[0]), x[1]), states.iteritems()), [theta(*a), theta(*b)]
-        new_states = {}
+        new_states = defaultdict(float)
         for (s1, s2), p in states.iteritems():
             if compare_tan(s1, a) == -1:
                 #print theta(*s1), theta(*a)
                 result += p
-                new_states[(s1, s2)] = p/2
                 continue
             if p < float_info.epsilon:
                 continue
-            new_states[tuple(sorted([max_tan(s1, b), s2], cmp=compare_tan))] = p/2
-            new_states[tuple(sorted([max_tan(s2, b), s1], cmp=compare_tan))] = p/2
+            new_states[tuple(sorted([max_tan(s1, b), s2], cmp=compare_tan))] += p/2
+            new_states[tuple(sorted([max_tan(s2, b), s1], cmp=compare_tan))] += p/2
         states = new_states
     return result
 
