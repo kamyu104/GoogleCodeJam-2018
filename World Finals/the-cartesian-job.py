@@ -73,6 +73,7 @@ def dp(intervals):
     states = defaultdict(float)
     states[(s, s)] = 1.0
     for a, b in intervals:
+        assert(len(states) <= K)
         #print "prob", map(lambda x: (map(lambda y: theta(*y), x[0]), x[1]), states.iteritems()), "interval", [theta(*a), theta(*b)]
         new_states = defaultdict(float)
         for (s1, s2), p in states.iteritems():
@@ -105,6 +106,7 @@ def the_cartesian_job():
     #print map(lambda x: [theta(*x[0]), theta(*x[1])], intervals)
     return dp(intervals)
 
+K = 53
 SEGMENT_POINTS = [(0, 0), (0, 1000)]
 for case in xrange(input()):
     print 'Case #%d: %.6f' % (case+1, the_cartesian_job())
