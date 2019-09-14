@@ -3,7 +3,7 @@
 # Google Code Jam 2018 World Finals - Problem E. The Cartesian Job
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004d962
 #
-# Time:  O(K * N), K min of x s.t. 2^(-x) < epsilon => K = 53
+# Time:  O(K * N), K is min of x s.t. 2^(-x) < epsilon => K = 53
 # Space: O(K)
 #
 
