@@ -58,7 +58,7 @@ def compare_interval(interval_a, interval_b):
     return compare_tan(interval_a[0], interval_b[0])
 
 def dp(intervals):
-    print "--dp--"
+    #print "--dp--"
     # if not intervals:
     #     return
     result = 0.0
@@ -66,11 +66,11 @@ def dp(intervals):
     states = defaultdict(float)
     states[(s, s)] = 1.0
     for a, b in intervals:
-        print map(lambda x: (map(lambda y: theta(*y), x[0]), x[1]), states.iteritems()), [theta(*a), theta(*b)]
+        #print map(lambda x: (map(lambda y: theta(*y), x[0]), x[1]), states.iteritems()), [theta(*a), theta(*b)]
         new_states = defaultdict(float)
         for (s1, s2), p in states.iteritems():
             if compare_tan(s1, a) == -1:
-                print theta(*s1), theta(*a)
+                #print theta(*s1), theta(*a)
                 result += p
                 continue
             if p < float_info.epsilon:
@@ -89,7 +89,7 @@ def the_cartesian_job():
         for X2, Y2 in SEGMENT_POINTS:
             interval.append(tan((X1-X0, Y1-Y0), (X2-X0, Y2-Y0)))
         # print map(lambda x: theta(*x), interval)
-        interval = map(lambda x: min_tan(x, reflect_across_x(x)), interval)
+        #interval = map(lambda x: min_tan(x, reflect_across_x(x)), interval)
         interval.sort(cmp=compare_tan)
         # print map(lambda x: theta(*x), interval)
         # print "-"*5
@@ -97,7 +97,7 @@ def the_cartesian_job():
         #     continue
         intervals.append(interval)
     intervals.sort(cmp=compare_interval)
-    print map(lambda x: [theta(*x[0]), theta(*x[1])], intervals)
+    #print map(lambda x: [theta(*x[0]), theta(*x[1])], intervals)
     return dp(intervals)
 
 SEGMENT_POINTS = [(0, 0), (0, 1000)]
