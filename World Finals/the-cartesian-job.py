@@ -48,19 +48,19 @@ def max_tan(v1, v2):
     return v2 if compare_tan(v1, v2) == -1 else v1
 
 def compare_interval(interval_a, interval_b):
-    x = theta(*interval_a[0]) < theta(*interval_b[0])
-    y = (compare_tan(interval_a[0], interval_b[0]) == -1)
-    if x != y:
-        print x, y
-        print theta(*interval_a[0]), theta(*interval_b[0])
-        print interval_a[0], interval_b[0]
-        assert(False)
+    debug(interval_a[0], interval_b[0])
     return compare_tan(interval_a[0], interval_b[0])
 
+def debug(a, b):
+    x = theta(*a) < theta(*b)
+    y = (compare_tan(a, b) == -1)
+    if x != y:
+        print x, y
+        print theta(*a), theta(*b)
+        print a, b
+        assert(False)
+
 def dp(intervals):
-    #print "--dp--"
-    # if not intervals:
-    #     return
     result = 0.0
     s = intervals[0][0]
     states = defaultdict(float)
@@ -69,6 +69,7 @@ def dp(intervals):
         #print "prob", map(lambda x: (map(lambda y: theta(*y), x[0]), x[1]), states.iteritems()), "interval", [theta(*a), theta(*b)]
         new_states = defaultdict(float)
         for (s1, s2), p in states.iteritems():
+            debug(s1, a)
             if compare_tan(s1, a) == -1:
                 #print theta(*s1), theta(*a)
                 result += p
@@ -88,13 +89,8 @@ def the_cartesian_job():
         interval = []
         for X2, Y2 in SEGMENT_POINTS:
             interval.append(tan((X1-X0, Y1-Y0), (X2-X0, Y2-Y0)))
-        # print map(lambda x: theta(*x), interval)
-        interval = map(lambda x: min_tan(x, reflect_across_x(x)), interval)
+        interval = map(lambda x: min_tan(x, reflect_across_x(x)), interval)  # remove overlapped area
         interval.sort(cmp=compare_tan)
-        # print map(lambda x: theta(*x), interval)
-        # print "-"*5
-        # if compare_tan(interval[0], interval[1]) == 1:
-        #     continue
         intervals.append(interval)
     intervals.append([(-1, 0), (-1, 0)])  # end of intervals
     intervals.sort(cmp=compare_interval)
@@ -103,4 +99,4 @@ def the_cartesian_job():
 
 SEGMENT_POINTS = [(0, 0), (0, 1000)]
 for case in xrange(input()):
-    print 'Case #%d: %.6f' % (case+1, the_cartesian_job())
+    print 'Case #%d: %.8f' % (case+1, the_cartesian_job())
