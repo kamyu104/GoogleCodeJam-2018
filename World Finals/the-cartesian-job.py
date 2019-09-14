@@ -23,8 +23,15 @@ def theta(dotprod, crossprod):
         theta += 2*pi
     return 180*theta/pi
 
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
 def tan(v1, v2):  # tan(theta) represented in |v1|*|v2|*cos(theta), |v1|*|v2|*sin(theta) form
-    return (dotprod(v1, v2), crossprod(v1, v2))
+    x, y = dotprod(v1, v2), crossprod(v1, v2)
+    g = gcd(abs(x), abs(y))
+    return (x//g, y//g)
 
 def quadrant(v1):
     x, y = v1
@@ -79,6 +86,7 @@ def dp(intervals):
             new_states[tuple(sorted([max_tan(s1, b), s2], cmp=compare_tan))] += p/2
             new_states[tuple(sorted([s1, max_tan(s2, b)], cmp=compare_tan))] += p/2
         states = new_states
+    # print "prob", map(lambda x: (map(lambda y: theta(*y), x[0]), x[1]), states.iteritems())
     return result
 
 def the_cartesian_job():
@@ -99,4 +107,4 @@ def the_cartesian_job():
 
 SEGMENT_POINTS = [(0, 0), (0, 1000)]
 for case in xrange(input()):
-    print 'Case #%d: %.8f' % (case+1, the_cartesian_job())
+    print 'Case #%d: %.6f' % (case+1, the_cartesian_job())
