@@ -101,7 +101,8 @@ def the_cartesian_job():
         interval = map(lambda x: min_tan(x, reflect_across_x(x)), interval)  # remove overlapped area
         interval.sort(cmp=compare_tan)
         intervals.append(interval)
-    intervals.append([(-1, 0), (-1, 0)])  # end of intervals
+    e = intervals[-1][1]
+    intervals.append([e, e])  # end of intervals
     intervals.sort(cmp=compare_interval)
     #print map(lambda x: [theta(*x[0]), theta(*x[1])], intervals)
     return dp(intervals)
