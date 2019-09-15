@@ -21,7 +21,7 @@ def theta(dotprod, crossprod):
     theta = atan2(crossprod, dotprod)
     if theta < 0:
         theta += 2*pi
-    return 180*theta/pi
+    return theta/pi/2
 
 def gcd(a, b):
     while b:
@@ -39,7 +39,22 @@ def quadrant(v1):
         return 1 if y >= 0 else 4
     return 2 if y >= 0 else 3
 
+# Compute the cross product of vectors AB and AC
+CW, COLLINEAR, CCW = range(-1, 2)
+def ccw(A, B, C):
+    area = (B[0]-A[0])*(C[1]-A[1]) - (B[1]-A[1])*(C[0]-A[0])
+    return CCW if area > 0 else CW if area < 0 else COLLINEAR
+
 def compare_tan(v1, v2):
+    orientation = ccw((0, 0), v1, v2)
+    if orientation == CCW:
+        return -1
+    if orientation == COLLINEAR:
+        if quadrant(v1) < quadrant(v2):
+            return -1
+    return 1
+
+def compare_abs_tan(v1, v2):
     q1, q2 = quadrant(v1), quadrant(v2)
     if q1 != q2:
         return -1 if q1 < q2 else 1
@@ -49,23 +64,13 @@ def reflect_across_x(v):
     return (v[0], -v[1])
 
 def min_tan(v1, v2):
-    return v2 if compare_tan(v1, v2) != -1 else v1
+    return v2 if compare_abs_tan(v1, v2) != -1 else v1
 
 def max_tan(v1, v2):
-    return v2 if compare_tan(v1, v2) == -1 else v1
+    return v2 if compare_abs_tan(v1, v2) == -1 else v1
 
 def compare_interval(interval_a, interval_b):
-    debug(interval_a[0], interval_b[0])
-    return compare_tan(interval_a[0], interval_b[0])
-
-def debug(a, b):
-    x = theta(*a) < theta(*b)
-    y = (compare_tan(a, b) == -1)
-    if x != y:
-        print x, y
-        print theta(*a), theta(*b)
-        print a, b
-        assert(False)
+    return compare_abs_tan(interval_a[0], interval_b[0])
 
 def dp(intervals, s, e):
     result = 0.0
@@ -77,7 +82,6 @@ def dp(intervals, s, e):
         #print "prob", map(lambda x: (map(lambda y: theta(*y), x[0]), x[1]), states.iteritems()), "interval", [theta(*a), theta(*b)]
         new_states = defaultdict(float)
         for (s1, s2), p in states.iteritems():
-            debug(s1, a)
             if compare_tan(s1, a) == -1:
                 #print theta(*s1), theta(*a)
                 result += p
@@ -99,18 +103,32 @@ def the_cartesian_job():
         interval = []
         for X2, Y2 in SEGMENT_POINTS:
             interval.append(tan((X1-X0, Y1-Y0), (X2-X0, Y2-Y0)))
-        quadrants = sorted(map(lambda x: quadrant(x), interval))
-        interval = sorted(map(lambda x: min_tan(x, reflect_across_x(x)), interval), cmp=compare_tan)  # remove overlapped area
-        if quadrants == [1, 4]:
-            if compare_tan(s, interval[0]) == -1:
-                s = interval[0]
-        elif quadrants == [2, 3]:
-            if compare_tan(interval[1], e) == -1:
-                e = interval[1]
-        intervals.append(interval)
-    intervals.sort(cmp=compare_interval)
-    # print theta(*s), map(lambda x: [theta(*x[0]), theta(*x[1])], intervals), theta(*e)
-    return dp(intervals, s, e)  # find prob of not covering all [s, e]
+        interval.sort(cmp=compare_tan)
+        print "before", map(lambda y: theta(*y), interval)
+        symmetric_interval = sorted(map(lambda x: reflect_across_x(x), interval), cmp=compare_tan)  # remove overlapped area
+        if compare_tan(symmetric_interval[0], interval[0]) == -1:
+            interval = symmetric_interval
+        print "after", map(lambda y: theta(*y), interval)
+        no_overlapped_interval = sorted(map(lambda x: min_tan(x, reflect_across_x(x)), interval), cmp=compare_tan)  # remove overlapped area
+        if compare_tan((0, 0), interval[0]) != -1 and compare_tan(interval[1], (0, 0)) != 1:
+            s = no_overlapped_interval[0]
+            print "s", map(lambda y: theta(*y), interval), map(lambda y: theta(*y), no_overlapped_interval), theta(*s)
+        elif compare_tan((-1, 0), interval[0]) != -1 and compare_tan(interval[1], (-1, 0)) != 1:
+            e = no_overlapped_interval[1]
+            print "e", map(lambda y: theta(*y), interval), map(lambda y: theta(*y), no_overlapped_interval), theta(*e)
+        intervals.append(no_overlapped_interval)
+    new_intervals = []
+    for interval in intervals:
+        if compare_tan(interval[0], s) == -1:
+            interval[0] = s
+        if compare_tan(e, interval[1]) == -1:
+            interval[1] = e
+        if compare_tan(interval[1], interval[0]) == -1:
+            continue
+        new_intervals.append(interval)
+    new_intervals.sort(cmp=compare_interval)
+    print theta(*s), map(lambda x: [theta(*x[0]), theta(*x[1])], new_intervals), theta(*e)
+    return dp(new_intervals, s, e)  # find prob of not covering all [s, e]
 
 K = 53
 SEGMENT_POINTS = [(0, 0), (0, 1000)]
