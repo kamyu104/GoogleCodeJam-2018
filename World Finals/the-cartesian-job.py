@@ -127,10 +127,12 @@ def the_cartesian_job():
             interval[1] = e
         if compare_tan(interval[1], interval[0]) == -1:
             continue
+        # if interval[0] == interval[1]:
+        #     continue
         new_intervals.append(interval)
-    new_intervals.sort(cmp=compare_interval)
-    #print theta(*s), map(lambda x: [theta(*x[0]), theta(*x[1])], new_intervals), theta(*e)
-    return dp(new_intervals, s, e)  # find prob of not covering all [s, e]
+    intervals = sorted(new_intervals, cmp=compare_interval)
+    #print theta(*s), map(lambda x: [theta(*x[0]), theta(*x[1])], intervals), theta(*e)
+    return dp(intervals, s, e)  # find prob of not covering all [s, e]
 
 K = 53
 SEGMENT_POINTS = [(0, 0), (0, 1000)]
