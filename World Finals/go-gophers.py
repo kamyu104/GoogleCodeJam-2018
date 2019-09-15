@@ -71,7 +71,7 @@ def diff_intervals(sorted_statistic, m):
 
 def check_candidate(queries, results, statistic, sorted_statistic, m):
     i = max((len(queries)-W)//m*m, 0)
-    new_statistic = set()
+    new_statistic = {}
     while i+m-1 < len(queries):
         i += m
         level = queries[i-m]
@@ -80,13 +80,13 @@ def check_candidate(queries, results, statistic, sorted_statistic, m):
         count = sum((islice(results, i-m, i)))
         if level not in statistic:
             statistic[level] = count
-            new_statistic.add((level, count))
+            new_statistic[level] = count
             continue
         if statistic[level] != count:
             return
     assert(len(new_statistic) <= 1)
     if new_statistic:
-        sorted_statistic[:] = merge_sorted_lists(sorted_statistic, sorted(new_statistic))
+        sorted_statistic[:] = merge_sorted_lists(sorted_statistic, sorted(new_statistic.iteritems()))
     return diff_intervals(sorted_statistic, m)
 
 def check(candidates, queries, results, statistics, sorted_statistics):
