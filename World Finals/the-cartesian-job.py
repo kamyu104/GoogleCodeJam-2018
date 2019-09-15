@@ -19,22 +19,22 @@ def dotprod(v1, v2):
 def tan(v1, v2):  # tan(theta) represented in |v1|*|v2|*cos(theta), |v1|*|v2|*sin(theta) form
     return (dotprod(v1, v2), crossprod(v1, v2))
 
-def quadrant(v1):
-    x, y = v1
-    if x >= 0:
-        return 1 if y >= 0 else 4
-    return 2 if y >= 0 else 3
-
 # Compute the cross product of vectors AB and AC
 CW, COLLINEAR, CCW = range(-1, 2)
 def ccw(A, B, C):
     area = (B[0]-A[0])*(C[1]-A[1]) - (B[1]-A[1])*(C[0]-A[0])
     return CCW if area > 0 else CW if area < 0 else COLLINEAR
 
-def compare_relative_tan(v1, v2):  # used before removing overlapped interval
+def compare_relative_tan(v1, v2):  # compare orientation, used before removing overlapped interval
     return -1 if ccw((0, 0), v1, v2) == CCW else 1
 
-def compare_tan(v1, v2):  # used after removing overlapped interval
+def compare_tan(v1, v2):  # compare theta, used after removing overlapped interval
+    def quadrant(v1):
+        x, y = v1
+        if x >= 0:
+            return 1 if y >= 0 else 4
+        return 2 if y >= 0 else 3
+
     q1, q2 = quadrant(v1), quadrant(v2)
     if q1 != q2:
         return -1 if q1 < q2 else 1
