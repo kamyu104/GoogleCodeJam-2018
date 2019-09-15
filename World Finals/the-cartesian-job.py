@@ -79,7 +79,8 @@ def sort_and_clean(intervals, s, e):  # sort and keep intervals in [s, e]
         if compare_relative_tan(interval[1], interval[0]) == -1:
             continue
         result.append(interval)
-    return sorted(result, cmp=compare_interval)  # O(NlogN)
+    result.sort(cmp=compare_interval)  # O(NlogN)
+    return result
 
 def dp(intervals, s, e):  # find probability of not covering all [s, e]
     result = 0.0
