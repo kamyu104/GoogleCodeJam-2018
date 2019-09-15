@@ -42,10 +42,10 @@ def compare_tan(v1, v2):  # compare theta, used after removing overlapped interv
     return -1 if v2[0]*v1[1] < v1[0]*v2[1] else 1
 
 def min_tan(v1, v2):
-    return v2 if compare_tan(v1, v2) != -1 else v1
+    return v2 if compare_tan(v1, v2) >= 0 else v1
 
 def max_tan(v1, v2):
-    return v2 if compare_tan(v1, v2) == -1 else v1
+    return v2 if compare_tan(v1, v2) < 0 else v1
 
 def reflect_across_x(v):
     return (v[0], -v[1])
@@ -58,27 +58,27 @@ def no_overlapped_interval(interval, s, e):
     no_overlapped_interval = sorted(map(lambda x: min_tan(x, reflect_across_x(x)), interval),
                                     cmp=compare_relative_tan)
     if no_overlapped_interval[0][1] != 0 and \
-       compare_relative_tan((1, 0), interval[0]) != -1 and \
-       compare_relative_tan(interval[1], (1, 0)) != -1:
+       compare_relative_tan((1, 0), interval[0]) >= 0 and \
+       compare_relative_tan(interval[1], (1, 0)) >= 0:
         # overlapped around theta = 0
-        if compare_tan(s, no_overlapped_interval[0]) == -1:
+        if compare_tan(s, no_overlapped_interval[0]) < 0:
             s = no_overlapped_interval[0]
     elif no_overlapped_interval[1][1] != 0 and \
-         compare_relative_tan((-1, 0), interval[0]) != -1 and \
-         compare_relative_tan(interval[1], (-1, 0)) != -1:
+         compare_relative_tan((-1, 0), interval[0]) >= 0 and \
+         compare_relative_tan(interval[1], (-1, 0)) >= 0:
          # overlapped around theta = pi/2
-         if compare_tan(no_overlapped_interval[1], e) == -1:
+         if compare_tan(no_overlapped_interval[1], e) < 0:
             e = no_overlapped_interval[1]
     return no_overlapped_interval, s, e
 
 def sort_and_clean(intervals, s, e):  # sort and keep intervals in [s, e]
     result = []
     for interval in intervals:
-        if compare_tan(interval[0], s) == -1:
+        if compare_tan(interval[0], s) < 0:
             interval[0] = s
-        if compare_tan(e, interval[1]) == -1:
+        if compare_tan(e, interval[1]) < 0:
             interval[1] = e
-        if compare_tan(interval[1], interval[0]) == -1:
+        if compare_tan(interval[1], interval[0]) < 0:
             continue
         result.append(interval)
     result.sort(cmp=compare_interval)  # O(NlogN)
@@ -94,7 +94,7 @@ def dp(intervals, s, e):  # find probability of not covering all [s, e]
                                   # and the number of states increases at most one each time
         new_states = defaultdict(float)
         for (s1, s2), p in states.iteritems():
-            if compare_tan(s1, a) == -1:
+            if compare_tan(s1, a) < 0:
                 result += p
                 continue
             if p < float_info.epsilon:
