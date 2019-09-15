@@ -5,7 +5,7 @@
 #
 # Time:  O(NlogN + K * N) = O(K * N), because K is much larger than logN (which is 14)
 #                                   , K is min of x s.t. 2^(-(x-1)) < epsilon, thus K = 54
-# Space: O(K)
+# Space: O(N)
 #
 
 from sys import float_info
