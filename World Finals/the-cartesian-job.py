@@ -68,7 +68,7 @@ def no_overlapped_interval(interval, s, e):
             e = no_overlapped_interval[1]
     return no_overlapped_interval, s, e
 
-def sort_and_clean(intervals, s, e):
+def sort_and_clean(intervals, s, e):  # sort and keep interveals in [s, e]
     result = []
     for interval in intervals:
         if compare_relative_tan(interval[0], s) == -1:
@@ -80,7 +80,7 @@ def sort_and_clean(intervals, s, e):
         result.append(interval)
     return sorted(result, cmp=compare_interval)
 
-def dp(intervals, s, e):
+def dp(intervals, s, e):  # find prob of not covering all [s, e]
     result = 0.0
     states = defaultdict(float)
     states[(s, s)] = 1.0
@@ -111,7 +111,7 @@ def the_cartesian_job():
         interval, s, e = no_overlapped_interval(interval, s, e)
         intervals.append(interval)
     intervals = sort_and_clean(intervals, s, e)
-    return dp(intervals, s, e)  # find prob of not covering all [s, e]
+    return dp(intervals, s, e)
 
 K = 54
 SEGMENT_POINTS = [(0, 0), (0, 1000)]
