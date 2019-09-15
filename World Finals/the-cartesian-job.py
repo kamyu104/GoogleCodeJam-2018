@@ -32,13 +32,7 @@ def ccw(A, B, C):
     return CCW if area > 0 else CW if area < 0 else COLLINEAR
 
 def compare_relative_tan(v1, v2):  # used before removing overlapped interval
-    orientation = ccw((0, 0), v1, v2)
-    if orientation == CCW:
-        return -1
-    if orientation == COLLINEAR:
-        if quadrant(v1) < quadrant(v2):
-            return -1
-    return 1
+    return -1 if ccw((0, 0), v1, v2) == CCW else 1
 
 def compare_tan(v1, v2):  # used after removing overlapped interval
     q1, q2 = quadrant(v1), quadrant(v2)
@@ -64,10 +58,12 @@ def no_overlapped_interval(interval, s, e):
                                     cmp=compare_relative_tan)
     if compare_relative_tan((1, 0), interval[0]) != -1 and \
        compare_relative_tan(interval[1], (1, 0)) != -1:
+        # overlapped around theta = 0
         if compare_relative_tan(s, no_overlapped_interval[0]) == -1:
             s = no_overlapped_interval[0]
     elif compare_relative_tan((-1, 0), interval[0]) != -1 and \
          compare_relative_tan(interval[1], (-1, 0)) != -1:
+         # overlapped around theta = pi/2
          if compare_relative_tan(no_overlapped_interval[1], e) == -1:
             e = no_overlapped_interval[1]
     return no_overlapped_interval, s, e
