@@ -90,6 +90,8 @@ def dp(intervals, s, e):  # find probability of not covering all [s, e]
     states[(s, s)] = 1.0
     intervals.append([e, e])  # end of intervals
     for a, b in intervals:
+        if not states:
+            break
         assert(len(states) <= K)  # only largest K probs would be kept,
                                   # and the number of states increases at most one each time
         new_states = defaultdict(float)
@@ -122,4 +124,4 @@ def the_cartesian_job():
 K = 54
 SEGMENT_POINTS = [(0, 0), (0, 1000)]
 for case in xrange(input()):
-    print 'Case #%d: %.6f' % (case+1, the_cartesian_job())
+    print 'Case #%d: %s' % (case+1, the_cartesian_job())
