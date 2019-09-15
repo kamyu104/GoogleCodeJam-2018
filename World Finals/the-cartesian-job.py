@@ -79,11 +79,9 @@ def dp(intervals, s, e):
     intervals.append([e, e])  # end of intervals
     for a, b in intervals:
         assert(len(states) <= K)
-        #print "prob", map(lambda x: (map(lambda y: theta(*y), x[0]), x[1]), states.iteritems()), "interval", [theta(*a), theta(*b)]
         new_states = defaultdict(float)
         for (s1, s2), p in states.iteritems():
             if compare_tan(s1, a) == -1:
-                #print theta(*s1), theta(*a)
                 result += p
                 continue
             if p < float_info.epsilon:
@@ -91,8 +89,35 @@ def dp(intervals, s, e):
             new_states[tuple(sorted([max_tan(s1, b), s2], cmp=compare_tan))] += p/2
             new_states[tuple(sorted([s1, max_tan(s2, b)], cmp=compare_tan))] += p/2
         states = new_states
-    # print "prob", map(lambda x: (map(lambda y: theta(*y), x[0]), x[1]), states.iteritems())
     return result
+
+def no_overlapped_interval(interval, s, e):
+    interval.sort(cmp=compare_tan)
+    no_overlapped_interval = sorted(map(lambda x: min_tan(x, reflect_across_x(x)), interval), cmp=compare_tan)  # remove overlapped area
+    if compare_tan((1, 0), interval[0]) != -1 and \
+       compare_tan(interval[1], (1, 0)) != -1:
+        if compare_tan(s, no_overlapped_interval[0]) == -1:
+            s = no_overlapped_interval[0]
+    elif compare_tan((-1, 0), interval[0]) != -1 and \
+         compare_tan(interval[1], (-1, 0)) != -1:
+         if compare_tan(no_overlapped_interval[1], e) == -1:
+             e = no_overlapped_interval[1]
+    return no_overlapped_interval, s, e
+
+def sort_and_clean(intervals, s, e):
+    # print theta(*s), map(lambda x: [theta(*x[0]), theta(*x[1])], intervals), theta(*e)
+    result = []
+    for interval in intervals:
+        assert(compare_tan(interval[0], (1, 0)) != -1 and \
+               compare_tan((-1, 0), interval[1]) != -1)
+        if compare_tan(interval[0], s) == -1:
+            interval[0] = s
+        if compare_tan(e, interval[1]) == -1:
+            interval[1] = e
+        if compare_tan(interval[1], interval[0]) == -1:
+            continue
+        result.append(interval)
+    return sorted(result, cmp=compare_interval)
 
 def the_cartesian_job():
     N = input()
@@ -103,35 +128,9 @@ def the_cartesian_job():
         interval = []
         for X2, Y2 in SEGMENT_POINTS:
             interval.append(tan((X1-X0, Y1-Y0), (X2-X0, Y2-Y0)))
-        interval.sort(cmp=compare_tan)
-        #print "before", map(lambda y: theta(*y), interval)
-        symmetric_interval = sorted(map(lambda x: reflect_across_x(x), interval), cmp=compare_tan)  # remove overlapped area
-        if compare_tan(symmetric_interval[0], interval[0]) == -1:
-            interval = symmetric_interval
-        #print "after", map(lambda y: theta(*y), interval)
-        no_overlapped_interval = sorted(map(lambda x: min_tan(x, reflect_across_x(x)), interval), cmp=compare_tan)  # remove overlapped area
-        #print "nonoverlapped", map(lambda y: theta(*y), no_overlapped_interval), compare_tan((1, 0), interval[0])
-        if compare_tan((1, 0), interval[0]) != -1 and compare_tan(interval[1], (1, 0)) != -1:
-            s = no_overlapped_interval[0]
-            #print "s", map(lambda y: theta(*y), interval), map(lambda y: theta(*y), no_overlapped_interval), theta(*s)
-        elif compare_tan((-1, 0), interval[0]) != -1 and compare_tan(interval[1], (-1, 0)) != -1:
-            e = no_overlapped_interval[1]
-            #print "e", map(lambda y: theta(*y), interval), map(lambda y: theta(*y), no_overlapped_interval), theta(*e)
-        intervals.append(no_overlapped_interval)
-        #print "----"
-    new_intervals = []
-    for interval in intervals:
-        if compare_tan(interval[0], s) == -1:
-            interval[0] = s
-        if compare_tan(e, interval[1]) == -1:
-            interval[1] = e
-        if compare_tan(interval[1], interval[0]) == -1:
-            continue
-        # if interval[0] == interval[1]:
-        #     continue
-        new_intervals.append(interval)
-    intervals = sorted(new_intervals, cmp=compare_interval)
-    #print theta(*s), map(lambda x: [theta(*x[0]), theta(*x[1])], intervals), theta(*e)
+        interval, s, e = no_overlapped_interval(interval, s, e)
+        intervals.append(interval)
+    intervals = sort_and_clean(intervals, s, e)
     return dp(intervals, s, e)  # find prob of not covering all [s, e]
 
 K = 53
