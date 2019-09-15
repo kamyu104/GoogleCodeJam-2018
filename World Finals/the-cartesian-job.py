@@ -60,12 +60,12 @@ def no_overlapped_interval(interval, s, e):
     if compare_relative_tan((1, 0), interval[0]) != -1 and \
        compare_relative_tan(interval[1], (1, 0)) != -1:
         # overlapped around theta = 0
-        if compare_relative_tan(s, no_overlapped_interval[0]) == -1: # diff of theta should be less than pi
+        if compare_relative_tan(s, no_overlapped_interval[0]) == -1:  # diff of theta should be less than pi
             s = no_overlapped_interval[0]
     elif compare_relative_tan((-1, 0), interval[0]) != -1 and \
          compare_relative_tan(interval[1], (-1, 0)) != -1:
          # overlapped around theta = pi/2
-         if compare_relative_tan(no_overlapped_interval[1], e) == -1: # diff of theta should be less than pi
+         if compare_relative_tan(no_overlapped_interval[1], e) == -1:  # diff of theta should be less than pi
             e = no_overlapped_interval[1]
     return no_overlapped_interval, s, e
 
