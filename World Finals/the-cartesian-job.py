@@ -87,7 +87,7 @@ def dp(intervals, s, e):  # find probability of not covering all [s, e]
     intervals.append([e, e])  # end of intervals
     for a, b in intervals:
         assert(len(states) <= K)  # only largest K probs would be kept,
-                                  # and the number of states increase at most one each time
+                                  # and the number of states increases at most one each time
         new_states = defaultdict(float)
         for (s1, s2), p in states.iteritems():
             if compare_tan(s1, a) == -1:
