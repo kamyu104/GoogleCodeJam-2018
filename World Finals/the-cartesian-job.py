@@ -3,7 +3,8 @@
 # Google Code Jam 2018 World Finals - Problem E. The Cartesian Job
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004d962
 #
-# Time:  O(K * N), K is min of x s.t. 2^(-(x-1)) < epsilon => K = 54
+# Time:  O(NlogN + K * N) = O(K * N), because K is much larger than logN (which is 14)
+#                                   , K is min of x s.t. 2^(-(x-1)) < epsilon, thus K = 54
 # Space: O(K)
 #
 
@@ -78,7 +79,7 @@ def sort_and_clean(intervals, s, e):  # sort and keep intervals in [s, e]
         if compare_relative_tan(interval[1], interval[0]) == -1:
             continue
         result.append(interval)
-    return sorted(result, cmp=compare_interval)
+    return sorted(result, cmp=compare_interval)  # O(NlogN)
 
 def dp(intervals, s, e):  # find probability of not covering all [s, e]
     result = 0.0
