@@ -3,12 +3,13 @@
 # Google Code Jam 2018 World Finals - Problem E. The Cartesian Job
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004d962
 #
-# Time:  O(K * N), K is min of x s.t. 2^(-x) < epsilon => K = 53
+# Time:  O(K * N), K is min of x s.t. 2^(-x) < epsilon => K = 54
 # Space: O(K)
 #
 
 from sys import float_info
 from collections import defaultdict
+from math import atan2, pi
 
 def crossprod(v1, v2):
     return v1[1]*v2[0] - v1[0]*v2[1]
@@ -64,7 +65,7 @@ def dp(intervals, s, e):
     states[(s, s)] = 1.0
     intervals.append([e, e])  # end of intervals
     for a, b in intervals:
-        # assert(len(states) <= K)
+        assert(len(states) <= K)
         new_states = defaultdict(float)
         for (s1, s2), p in states.iteritems():
             if compare_tan(s1, a) == -1:
@@ -87,7 +88,7 @@ def no_overlapped_interval(interval, s, e):
     elif compare_tan((-1, 0), interval[0]) != -1 and \
          compare_tan(interval[1], (-1, 0)) != -1:
          if compare_tan(no_overlapped_interval[1], e) == -1:
-             e = no_overlapped_interval[1]
+            e = no_overlapped_interval[1]
     return no_overlapped_interval, s, e
 
 def sort_and_clean(intervals, s, e):
@@ -116,7 +117,7 @@ def the_cartesian_job():
     intervals = sort_and_clean(intervals, s, e)
     return dp(intervals, s, e)  # find prob of not covering all [s, e]
 
-K = 53
+K = 54
 SEGMENT_POINTS = [(0, 0), (0, 1000)]
 for case in xrange(input()):
     print 'Case #%d: %.6f' % (case+1, the_cartesian_job())
