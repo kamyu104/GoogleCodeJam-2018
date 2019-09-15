@@ -72,11 +72,11 @@ def no_overlapped_interval(interval, s, e):
 def sort_and_clean(intervals, s, e):  # sort and keep intervals in [s, e]
     result = []
     for interval in intervals:
-        if compare_relative_tan(interval[0], s) == -1:
+        if compare_tan(interval[0], s) == -1:
             interval[0] = s
-        if compare_relative_tan(e, interval[1]) == -1:
+        if compare_tan(e, interval[1]) == -1:
             interval[1] = e
-        if compare_relative_tan(interval[1], interval[0]) == -1:
+        if compare_tan(interval[1], interval[0]) == -1:
             continue
         result.append(interval)
     result.sort(cmp=compare_interval)  # O(NlogN)
