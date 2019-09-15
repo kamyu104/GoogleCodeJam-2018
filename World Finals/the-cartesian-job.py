@@ -29,8 +29,8 @@ def compare_relative_tan(v1, v2):  # compare orientation, used before removing o
     return -1 if ccw((0, 0), v1, v2) == CCW else 1
 
 def compare_tan(v1, v2):  # compare theta, used after removing overlapped interval
-    def quadrant(v1):
-        x, y = v1
+    def quadrant(v):
+        x, y = v
         if x >= 0:
             return 1 if y >= 0 else 4
         return 2 if y >= 0 else 3
