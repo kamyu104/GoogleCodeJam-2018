@@ -9,7 +9,6 @@
 
 from sys import float_info
 from collections import defaultdict
-from math import atan2, pi
 
 def crossprod(v1, v2):
     return v1[1]*v2[0] - v1[0]*v2[1]
@@ -17,21 +16,8 @@ def crossprod(v1, v2):
 def dotprod(v1, v2):
     return v1[0]*v2[0] + v1[1]*v2[1]
 
-def theta(dotprod, crossprod):
-    theta = atan2(crossprod, dotprod)
-    if theta < 0:
-        theta += 2*pi
-    return 180*theta/pi
-
-def gcd(a, b):
-    while b:
-        a, b = b, a % b
-    return a
-
 def tan(v1, v2):  # tan(theta) represented in |v1|*|v2|*cos(theta), |v1|*|v2|*sin(theta) form
-    x, y = dotprod(v1, v2), crossprod(v1, v2)
-    g = gcd(abs(x), abs(y))
-    return (x//g, y//g)
+    return (dotprod(v1, v2), crossprod(v1, v2))
 
 def quadrant(v1):
     x, y = v1
@@ -78,7 +64,7 @@ def dp(intervals, s, e):
     states[(s, s)] = 1.0
     intervals.append([e, e])  # end of intervals
     for a, b in intervals:
-        assert(len(states) <= K)
+        # assert(len(states) <= K)
         new_states = defaultdict(float)
         for (s1, s2), p in states.iteritems():
             if compare_tan(s1, a) == -1:
@@ -105,11 +91,8 @@ def no_overlapped_interval(interval, s, e):
     return no_overlapped_interval, s, e
 
 def sort_and_clean(intervals, s, e):
-    # print theta(*s), map(lambda x: [theta(*x[0]), theta(*x[1])], intervals), theta(*e)
     result = []
     for interval in intervals:
-        assert(compare_tan(interval[0], (1, 0)) != -1 and \
-               compare_tan((-1, 0), interval[1]) != -1)
         if compare_tan(interval[0], s) == -1:
             interval[0] = s
         if compare_tan(e, interval[1]) == -1:
