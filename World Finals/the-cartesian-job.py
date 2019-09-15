@@ -31,7 +31,7 @@ def ccw(A, B, C):
     area = (B[0]-A[0])*(C[1]-A[1]) - (B[1]-A[1])*(C[0]-A[0])
     return CCW if area > 0 else CW if area < 0 else COLLINEAR
 
-def compare_tan(v1, v2):
+def compare_relative_tan(v1, v2):  # used before removing overlapped interval
     orientation = ccw((0, 0), v1, v2)
     if orientation == CCW:
         return -1
@@ -40,23 +40,49 @@ def compare_tan(v1, v2):
             return -1
     return 1
 
-def compare_abs_tan(v1, v2):
+def compare_tan(v1, v2):  # used after removing overlapped interval
     q1, q2 = quadrant(v1), quadrant(v2)
     if q1 != q2:
         return -1 if q1 < q2 else 1
     return -1 if v2[0]*v1[1] < v1[0]*v2[1] else 1
 
+def min_tan(v1, v2):
+    return v2 if compare_tan(v1, v2) != -1 else v1
+
+def max_tan(v1, v2):
+    return v2 if compare_tan(v1, v2) == -1 else v1
+
 def reflect_across_x(v):
     return (v[0], -v[1])
 
-def min_tan(v1, v2):
-    return v2 if compare_abs_tan(v1, v2) != -1 else v1
-
-def max_tan(v1, v2):
-    return v2 if compare_abs_tan(v1, v2) == -1 else v1
-
 def compare_interval(interval_a, interval_b):
-    return compare_abs_tan(interval_a[0], interval_b[0])
+    return compare_tan(interval_a[0], interval_b[0])
+
+def no_overlapped_interval(interval, s, e):
+    interval.sort(cmp=compare_relative_tan)
+    no_overlapped_interval = sorted(map(lambda x: min_tan(x, reflect_across_x(x)), interval),
+                                    cmp=compare_relative_tan)
+    if compare_relative_tan((1, 0), interval[0]) != -1 and \
+       compare_relative_tan(interval[1], (1, 0)) != -1:
+        if compare_relative_tan(s, no_overlapped_interval[0]) == -1:
+            s = no_overlapped_interval[0]
+    elif compare_relative_tan((-1, 0), interval[0]) != -1 and \
+         compare_relative_tan(interval[1], (-1, 0)) != -1:
+         if compare_relative_tan(no_overlapped_interval[1], e) == -1:
+            e = no_overlapped_interval[1]
+    return no_overlapped_interval, s, e
+
+def sort_and_clean(intervals, s, e):
+    result = []
+    for interval in intervals:
+        if compare_relative_tan(interval[0], s) == -1:
+            interval[0] = s
+        if compare_relative_tan(e, interval[1]) == -1:
+            interval[1] = e
+        if compare_relative_tan(interval[1], interval[0]) == -1:
+            continue
+        result.append(interval)
+    return sorted(result, cmp=compare_interval)
 
 def dp(intervals, s, e):
     result = 0.0
@@ -76,31 +102,6 @@ def dp(intervals, s, e):
             new_states[tuple(sorted([s1, max_tan(s2, b)], cmp=compare_tan))] += p/2
         states = new_states
     return result
-
-def no_overlapped_interval(interval, s, e):
-    interval.sort(cmp=compare_tan)
-    no_overlapped_interval = sorted(map(lambda x: min_tan(x, reflect_across_x(x)), interval), cmp=compare_tan)  # remove overlapped area
-    if compare_tan((1, 0), interval[0]) != -1 and \
-       compare_tan(interval[1], (1, 0)) != -1:
-        if compare_tan(s, no_overlapped_interval[0]) == -1:
-            s = no_overlapped_interval[0]
-    elif compare_tan((-1, 0), interval[0]) != -1 and \
-         compare_tan(interval[1], (-1, 0)) != -1:
-         if compare_tan(no_overlapped_interval[1], e) == -1:
-            e = no_overlapped_interval[1]
-    return no_overlapped_interval, s, e
-
-def sort_and_clean(intervals, s, e):
-    result = []
-    for interval in intervals:
-        if compare_tan(interval[0], s) == -1:
-            interval[0] = s
-        if compare_tan(e, interval[1]) == -1:
-            interval[1] = e
-        if compare_tan(interval[1], interval[0]) == -1:
-            continue
-        result.append(interval)
-    return sorted(result, cmp=compare_interval)
 
 def the_cartesian_job():
     N = input()
