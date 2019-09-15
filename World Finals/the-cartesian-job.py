@@ -9,7 +9,6 @@
 
 from sys import float_info
 from collections import defaultdict
-from math import atan2, pi
 
 def crossprod(v1, v2):
     return v1[1]*v2[0] - v1[0]*v2[1]
