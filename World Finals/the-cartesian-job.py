@@ -21,7 +21,7 @@ def theta(dotprod, crossprod):
     theta = atan2(crossprod, dotprod)
     if theta < 0:
         theta += 2*pi
-    return theta/pi/2
+    return 180*theta/pi
 
 def gcd(a, b):
     while b:
@@ -104,19 +104,21 @@ def the_cartesian_job():
         for X2, Y2 in SEGMENT_POINTS:
             interval.append(tan((X1-X0, Y1-Y0), (X2-X0, Y2-Y0)))
         interval.sort(cmp=compare_tan)
-        print "before", map(lambda y: theta(*y), interval)
+        #print "before", map(lambda y: theta(*y), interval)
         symmetric_interval = sorted(map(lambda x: reflect_across_x(x), interval), cmp=compare_tan)  # remove overlapped area
         if compare_tan(symmetric_interval[0], interval[0]) == -1:
             interval = symmetric_interval
-        print "after", map(lambda y: theta(*y), interval)
+        #print "after", map(lambda y: theta(*y), interval)
         no_overlapped_interval = sorted(map(lambda x: min_tan(x, reflect_across_x(x)), interval), cmp=compare_tan)  # remove overlapped area
-        if compare_tan((0, 0), interval[0]) != -1 and compare_tan(interval[1], (0, 0)) != 1:
+        #print "nonoverlapped", map(lambda y: theta(*y), no_overlapped_interval), compare_tan((1, 0), interval[0])
+        if compare_tan((1, 0), interval[0]) != -1 and compare_tan(interval[1], (1, 0)) != -1:
             s = no_overlapped_interval[0]
-            print "s", map(lambda y: theta(*y), interval), map(lambda y: theta(*y), no_overlapped_interval), theta(*s)
-        elif compare_tan((-1, 0), interval[0]) != -1 and compare_tan(interval[1], (-1, 0)) != 1:
+            #print "s", map(lambda y: theta(*y), interval), map(lambda y: theta(*y), no_overlapped_interval), theta(*s)
+        elif compare_tan((-1, 0), interval[0]) != -1 and compare_tan(interval[1], (-1, 0)) != -1:
             e = no_overlapped_interval[1]
-            print "e", map(lambda y: theta(*y), interval), map(lambda y: theta(*y), no_overlapped_interval), theta(*e)
+            #print "e", map(lambda y: theta(*y), interval), map(lambda y: theta(*y), no_overlapped_interval), theta(*e)
         intervals.append(no_overlapped_interval)
+        #print "----"
     new_intervals = []
     for interval in intervals:
         if compare_tan(interval[0], s) == -1:
@@ -127,7 +129,7 @@ def the_cartesian_job():
             continue
         new_intervals.append(interval)
     new_intervals.sort(cmp=compare_interval)
-    print theta(*s), map(lambda x: [theta(*x[0]), theta(*x[1])], new_intervals), theta(*e)
+    #print theta(*s), map(lambda x: [theta(*x[0]), theta(*x[1])], new_intervals), theta(*e)
     return dp(new_intervals, s, e)  # find prob of not covering all [s, e]
 
 K = 53
