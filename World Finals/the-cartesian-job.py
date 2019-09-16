@@ -76,7 +76,7 @@ def cut_and_sort(intervals, s, e):  # keep intervals in [s, e] and sort
             interval[0] = s
         if compare_tan(e, interval[1]) < 0:
             interval[1] = e
-        if compare_tan(interval[1], interval[0]) < 0:
+        if compare_tan(interval[1], interval[0]) <= 0:  # only keep interval[0] < interval[1]
             continue
         result.append(interval)
     result.sort(cmp=compare_interval)  # O(NlogN)
