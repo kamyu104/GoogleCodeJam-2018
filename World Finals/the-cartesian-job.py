@@ -69,7 +69,7 @@ def no_overlapped_interval(interval, s, e):
             e = no_overlapped_interval[1]
     return no_overlapped_interval, s, e
 
-def sort_and_clean(intervals, s, e):  # sort and keep intervals in [s, e]
+def cut_and_sort(intervals, s, e):  # keep intervals in [s, e] and sort
     result = []
     for interval in intervals:
         if compare_tan(interval[0], s) < 0:
@@ -116,7 +116,7 @@ def the_cartesian_job():
             interval.append(tan((X1-X0, Y1-Y0), (X2-X0, Y2-Y0)))
         interval, s, e = no_overlapped_interval(interval, s, e)
         intervals.append(interval)
-    intervals = sort_and_clean(intervals, s, e)
+    intervals = cut_and_sort(intervals, s, e)
     return dp(intervals, s, e)
 
 K = 54
