@@ -26,17 +26,16 @@ def ccw(A, B, C):
     area = (B[0]-A[0])*(C[1]-A[1]) - (B[1]-A[1])*(C[0]-A[0])
     return CCW if area > 0 else CW if area < 0 else COLLINEAR
 
-def quadrant(v):
-    x, y = v
-    if x >= 0:
-        return 1 if y >= 0 else 4
-    return 2 if y >= 0 else 3
-
 def compare_relative_tan(v1, v2):  # compare orientation, used before removing overlapped interval
-    orientation = ccw((0, 0), v1, v2)
-    return -1 if orientation == CCW or (orientation == COLLINEAR and quadrant(v1) < quadrant(v2)) else 1
+    return -1 if ccw((0, 0), v1, v2) == CCW else 1
 
 def compare_tan(v1, v2):  # compare theta, used after removing overlapped interval
+    def quadrant(v):
+        x, y = v
+        if x >= 0:
+            return 1 if y >= 0 else 4
+        return 2 if y >= 0 else 3
+
     q1, q2 = quadrant(v1), quadrant(v2)
     if q1 != q2:
         return -1 if q1 < q2 else 1
@@ -77,10 +76,8 @@ def cut_and_sort(intervals, s, e):  # keep intervals in [s, e] and sort
             interval[0] = s
         if compare_tan(e, interval[1]) < 0:
             interval[1] = e
-        if compare_tan(interval[1], interval[0]) <= 0 or \
-           (compare_tan((1, 0), interval[0]) >= 0 and \
-            compare_tan(interval[1], (-1, 0)) >= 0):
-           continue  # only keep interval[0] < interval[1] and no [0, 180] (although promised by problem)
+        if compare_tan(interval[1], interval[0]) <= 0:  # only keep interval[0] < interval[1]
+            continue
         result.append(interval)
     result.sort(cmp=compare_interval)  # O(NlogN)
     return result
