@@ -1,4 +1,4 @@
-# [GoogleCodeJam 2018](https://codingcompetitions.withgoogle.com/codejam/archive/2018) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-25%20%2F%2026-ff69b4.svg)
+# [GoogleCodeJam 2018](https://codingcompetitions.withgoogle.com/codejam/archive/2018) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-26%20%2F%2026-ff69b4.svg)
 
 Python solutions of Google Code Jam 2018. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
 
@@ -63,5 +63,5 @@ You can relive the magic of the 2018 Code Jam World Finals by watching the [Live
 |A| [Jurisdiction Restrictions](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004dbbd)| [PyPy](./World%20Finals/jurisdiction-restrictions.py) [PyPy](./World%20Finals/jurisdiction-restrictions2.py) | _O(S^6 * log(R * C))_ | _O(S^2)_ | Medium | | Dinic's Algorithm, Max-Flow Min-Cut Theorem, Binary Search, Inclusion-Exclusion Principle, Math |
 |B| [Two-Tiling](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da97)| [Python](./World%20Finals/two-tiling.py) | _O((1+8+8+65)^(N^2))_ | _O(2^(2 * M^2 - 1) * N^2)_ | Hard | | Backtracking, Bit Manipulation, Union Find, Precompute |
 |C| [Go, Gophers!](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004da2d)| [Python](./World%20Finals/go-gophers.py) | _O(M * (S + (S/W)^2))_ | _O(S)_ | Medium | | Binary Search |
-|D| [Swordmaster](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004d961)| | | | Hard | | |
+|D| [Swordmaster](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004d961)| [Python](./World%20Finals/the-cartesian-job.py) | _O(N * P)_ | _O(N * P)_ | Hard | | BFS, DFS, DAG, SCC, `Tarjan's Algorithm` |
 |E| [The Cartesian Job](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766/000000000004d962)| [Python](./World%20Finals/the-cartesian-job.py) | _O(K * N)_ | _O(N)_ | Hard | | DP, Intervals, Sort, Vector | 
