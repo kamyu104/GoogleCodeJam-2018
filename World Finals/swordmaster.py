@@ -87,24 +87,18 @@ def any_G2(A, D):
         D_set = set(D[i])
         for a in A[i]:
             graph[-a].append(i)  # attack node represented as negative number
-        #print i, D_set, A_set
         for a in A_set:
             if a not in D_set:
                 graph[i].append(-a)  # attack node represented as negative number
-    # for a, b in graph.iteritems():
-    #     print a, b
-    # print leaf_strongly_connected_components(graph)
     for leaf_scc in leaf_strongly_connected_components(graph):  # Time: O(N * P), Space: O(N + P) to find leaf SCC
         # G2 exists if only if valid leaf SCC exists
         duelists_set = set(i for i in leaf_scc if i > 0)
         if not duelists_set:
             continue
         D_set = reduce(set.intersection, (set(D[i]) for i in duelists_set))
-        #print "leaf_scc", leaf_scc, "D_set", D_set, "attacks", [A[i] for i in duelists_set], "our attacks", A[0]
         if any(all(a not in D_set for a in A[i]) for i in duelists_set) or \
            any(a not in D_set for a in A[0]):
             continue
-        #print "G2", leaf_scc
         return leaf_scc
 
 def swordmaster():
