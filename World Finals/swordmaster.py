@@ -15,6 +15,7 @@
 # - G1: no defenses outside could defend any duelists inside of G1 if only if remaining duelists only in D2 or D3
 # - G2: no attacks outside could defeat any duelists inside of G2 only if remaining duelists only in D2 or D4
 
+from sys import setrecursionlimit
 from collections import defaultdict
 
 # modified Tarjan's algorithm
@@ -115,5 +116,7 @@ def swordmaster():
         D.append(map(int, raw_input().strip().split()))
     return "NO" if any_G1(A, D) or any_G2(A, D) else "YES"
 
+N, P = 1000, 1000
+setrecursionlimit(N-1+P+2)  # ulimit -S -s unlimited
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, swordmaster())
