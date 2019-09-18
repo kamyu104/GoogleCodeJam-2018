@@ -91,7 +91,6 @@ def any_G2(A, D):
     for leaf_scc in leaf_strongly_connected_components(graph):  # Time: O(N * P), Space: O(N + P) to find leaf SCC
         # G2 exists if only if valid leaf SCC exists
         duelists_set = set(i for i in leaf_scc if i > 0)
-        assert(duelists_set)
         D_set = reduce(set.intersection, (set(D[i]) for i in duelists_set))
         if any(all(a not in D_set for a in A[i]) for i in duelists_set) or \
            any(a not in D_set for a in A[0]):
