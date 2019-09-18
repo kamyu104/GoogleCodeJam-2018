@@ -34,7 +34,7 @@ def leaf_strongly_connected_components(graph):  # Time: O(|V| + |E|), Space: O(|
                 lowlinks[v] = min(lowlinks[v], lowlinks[w])
             elif w in stack_set:
                 lowlinks[v] = min(lowlinks[v], index[w])
-            else:  # visited child but not in curr stk
+            else:  # visited child but not in curr stack
                 is_leaf_found = True
         if lowlinks[v] == index[v]:
             connected_component = []
@@ -48,7 +48,7 @@ def leaf_strongly_connected_components(graph):  # Time: O(|V| + |E|), Space: O(|
                 result.append(tuple(connected_component))
         return is_leaf_found
 
-    index_counter, index, lowlinks  = [0], {}, {}
+    index_counter, index, lowlinks = [0], {}, {}
     stack, stack_set = [], set()
     result = []
     for node in graph:
