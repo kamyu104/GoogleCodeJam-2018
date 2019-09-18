@@ -58,7 +58,6 @@ def leaf_strongly_connected_components(graph):  # Time: O(|V| + |E|), Space: O(|
 
 def any_G1(A, D):
     G1 = set(range(1, len(A)))
-    D_set = set(D[0])
     attacks_to_duelists, duelists_to_attacks = defaultdict(set), defaultdict(set)
     for i in xrange(1, len(A)):
         for a in A[i]:
@@ -74,7 +73,6 @@ def any_G1(A, D):
                     continue
                 duelists_to_attacks.pop(j)
                 G1.remove(j)
-                D_set |= set(D[j])
                 new_delta_D_set |= set(D[j])
             attacks_to_duelists.pop(d)
         delta_D_set = new_delta_D_set
