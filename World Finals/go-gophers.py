@@ -115,7 +115,7 @@ def go_gophers():
         level_set = set()
         for left, right in diff_intervals:
             for i in xrange(2):  # make left, right endpoints both have chance to be queried
-                level_set.add((left+right+i)//2)
+                level_set.add((left+right+i)//2)  # in fact, i = 1 is required, i = 0 is optional
         level_set.discard(MIN_L-1)
         levels = list(level_set)
         query(queries, results, levels[randint(0, len(levels)-1)], S)  # add random to avoid worst case
