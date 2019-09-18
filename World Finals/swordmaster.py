@@ -12,8 +12,8 @@
 # - D2: set(our attacks) <= set(his defenses, set(our defenses) < set(his attacks)
 # - D3: set(our attacks) > set(his defenses, set(our defenses) < set(his attacks)
 # - D4: set(our attacks) <= set(his defenses, set(our defenses) >= set(his attacks)
-# - G1: no defenses outside could defend any duelists inside of G1 if only if remaining duelists only in D2 or D3
-# - G2: no attacks outside could defeat any duelists inside of G2 only if remaining duelists only in D2 or D4
+# - G1: nobody outside G1 could defend any duelists inside G1 if only if remaining duelists only in D2 or D3
+# - G2: nobody outside G2 could attack any duelists inside G2 only if remaining duelists only in D2 or D4
 
 from sys import setrecursionlimit
 from collections import defaultdict
