@@ -51,9 +51,9 @@ def leaf_strongly_connected_components(graph):  # Time: O(|V| + |E|), Space: O(|
     index_counter, index, lowlinks = [0], {}, {}
     stack, stack_set = [], set()
     result = []
-    for node in graph:
-        if node not in index:
-            strongconnect(node, index_counter, index, lowlinks, stack, stack_set, result)
+    for v in graph:
+        if v not in index:
+            strongconnect(v, index_counter, index, lowlinks, stack, stack_set, result)
     return result
 
 def any_G1(A, D):
