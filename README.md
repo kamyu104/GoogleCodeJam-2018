@@ -53,7 +53,7 @@ Python solutions of Google Code Jam 2018. Solution begins with `*` means it will
 |A| [Field Trip](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007707/000000000004b7fe)| [Python](./Round%203/field-trip.py)| _O(N)_ | _O(1)_ | Easy | | Greedy |
 |B| [Name-Preserving Network](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007707/000000000004ba29)| [Python](./Round%203/name-preserving-network.py) [Python](./Round%203/name-preserving-network2.py) | _O(LlogL)_ | _O(L)_ | Medium | | Probability, Topology |
 |C| [Raise the Roof](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007707/000000000004b90d)| [Python](./Round%203/raise-the-roof.py)| _O(N^2)_ | _O(N)_ | Hard | | Geometry, Vector |
-|D| [Fence Construction](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007707/000000000004b90e)| [Python](./Round%203/fence-construction.py)| _O(FlogF)_ | _O(F)_ | Hard | | Dual Graph, Greedy |
+|D| [Fence Construction](https://codingcompetitions.withgoogle.com/codejam/round/0000000000007707/000000000004b90e)| [Python](./Round%203/fence-construction.py)| _O(FlogF)_ | _O(F)_ | Hard | ❤️ | Dual Graph, Greedy |
 
 ## World Finals
 You can relive the magic of the 2018 Code Jam World Finals by watching the [Live Stream Recording](https://www.youtube.com/watch?v=urT6rDu60h4) of the competition, problem explanations, interviews with Google and Code Jam engineers, and announcement of winners.
