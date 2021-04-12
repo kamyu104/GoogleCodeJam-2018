@@ -36,12 +36,13 @@ def rotate_x(matrix, cosx):
 def cubic_ufo():
     A = float(input())
 
-    # sqrt(2)*sinx + cosx = A
-    cosx = (A + math.sqrt(2*(3-A**2)))/3
     matrix = [[0.5, 0.0, 0.0],
               [0.0, 0.5, 0.0],
               [0.0, 0.0, 0.5]]
-    matrix = rotate_y(matrix, 1.0/math.sqrt(2))
+    matrix = rotate_y(matrix, 1.0/math.sqrt(2))  # rotate y by 45 degrees
+    # rotate x to make shadows = rectangle projection part + two triangle projection part on xz plane
+    # => A = sqrt(2)*sinx + cosx
+    cosx = (A + math.sqrt(2*(3-A**2)))/3
     matrix = rotate_x(matrix, cosx)
     return matrix
 
